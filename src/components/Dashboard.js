@@ -8,7 +8,11 @@ class Dashboard extends React.Component {
 
     constructor(props) {
         super(props);
+
+        const userName = "Adrian";         
     }
+
+    
 
     componentDidMount(){
         this.context.checkToken(this);
@@ -17,7 +21,8 @@ class Dashboard extends React.Component {
     render() {
         return (
             <div>
-                <Navbar history = {this.props.history}/>  
+                 <Navbar/>
+                 
                 <br/>                     
             
         </div>
