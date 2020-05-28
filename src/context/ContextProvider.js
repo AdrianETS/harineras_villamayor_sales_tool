@@ -7,9 +7,11 @@ export class ContextProvider extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-        
         } 
+
+        this.storeUsersName = this.storeUsersName.bind(this);
     }
+
     checkToken(ctx) {
         if (!this.getTokenFromLocalStorage()) {
             ctx.props.history.push("/login");
@@ -20,12 +22,16 @@ export class ContextProvider extends React.Component {
         return window.localStorage.getItem('token');
     }
 
+    storeUsersName(userName){
+        this.setState({userName: userName})
+    }
+
 
     render() {
         return (
             <AppContext.Provider
                 value={{
-                    ...this.state, checkToken: this.checkToken, getTokenFromLocalStorage: this.getTokenFromLocalStorage
+                    ...this.state, checkToken: this.checkToken, getTokenFromLocalStorage: this.getTokenFromLocalStorage, storeUsersName: this.storeUsersName
                 }}
             >
 

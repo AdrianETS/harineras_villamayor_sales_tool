@@ -42,6 +42,7 @@ class Login extends React.Component {
                     if (response.status == 200) {
                         window.localStorage.setItem('token', json.token);
                         this.setState({ loginFailed: false });
+                        this.context.storeUsersName(user)
                         this.props.history.push("/");
                     } else {
                         this.setState({ loginFailed: true });
