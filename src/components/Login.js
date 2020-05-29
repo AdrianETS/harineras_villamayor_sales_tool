@@ -1,5 +1,6 @@
 import React from 'react';
 import { AppContext } from './../context/ContextProvider';
+import logo from './../images/logo_0.jpg';
 
 class Login extends React.Component {
 
@@ -61,16 +62,20 @@ class Login extends React.Component {
                             <div className="card-img-left d-none d-md-flex">
                             </div>
                             <div className="card-body">
-                                <h5 className="card-title text-center">Login</h5>
+                                <div>
+                                <img src={logo}/>
+                                </div>
+                                <br/>
+                                <br/>
                                 <form className="form-signin">
                                     <div className="form-label-group">
                                         <input type="text" id="inputUserame" className="form-control" placeholder="Username" onChange={this.handleUserChange} required autofocus />
-                                        <label for="inputUserame">User</label>
+                                        <label for="inputUserame"/>
                                     </div>
 
                                     <div className="form-label-group">
                                         <input type="password" id="inputPassword" className="form-control" placeholder="Password" onChange={this.handlePasswordChange} required />
-                                        <label for="inputPassword">Password</label>
+                                        <label for="inputPassword"/>
                                     </div>
                                     <button className="btn btn-lg btn-primary btn-block text-uppercase" type="button" data-toggle="modal" onClick={(event) => this.processLogin(this.state.user, this.state.password)} data-target="#loginFailedMessage">Submit</button>
 
