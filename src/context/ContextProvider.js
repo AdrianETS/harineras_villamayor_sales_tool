@@ -11,6 +11,7 @@ export class ContextProvider extends React.Component {
         } 
 
         this.getClientsList=this.getClientsList.bind(this);
+        this.storeUsersName = this.storeUsersName.bind(this);
     }
 
     checkToken(ctx) {
@@ -22,6 +23,9 @@ export class ContextProvider extends React.Component {
     getTokenFromLocalStorage() {
         return window.localStorage.getItem('token');
     }
+
+    storeUsersName(userName){
+        this.setState({userName: userName})}
 
     getClientsList(history) {
         return new Promise((resolve, reject) => {
@@ -45,7 +49,7 @@ export class ContextProvider extends React.Component {
         return (
             <AppContext.Provider
                 value={{
-                    ...this.state, checkToken: this.checkToken, getTokenFromLocalStorage: this.getTokenFromLocalStorage,
+                    ...this.state, checkToken: this.checkToken, getTokenFromLocalStorage: this.getTokenFromLocalStorage, storeUsersName: this.storeUsersName,
                     getClientsList: this.getClientsList
                 }}
             >
