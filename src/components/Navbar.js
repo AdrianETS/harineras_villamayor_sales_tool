@@ -21,8 +21,9 @@ import MailIcon from '@material-ui/icons/Mail';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import SettingsIcon from '@material-ui/icons/Settings';
 import BarChartIcon from '@material-ui/icons/BarChart';
+import HomeIcon from '@material-ui/icons/Home';
 
-const drawerWidth = 240;
+const drawerWidth = 220;
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -123,8 +124,8 @@ export default function Navbar(props) {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap>
-                        Welcome 
-          </Typography>
+                        Welcome {props.name}
+                </Typography>
                 </Toolbar>
             </AppBar>
             <Drawer
@@ -147,12 +148,22 @@ export default function Navbar(props) {
                 </div>
                 <Divider />
                 <List>
-                    {['Clients', 'Settings'].map((text, index) => (
-                        <ListItem button key={text}>
-                            <ListItemIcon>{index % 2 === 0 ? <PeopleAltIcon /> : <SettingsIcon />}</ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItem>
-                    ))}
+                <ListItem button component={Link} to="/login">
+                        <ListItemIcon> <HomeIcon /></ListItemIcon>
+                        <ListItemText>Home</ListItemText>
+                    </ListItem>
+                    <ListItem button component={Link}>
+                        <ListItemIcon> <PeopleAltIcon /></ListItemIcon>
+                        <ListItemText>Clients</ListItemText>
+                    </ListItem>
+                    <ListItem button component={Link}>
+                        <ListItemIcon> <SettingsIcon /> </ListItemIcon>
+                        <ListItemText>Settings</ListItemText>
+                    </ListItem>
+                    <ListItem button>
+                        <ListItemIcon> <BarChartIcon /> </ListItemIcon>
+                        <ListItemText>Statistics</ListItemText>
+                    </ListItem>
                 </List>
                 <Divider />
             </Drawer>

@@ -21,8 +21,8 @@ class Dashboard extends React.Component {
     render() {
         return (
             <div>
-                 <Navbar/>
-                 
+                 <Navbar name = {this.context.userName}/>
+                 <div style = {{marginLeft: "100px"}}> Welcome to Dashboard</div>
                 <br/>                     
             
         </div>

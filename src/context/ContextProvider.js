@@ -12,6 +12,7 @@ export class ContextProvider extends React.Component {
 
         this.getClientsList=this.getClientsList.bind(this);
     }
+
     checkToken(ctx) {
         if (!this.getTokenFromLocalStorage()) {
             ctx.props.history.push("/login");
@@ -38,6 +39,7 @@ export class ContextProvider extends React.Component {
                 })
         })
     }
+
 
     render() {
         return (
