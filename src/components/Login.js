@@ -9,7 +9,11 @@ class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            loginFailed: false
+            loginFailed: false,
+            userValid: false,        // valid flags for each field. The button won't be available until both fields 
+                                     // are typed in with at least one character
+            passwordValid: false, 
+            submitDisabled: true 
         }
 
        this.handleUserChange = this.handleUserChange.bind(this);
@@ -17,14 +21,19 @@ class Login extends React.Component {
     }
 
     componentDidUpdate() {
+        
     }
 
     handleUserChange(event) {
-        this.setState({ user: event.target.value });
+        let userValid = event.target.value ? true : false; // basic user validation
+        let submitValid = this.state.passwordValid && userValid;  // validate total form
+        this.setState({ user: event.target.value, userValid: userValid, submitDisabled: !submitValid });
     }
 
     handlePasswordChange(event) {
-        this.setState({ password: event.target.value });
+        let passwordValid = event.target.value ? true : false; // basic password validation
+        let submitValid = this.state.userValid && passwordValid;  // validate total form
+        this.setState({ password: event.target.value, passwordValid: passwordValid, submitDisabled: !submitValid });
     }
 
     processLogin(user, password) {
@@ -77,7 +86,8 @@ class Login extends React.Component {
                                         <input type="password" id="inputPassword" className="form-control" placeholder="Password" onChange={this.handlePasswordChange} required />
                                         <label for="inputPassword"/>
                                     </div>
-                                    <button className="btn btn-lg btn-primary btn-block text-uppercase" type="button" data-toggle="modal" onClick={(event) => this.processLogin(this.state.user, this.state.password)} data-target="#loginFailedMessage">Submit</button>
+                                    <button className="btn btn-lg btn-primary btn-block text-uppercase" type="button" data-toggle="modal" onClick={(event) => this.processLogin(this.state.user, this.state.password)} disabled={this.state.submitDisabled} >
+                                        Submit</button>
 
                                   
 

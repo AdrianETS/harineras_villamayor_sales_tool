@@ -11,6 +11,7 @@ export class ContextProvider extends React.Component {
         } 
 
         this.getClientsList=this.getClientsList.bind(this);
+        this.getClientInfo = this.getClientInfo.bind(this);
         this.storeUsersName = this.storeUsersName.bind(this);
     }
 
@@ -24,8 +25,12 @@ export class ContextProvider extends React.Component {
         return window.localStorage.getItem('token');
     }
 
+    //store user's name in the context so it can be shown in the Navbar along with the welcome message
+
     storeUsersName(userName){
         this.setState({userName: userName})}
+
+    //get full list of clients for ClienList component
 
     getClientsList(history) {
         return new Promise((resolve, reject) => {
@@ -44,13 +49,33 @@ export class ContextProvider extends React.Component {
         })
     }
 
+     //get details for the selected client. It's displayed by ClientDetails component
+
+    getClientInfo(history, id) {
+        return new Promise((resolve, reject) => {
+            fetch('http://127.0.0.1:3001/clients/' + id + '?token=' + this.getTokenFromLocalStorage())
+                .then(res => {
+                    if (res.status != 200) {
+                        history.push("/login");
+                        reject();
+                    }
+                    return res.json();
+                })
+                .then((json) => {
+                    this.setState({ clientId: id });
+                    this.setState({ selectedClient: json });
+                    resolve(json);
+                })
+        })
+    }
+
 
     render() {
         return (
             <AppContext.Provider
                 value={{
                     ...this.state, checkToken: this.checkToken, getTokenFromLocalStorage: this.getTokenFromLocalStorage, storeUsersName: this.storeUsersName,
-                    getClientsList: this.getClientsList
+                    getClientsList: this.getClientsList, getClientInfo: this.getClientInfo
                 }}
             >
 
