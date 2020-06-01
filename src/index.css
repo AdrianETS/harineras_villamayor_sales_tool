@@ -12,7 +12,7 @@ code {
     monospace;
 }
 
-.btn-primary, btn-primary:disabled {
+.btn-primary, .btn-primary:disabled {
   color: #992327;
   background-color: #e5e5e5;
   border-color: #992327;
