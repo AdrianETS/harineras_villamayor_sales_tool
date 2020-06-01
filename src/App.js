@@ -6,6 +6,8 @@ import Login from "./components/Login";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { ContextProvider } from './context/ContextProvider';
 import ClientsList from './components/ClientsList';
+import ClientsDetails from "./components/ClientsDetails";
+import ProductsList from './components/ProductsList';
 
 class App extends React.Component {
 
@@ -22,7 +24,9 @@ class App extends React.Component {
             <Switch>
               <Route path="/login" exact component={Login} />
               <Route path="/" exact component={Dashboard} />
-              <Route path="/clientslist" exact component={ClientsList} />
+              <Route path="/clients/list" exact component={ClientsList} />
+              <Route path="/clients/details" exact component={ClientsDetails} />
+              <Route path="/products/list" exact component={ProductsList} />
 
             </Switch>
           </Router>

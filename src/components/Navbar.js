@@ -23,6 +23,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import HomeIcon from '@material-ui/icons/Home';
 
+
 const drawerWidth = 220;
 
 const useStyles = makeStyles((theme) => ({
@@ -35,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
         }),
-        backgroundColor: "#a1152a"
+        backgroundColor: "#992327"
     },
     appBarShift: {
         marginLeft: drawerWidth,
@@ -148,11 +149,11 @@ export default function Navbar(props) {
                 </div>
                 <Divider />
                 <List>
-                <ListItem button component={Link} to="/login">
+                <ListItem button component={Link} to="/">
                         <ListItemIcon> <HomeIcon /></ListItemIcon>
                         <ListItemText>Home</ListItemText>
                     </ListItem>
-                    <ListItem button component={Link}>
+                    <ListItem button component={Link} to="/clients/list">
                         <ListItemIcon> <PeopleAltIcon /></ListItemIcon>
                         <ListItemText>Clients</ListItemText>
                     </ListItem>

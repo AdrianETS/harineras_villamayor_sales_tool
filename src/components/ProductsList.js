@@ -3,7 +3,7 @@ import { AppContext } from './../context/ContextProvider';
 import Navbar from "./Navbar";
 import { Link } from 'react-router-dom';
 
-class ClientsList extends React.Component {
+class ProductsList extends React.Component {
 
     static contextType = AppContext;
 
@@ -14,7 +14,7 @@ class ClientsList extends React.Component {
 
     componentDidMount() {
        this.context.checkToken(this);
-       this.context.getClientsList(this.props.history);
+       this.context.getProductsList(this.props.history);
 
     }
 
@@ -22,14 +22,13 @@ class ClientsList extends React.Component {
         {
             return (<div>
                 <Navbar name = {this.context.userName} />
-                <h5 className = {"container_within_navbar"}> List of clients:</h5>
-                <br /><div className = {"container_within_navbar"} >
+                <h5 style = {{marginLeft: "100px"}}>List of products:</h5>
+                <br /><div style = {{marginLeft: "100px", fontFamily: "sans-serif"}}>
                     <ul>
-                        {this.context.clientsList && this.context.clientsList.map(clientes =>
+                        {this.context.productsList && this.context.productsList.map(productos =>
                             <div>
-                                <li> <Link to={{ pathname: '/clients/details', state: { id: clientes.id_cliente } }}>
-                                    {clientes.contacto} 
-                                </Link>
+                                <li>
+                                    {productos.nombre_comercial} 
                                 </li> 
                             </div>
                         )}
@@ -40,4 +39,4 @@ class ClientsList extends React.Component {
     }
 }
 
-export default ClientsList;
+export default ProductsList;
