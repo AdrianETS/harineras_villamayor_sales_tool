@@ -22,8 +22,8 @@ class ClientsList extends React.Component {
         {
             return (<div>
                 <Navbar name = {this.context.userName} />
-                <h5 style = {{marginLeft: "100px"}}>List of clients:</h5>
-                <br /><div style = {{marginLeft: "100px", fontFamily: "sans-serif"}}>
+                <h5 className = {"container_within_navbar"}> List of clients:</h5>
+                <br /><div className = {"container_within_navbar"} >
                     <ul>
                         {this.context.clientsList && this.context.clientsList.map(clientes =>
                             <div>

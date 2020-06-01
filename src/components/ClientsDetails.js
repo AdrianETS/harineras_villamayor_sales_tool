@@ -10,7 +10,7 @@ class ClientsDetails extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedClient: "",
+            selectedClient: {},
             id: this.props.location?.state?.id
         }
     }
@@ -24,8 +24,8 @@ class ClientsDetails extends React.Component {
     render() {
         return (
             <div><Navbar name={this.context.userName} />
-                <table style={{ marginLeft: "100px", width: "50%" }}>
-                    <tr style={{ border: "1px solid #dddddd", textAlign: "left", padding: "8px" }}>
+                <table id = "clientDetails">
+                    <tr>
                         <th>Id</th>
                         <th>Firm's name</th>
                         <th>Tax identification card</th>
@@ -33,15 +33,15 @@ class ClientsDetails extends React.Component {
                         <th>Address</th>
                         <th>Phone number</th>
                         <th>Email</th>
-                        <tr style={{ border: "1px solid #dddddd", textAlign: "left", padding: "8px" }}>
-                            <td>{this.state.selectedClient.id_cliente}</td>
-                            <td>{this.state.selectedClient.razon_social}</td>
-                            <td>{this.state.selectedClient.cif}</td>
-                            <td>{this.state.selectedClient.contacto}</td>
-                            <td>{this.state.selectedClient.direccion}</td>
-                            <td>{this.state.selectedClient.telefono}</td>
-                            <td>{this.state.selectedClient.email}</td>
-                        </tr>
+                    </tr>
+                    <tr>
+                        <td>{this.state.selectedClient.id_cliente}</td>
+                        <td>{this.state.selectedClient.razon_social}</td>
+                        <td>{this.state.selectedClient.cif}</td>
+                        <td>{this.state.selectedClient.contacto}</td>
+                        <td>{this.state.selectedClient.direccion}</td>
+                        <td>{this.state.selectedClient.telefono}</td>
+                        <td>{this.state.selectedClient.email}</td>
                     </tr>
                 </table>
             </div>
