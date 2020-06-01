@@ -12,14 +12,3 @@ code {
     monospace;
 }
 
-.btn-primary, .btn-primary:disabled {
-  color: #992327;
-  background-color: #e5e5e5;
-  border-color: #992327;
-}
-
-.btn-primary:hover, .btn-primary:not(:disabled):not(.disabled):active {
-  color: #fff;
-  background-color: #992327;
-  border-color: #992327;
-}

@@ -38,3 +38,55 @@
 }
 
 
+.container_within_navbar {
+  margin-left: 100px;
+  font-family: sans-serif;
+  margin-bottom: 25px;
+  margin-top: 25px;
+}
+
+.title_within_navbar {
+  margin-left: 100px;
+  font-family: sans-serif;
+}
+
+
+#clientDetails {
+margin-left: 100px; 
+margin-top: 25px;
+font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+border-collapse: collapse;
+width: 80%;
+}
+
+#clientDetails tr:nth-child(even){background-color: white; color: black}
+
+#clientDetails tr:hover {background-color: #ddd;}
+
+#clientDetails td, #clientDetails th {
+border: 1px solid #ddd;
+padding: 7px;
+}
+
+#clientDetails th {
+padding-top: 12px;
+padding-bottom: 12px;
+text-align: left;
+background-color: #eea320;
+color: white;
+}
+
+.btn-primary, .btn-primary:disabled {
+  color: #992327;
+  background-color: #e5e5e5;
+  border-color: #992327;
+}
+
+.btn-primary:hover, .btn-primary:not(:disabled):not(.disabled):active {
+  color: #fff;
+  background-color: #992327;
+  border-color: #992327;
+}
+
+
+

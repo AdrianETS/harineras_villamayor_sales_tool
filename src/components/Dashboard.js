@@ -1,7 +1,6 @@
 import React from 'react';
 import {AppContext} from './../context/ContextProvider';
 import Navbar from './Navbar';
-import "./MyStyles.css"
 
 
 class Dashboard extends React.Component {
@@ -22,7 +21,6 @@ class Dashboard extends React.Component {
         return (
             <div>
                  <Navbar name = {this.context.userName}/>
-                 <div className={"container_within_navbar"}> Welcome to Dashboard</div>
                 <br/>                     
             
         </div>
