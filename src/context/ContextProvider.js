@@ -2,6 +2,7 @@ import React from 'react';
 import { createContext } from "react";
 export const AppContext = createContext();
 
+
 export class ContextProvider extends React.Component {
 
     constructor(props) {
@@ -9,12 +10,15 @@ export class ContextProvider extends React.Component {
         this.state = {
         clientsList:[],
         productsList:[]
+        originalClients:[]
         } 
 
         this.getClientsList=this.getClientsList.bind(this);
         this.getClientInfo = this.getClientInfo.bind(this);
         this.getProductsList=this.getProductsList.bind(this);
         this.storeUsersName = this.storeUsersName.bind(this);
+        this.setClientsList=this.setClientsList.bind(this);
+        this.setOriginalClients=this.setOriginalClients.bind(this);
     }
 
     checkToken(ctx) {
@@ -87,12 +91,22 @@ export class ContextProvider extends React.Component {
                 })
         })
     }
+    setClientsList(list){
+        this.setState({clientsList:list})
+    }
+    
+    setOriginalClients(list) {
+        this.setState({ originalClients: list });
+    }
+
+
 
     render() {
         return (
             <AppContext.Provider
                 value={{
                     ...this.state, checkToken: this.checkToken, getTokenFromLocalStorage: this.getTokenFromLocalStorage, storeUsersName: this.storeUsersName,
+                    getClientsList: this.getClientsList, getClientInfo: this.getClientInfo, setClientsList:this.setClientsList, setOriginalClients:this.setOriginalClients
                     getClientsList: this.getClientsList, getClientInfo: this.getClientInfo, getProductsList: this.getProductsList
                 }}
             >
