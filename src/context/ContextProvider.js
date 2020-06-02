@@ -7,11 +7,13 @@ export class ContextProvider extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-        clientsList:[]
+        clientsList:[],
+        productsList:[]
         } 
 
         this.getClientsList=this.getClientsList.bind(this);
         this.getClientInfo = this.getClientInfo.bind(this);
+        this.getProductsList=this.getProductsList.bind(this);
         this.storeUsersName = this.storeUsersName.bind(this);
     }
 
@@ -69,13 +71,29 @@ export class ContextProvider extends React.Component {
         })
     }
 
+    getProductsList(history) {
+        return new Promise((resolve, reject) => {
+            fetch('http://127.0.0.1:3001/products/list?token=' + this.getTokenFromLocalStorage())
+                .then(res => {
+                    if (res.status != 200) {
+                        history.push("/login");
+                        reject();
+                    }
+                    return res.json();
+                })
+                .then((json) => {
+                    this.setState({ productsList: json });
+                    resolve(json);
+                })
+        })
+    }
 
     render() {
         return (
             <AppContext.Provider
                 value={{
                     ...this.state, checkToken: this.checkToken, getTokenFromLocalStorage: this.getTokenFromLocalStorage, storeUsersName: this.storeUsersName,
-                    getClientsList: this.getClientsList, getClientInfo: this.getClientInfo
+                    getClientsList: this.getClientsList, getClientInfo: this.getClientInfo, getProductsList: this.getProductsList
                 }}
             >
 

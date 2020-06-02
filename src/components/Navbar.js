@@ -24,7 +24,7 @@ import BarChartIcon from '@material-ui/icons/BarChart';
 import HomeIcon from '@material-ui/icons/Home';
 
 
-const drawerWidth = 220;
+const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
         }),
-        backgroundColor: "#a1152a"
+        backgroundColor: "#992327",
     },
     appBarShift: {
         marginLeft: drawerWidth,
@@ -81,11 +81,11 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'flex-end',
         padding: theme.spacing(0, 1),
         // necessary for content to be below app bar
-        ...theme.mixins.toolbar,
+        ...theme.mixins.toolbar
     },
     content: {
         flexGrow: 1,
-        padding: theme.spacing(3),
+        padding: theme.spacing(2),
     },
 }));
 
