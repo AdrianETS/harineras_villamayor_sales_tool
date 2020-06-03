@@ -9,7 +9,7 @@ export class ContextProvider extends React.Component {
         super(props);
         this.state = {
         clientsList:[],
-        productsList:[]
+        productsList:[],
         originalClients:[]
         } 
 
@@ -17,8 +17,7 @@ export class ContextProvider extends React.Component {
         this.getClientInfo = this.getClientInfo.bind(this);
         this.getProductsList=this.getProductsList.bind(this);
         this.storeUsersName = this.storeUsersName.bind(this);
-        this.setClientsList=this.setClientsList.bind(this);
-        this.setOriginalClients=this.setOriginalClients.bind(this);
+       
     }
 
     checkToken(ctx) {
@@ -91,13 +90,7 @@ export class ContextProvider extends React.Component {
                 })
         })
     }
-    setClientsList(list){
-        this.setState({clientsList:list})
-    }
-    
-    setOriginalClients(list) {
-        this.setState({ originalClients: list });
-    }
+   
 
 
 
@@ -106,8 +99,8 @@ export class ContextProvider extends React.Component {
             <AppContext.Provider
                 value={{
                     ...this.state, checkToken: this.checkToken, getTokenFromLocalStorage: this.getTokenFromLocalStorage, storeUsersName: this.storeUsersName,
-                    getClientsList: this.getClientsList, getClientInfo: this.getClientInfo, setClientsList:this.setClientsList, setOriginalClients:this.setOriginalClients
-                    getClientsList: this.getClientsList, getClientInfo: this.getClientInfo, getProductsList: this.getProductsList
+                    getClientsList: this.getClientsList, getClientInfo: this.getClientInfo, setClientsList:this.setClientsList, 
+                    getProductsList: this.getProductsList
                 }}
             >
 
