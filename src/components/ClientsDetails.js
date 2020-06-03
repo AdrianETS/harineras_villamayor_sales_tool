@@ -2,6 +2,7 @@ import React from 'react';
 import { AppContext } from './../context/ContextProvider';
 import Navbar from "./Navbar";
 import { Link } from 'react-router-dom';
+import { findAllByTestId } from '@testing-library/react';
 
 class ClientsDetails extends React.Component {
 
@@ -11,7 +12,7 @@ class ClientsDetails extends React.Component {
         super(props);
         this.state = {
             selectedClient: {},
-            salesDetails: "",
+            salesDetails: [],
             id: this.props.location?.state?.id
         }
     }
@@ -23,6 +24,10 @@ class ClientsDetails extends React.Component {
             .then(() => this.context.getSalesInfoByClientId(this.props.history, this.state.id))
             .then(salesInfo => this.setState({ salesDetails: salesInfo }))
     }
+
+
+
+
 
     render() {
         return (
@@ -58,9 +63,25 @@ class ClientsDetails extends React.Component {
                         <th>Quantity</th>
                         <th>Price (unit)</th>
                     </tr>
+                    {this.state.salesDetails.map(salePerProduct => 
+                      <div>  <tr>
+                            <td>{salePerProduct.venta}</td>
+                            <td>{salePerProduct.fecha}</td>
+                            <td>{salePerProduct.producto}</td>
+                            <td>{salePerProduct.cantidad}</td>
+                            <td>{salePerProduct.precio_unitario}</td>                            
+                        </tr>
+
+                    {salePerProduct.precio_total_venta && <tr><td colSpan = "2">Total price per sale {salePerProduct.venta} :</td><td>{salePerProduct.precio_total_venta}</td></tr>}
+  
+                    </div> )}
+                    
                 </table>
+                <i className="fas fa-chart-line"></i>
             </div>
         )
+
+        
     }
 
 }
