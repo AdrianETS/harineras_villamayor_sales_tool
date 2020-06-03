@@ -17,8 +17,7 @@ export class ContextProvider extends React.Component {
         this.getClientInfo = this.getClientInfo.bind(this);
         this.getProductsList=this.getProductsList.bind(this);
         this.storeUsersName = this.storeUsersName.bind(this);
-        this.setClientsList=this.setClientsList.bind(this);
-        this.setOriginalClients=this.setOriginalClients.bind(this);
+        this.getSalesInfoByClientId = this.getSalesInfoByClientId.bind(this);
     }
 
     checkToken(ctx) {
@@ -75,6 +74,24 @@ export class ContextProvider extends React.Component {
         })
     }
 
+    //get sales info depending on client id. Displayed on ClientsDetails
+
+    getSalesInfoByClientId(history, id){
+        return new Promise((resolve, reject) => {
+            fetch('http://127.0.0.1:3001/sales/' + id + '?token=' + this.getTokenFromLocalStorage())
+                .then(res => {
+                    if (res.status != 200) {
+                        history.push("/login");
+                        reject();
+                    }
+                    return res.json();
+                })
+                .then((json) => {
+                    resolve(json);
+                })
+        })
+    }
+
     getProductsList(history) {
         return new Promise((resolve, reject) => {
             fetch('http://127.0.0.1:3001/products/list?token=' + this.getTokenFromLocalStorage())
@@ -106,8 +123,8 @@ export class ContextProvider extends React.Component {
             <AppContext.Provider
                 value={{
                     ...this.state, checkToken: this.checkToken, getTokenFromLocalStorage: this.getTokenFromLocalStorage, storeUsersName: this.storeUsersName,
-                    getClientsList: this.getClientsList, getClientInfo: this.getClientInfo, setClientsList:this.setClientsList, setOriginalClients:this.setOriginalClients
-                    getClientsList: this.getClientsList, getClientInfo: this.getClientInfo, getProductsList: this.getProductsList
+                    getClientsList: this.getClientsList, getClientInfo: this.getClientInfo, getProductsList: this.getProductsList,
+                    getSalesInfoByClientId: this.getSalesInfoByClientId
                 }}
             >
 
