@@ -22,12 +22,12 @@ class ClientsList extends React.Component {
         {
             return (<div>
                 <Navbar name = {this.context.userName} />
-                <h5 className = {"container_within_navbar"}> List of clients:</h5>
-                <br /><div className = {"container_within_navbar"} >
+                <h4 className = "title_within_navbar"> List of clients: </h4>
+                <div className = {"container_within_navbar"} >
                     <ul>
                         {this.context.clientsList && this.context.clientsList.map(clientes =>
                             <div>
-                                <li> <Link to={{ pathname: '/clients/details', state: { id: clientes.id_cliente } }}>
+                                <li> <Link to={{ pathname: '/clients/details', state: { id: clientes.id } }}>
                                     {clientes.contacto} 
                                 </Link>
                                 </li> 

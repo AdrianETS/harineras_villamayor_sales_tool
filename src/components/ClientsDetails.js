@@ -11,6 +11,7 @@ class ClientsDetails extends React.Component {
         super(props);
         this.state = {
             selectedClient: {},
+            salesDetails: "",
             id: this.props.location?.state?.id
         }
     }
@@ -18,13 +19,17 @@ class ClientsDetails extends React.Component {
     componentDidMount() {
         this.context.checkToken(this);
         this.context.getClientInfo(this.props.history, this.state.id)
-            .then(client => this.setState({ selectedClient: client }));
+            .then(client => this.setState({ selectedClient: client }))
+            .then(() => this.context.getSalesInfoByClientId(this.props.history, this.state.id))
+            .then(salesInfo => this.setState({ salesDetails: salesInfo }))
     }
 
     render() {
         return (
             <div><Navbar name={this.context.userName} />
-                <table id = "clientDetails">
+                <h4 className="title_within_navbar"> Client {this.state.selectedClient.contacto}</h4>
+                <h5 className="container_within_navbar"> Client's details</h5>
+                <table id="clientDetails">
                     <tr>
                         <th>Id</th>
                         <th>Firm's name</th>
@@ -35,13 +40,23 @@ class ClientsDetails extends React.Component {
                         <th>Email</th>
                     </tr>
                     <tr>
-                        <td>{this.state.selectedClient.id_cliente}</td>
+                        <td>{this.state.selectedClient.id}</td>
                         <td>{this.state.selectedClient.razon_social}</td>
                         <td>{this.state.selectedClient.cif}</td>
                         <td>{this.state.selectedClient.contacto}</td>
                         <td>{this.state.selectedClient.direccion}</td>
                         <td>{this.state.selectedClient.telefono}</td>
                         <td>{this.state.selectedClient.email}</td>
+                    </tr>
+                </table>
+                <h5 className="container_within_navbar"> Sales history</h5>
+                <table id="clientDetails">
+                    <tr>
+                        <th>Sale</th>
+                        <th>Date</th>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Price (unit)</th>
                     </tr>
                 </table>
             </div>
