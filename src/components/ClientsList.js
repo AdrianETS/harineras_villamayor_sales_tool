@@ -2,11 +2,6 @@ import React from 'react';
 import { AppContext } from './../context/ContextProvider';
 import Navbar from "./Navbar";
 import { Link } from 'react-router-dom';
-//import { MDBCol, MDBIcon } from "mdbreact";
-//import '@fortawesome/fontawesome-free/css/all.min.css';
-//import 'bootstrap-css-only/css/bootstrap.min.css';
-//import 'mdbreact/dist/css/mdb.css';
-
 
 class ClientsList extends React.Component {
 
