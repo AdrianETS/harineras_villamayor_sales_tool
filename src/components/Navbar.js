@@ -22,7 +22,6 @@ import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import SettingsIcon from '@material-ui/icons/Settings';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import HomeIcon from '@material-ui/icons/Home';
-import boxIcon from './../images/boxIcon.png';
 
 
 const drawerWidth = 240;
@@ -157,10 +156,6 @@ export default function Navbar(props) {
                     <ListItem button component={Link} to="/clients/list">
                         <ListItemIcon> <PeopleAltIcon /></ListItemIcon>
                         <ListItemText>Clients</ListItemText>
-                    </ListItem>
-                    <ListItem button component={Link} to="/products/list">
-                        <ListItemIcon><img src={boxIcon}></img></ListItemIcon>
-                        <ListItemText>Products</ListItemText>
                     </ListItem>
                     <ListItem button component={Link}>
                         <ListItemIcon> <SettingsIcon /> </ListItemIcon>
