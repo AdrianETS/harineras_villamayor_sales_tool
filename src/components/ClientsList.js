@@ -38,10 +38,12 @@ class ClientsList extends React.Component {
                 <h4 className="title_within_navbar"> List of clients: </h4>
                 <div className={"container_within_navbar"} >
 
+
+
                     <div >
                        
                             <form className="form-inline mt-2 mb-2">
-                               
+                            <i className="fas fa-search" aria-hidden="true"></i>
                                 <input className="form-control form-control-sm ml-3 w-45 " type="text" onChange={this.searchClients} placeholder="Search" aria-label="Search" />
                             </form>
                        
