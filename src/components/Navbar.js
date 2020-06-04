@@ -130,7 +130,7 @@ export default function Navbar(props) {
                         Welcome {props.name}
                     </Typography>
                     <div style={{marginLeft: "auto"}}>
-                    <IconButton aria-label="show 4 new mails" color="default">
+                    <IconButton aria-label="show 4 new mails" color="inherit">
                         <ShoppingCartIcon />
                     </IconButton>
                     </div>
