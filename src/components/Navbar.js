@@ -22,6 +22,8 @@ import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import SettingsIcon from '@material-ui/icons/Settings';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import HomeIcon from '@material-ui/icons/Home';
+import boxIcon from './../images/boxIcon.png';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'; 
 
 
 const drawerWidth = 240;
@@ -126,7 +128,12 @@ export default function Navbar(props) {
                     </IconButton>
                     <Typography variant="h6" noWrap>
                         Welcome {props.name}
-                </Typography>
+                    </Typography>
+                    <div style={{marginLeft: "auto"}}>
+                    <IconButton aria-label="show 4 new mails" color="inherit">
+                        <ShoppingCartIcon />
+                    </IconButton>
+                    </div>
                 </Toolbar>
             </AppBar>
             <Drawer
@@ -149,13 +156,17 @@ export default function Navbar(props) {
                 </div>
                 <Divider />
                 <List>
-                <ListItem button component={Link} to="/">
+                    <ListItem button component={Link} to="/">
                         <ListItemIcon> <HomeIcon /></ListItemIcon>
                         <ListItemText>Home</ListItemText>
                     </ListItem>
                     <ListItem button component={Link} to="/clients/list">
                         <ListItemIcon> <PeopleAltIcon /></ListItemIcon>
                         <ListItemText>Clients</ListItemText>
+                    </ListItem>
+                    <ListItem button component={Link} to="/products/list">
+                        <ListItemIcon><img src={boxIcon}></img></ListItemIcon>
+                        <ListItemText>Products</ListItemText>
                     </ListItem>
                     <ListItem button component={Link}>
                         <ListItemIcon> <SettingsIcon /> </ListItemIcon>
