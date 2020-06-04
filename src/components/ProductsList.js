@@ -2,7 +2,7 @@ import React from 'react';
 import { AppContext } from './../context/ContextProvider';
 import Navbar from "./Navbar";
 import { Link } from 'react-router-dom';
-import trigo from './../images/trigo.png';
+import product from './../images/product.png';
 
 class ProductsList extends React.Component {
 
@@ -51,7 +51,7 @@ class ProductsList extends React.Component {
 
                             {this.state.productsFiltered && this.state.productsFiltered.map(productos =>
                             <div className="productCard">
-                                <div><img src={trigo}/></div>
+                                <div><img src={product}/></div>
                                 <div>{productos.nombre_comercial}</div>
                                 <div><button className="btn-primary" type="button">Add product</button></div> 
                             </div>
