@@ -17,10 +17,14 @@ class Dashboard extends React.Component {
         this.context.checkToken(this);
     }
 
+    componentDidUpdate(){
+        this.context.checkToken(this);
+    }
+
     render() {
         return (
             <div>
-                 <Navbar name = {this.context.userName}/>
+                 <Navbar />
                 <br/>                     
             
         </div>

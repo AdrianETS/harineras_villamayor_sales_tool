@@ -13,6 +13,7 @@ class ClientsDetails extends React.Component {
         this.state = {
             selectedClient: {},
             salesDetails: [],
+            groupedSales: {},
             id: this.props.location?.state?.id
         }
     }
@@ -29,7 +30,7 @@ class ClientsDetails extends React.Component {
                         groupedSales[sale.venta] = [];
                     }
                     groupedSales[sale.venta].push(sale)
-
+                    return groupedSales;
                 }, {})
                 this.setState({ groupedSales: groupedSalesList })
             })
@@ -70,7 +71,7 @@ class ClientsDetails extends React.Component {
                         <th>Quantity</th>
                         <th>Price (unit)</th>
                     </tr>
-                   { this.state.groupedSales && this.state.groupedSales.keys().map(
+                   {this.state.groupedSales && Object.keys(this.state.groupedSales).map(
                         key => {
                             let lines = this.state.groupedSales[key].map(saleLine => {
                                return (<tr>
@@ -82,7 +83,7 @@ class ClientsDetails extends React.Component {
                                 </tr>)
                                 
                             })
-                            lines.push(<React.Fragment><tr><td colSpan="3">Total price per sale {key} :</td><td colSpan="2"> </td></tr></React.Fragment>);
+                            lines.push(<React.Fragment><tr><td colSpan="3">Total price per sale {key} :</td><td colSpan="2"><b> {this.state.groupedSales[key].reduce((total, current)=> total + (current.cantidad*current.precio_unitario), 0)}</b></td></tr></React.Fragment>);
                             return lines;
                         }
                     )}             

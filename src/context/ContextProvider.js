@@ -8,7 +8,8 @@ export class ContextProvider extends React.Component {
         super(props);
         this.state = {
         clientsList:[],
-        productsList:[]
+        productsList:[],
+        userName:""
         } 
 
         this.getClientsList=this.getClientsList.bind(this);
