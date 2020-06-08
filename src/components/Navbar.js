@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -24,6 +24,7 @@ import BarChartIcon from '@material-ui/icons/BarChart';
 import HomeIcon from '@material-ui/icons/Home';
 import boxIcon from './../images/boxIcon.png';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'; 
+import {AppContext} from "./../context/ContextProvider";
 
 
 const drawerWidth = 240;
@@ -96,6 +97,10 @@ export default function Navbar(props) {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
+    const [clientList, setclientList] = React.useState([]);
+    const context = React.useContext(AppContext);
+    console.log("Our context: ");
+    console.log(JSON.stringify(context));
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -104,6 +109,11 @@ export default function Navbar(props) {
     const handleDrawerClose = () => {
         setOpen(false);
     };
+
+    React.useEffect(()=>{
+        context.getClientsList()
+        .then(clientList => setclientList(clientList))
+    }, [])
 
     return (
         <div className={classes.root}>
@@ -127,7 +137,7 @@ export default function Navbar(props) {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap>
-                        Welcome {props.name}
+                        Welcome {context.userName}
                     </Typography>
                     <div style={{marginLeft: "auto"}}>
                     <IconButton aria-label="show 4 new mails" color="inherit">
