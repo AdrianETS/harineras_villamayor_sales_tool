@@ -40,24 +40,21 @@
 
 
 .container_within_navbar {
-  margin-left: 100px;
   font-family: sans-serif;
   margin-bottom: 25px;
-  margin-top: 25px;
+  margin-top: 50px;
 }
 
 .title_within_navbar {
-  margin-left: 100px;
   font-family: sans-serif;
 }
 
 
 #clientDetails {
-margin-left: 100px;
 margin-top: 25px;
 font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 border-collapse: collapse;
-width: 80%;
+width: 100%;
 }
 
 
@@ -85,8 +82,7 @@ width: 80%;
   align-items: center;
   background-color: white;
   text-align: center;
- 
-
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 }
 
 .productAdd {
