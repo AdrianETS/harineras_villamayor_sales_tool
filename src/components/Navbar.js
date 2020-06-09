@@ -23,8 +23,13 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import HomeIcon from '@material-ui/icons/Home';
 import boxIcon from './../images/boxIcon.png';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'; 
-import {AppContext} from "./../context/ContextProvider";
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import { AppContext } from "./../context/ContextProvider";
+import ClientSelector from "./ClientSelector";
+import Grid from '@material-ui/core/Grid';
+import MoreIcon from '@material-ui/icons/MoreVert';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
 
 
 const drawerWidth = 240;
@@ -32,6 +37,9 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
+    },
+    grow: {
+        flexGrow: 1 //right panning
     },
     appBar: {
         zIndex: theme.zIndex.drawer + 1,
@@ -50,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
         }),
     },
     menuButton: {
-        marginRight: 36,
+        marginRight: 20,
     },
     hide: {
         display: 'none',
@@ -90,6 +98,22 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
         padding: theme.spacing(2),
     },
+    clientSelector: {
+        marginRight: theme.spacing(1),
+        marginLeft: 10,
+        width: "100%",
+        display: "none",
+        [theme.breakpoints.up("sm")]: { //make the items in navbar hiden when screen size is small
+            width: "auto",
+            display: "flex"
+        }
+    },
+    sectionMobile: {
+        display: 'flex',
+        [theme.breakpoints.up('md')]: {
+            display: 'none',
+        },
+    },
 }));
 
 
@@ -99,8 +123,41 @@ export default function Navbar(props) {
     const [open, setOpen] = React.useState(false);
     const [clientList, setclientList] = React.useState([]);
     const context = React.useContext(AppContext);
-    console.log("Our context: ");
-    console.log(JSON.stringify(context));
+    const [selectedClient, setSelectedClient] = React.useState("");
+
+    
+    //small navbar logic-----------------------------------------------------------------------------------------------
+
+    const mobileMenuId = 'primary-search-account-menu-mobile';
+    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+    const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+    const handleMobileMenuClose = () => {
+        setMobileMoreAnchorEl(null);
+      };
+
+    const renderMobileMenu = (
+        <Menu
+            anchorEl={mobileMoreAnchorEl}
+            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+            id={mobileMenuId}
+            keepMounted
+            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+            open={isMobileMenuOpen}
+            onClose={handleMobileMenuClose}
+        >
+            <MenuItem>
+                <IconButton color="inherit">
+                    <ShoppingCartIcon />
+                </IconButton>
+                <p>Shopping Cart</p>
+            </MenuItem>
+            <MenuItem>
+            <ClientSelector clients={clientList} />
+            </MenuItem>
+        </Menu>
+    );
+
+    //end of small navbar logic -----------------------------------------------------------------------------------------------
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -110,9 +167,14 @@ export default function Navbar(props) {
         setOpen(false);
     };
 
-    React.useEffect(()=>{
+    const handleMobileMenuOpen = (event) => {
+        setMobileMoreAnchorEl(event.currentTarget);
+    };
+
+    React.useEffect(() => {
         context.getClientsList()
-        .then(clientList => setclientList(clientList))
+            .then(clientList => setclientList(clientList))
+            .then(()=>setSelectedClient(JSON.parse(window.localStorage.getItem('selectedClient')).contacto))
     }, [])
 
     return (
@@ -139,11 +201,38 @@ export default function Navbar(props) {
                     <Typography variant="h6" noWrap>
                         Welcome {context.userName}
                     </Typography>
-                    <div style={{marginLeft: "auto"}}>
-                    <IconButton aria-label="show 4 new mails" color="inherit">
-                        <ShoppingCartIcon />
-                    </IconButton>
+
+
+                    <div className={classes.grow} />
+                    <div className={classes.clientSelector}>
+                        <ClientSelector clients={clientList}/>
                     </div>
+
+                    
+                        <Typography type="title" color="inherit">{selectedClient}</Typography>
+                    
+
+                    <div className={classes.clientSelector}>
+                        <IconButton aria-label="show 4 new mails" color="inherit">
+                            <ShoppingCartIcon />
+                        </IconButton>
+                        <div>
+                        </div>
+                    </div>
+
+
+                    <div className={classes.sectionMobile}>
+                        <IconButton
+                            aria-label="show more"
+                            aria-controls={mobileMenuId}
+                            aria-haspopup="true"
+                            onClick={handleMobileMenuOpen}
+                            color="inherit"
+                        >
+                            <MoreIcon />
+                        </IconButton>
+                    </div>
+                    {renderMobileMenu}  
                 </Toolbar>
             </AppBar>
             <Drawer
@@ -192,6 +281,6 @@ export default function Navbar(props) {
             <main className={classes.content}>
                 <div className={classes.toolbar} />
             </main>
-        </div>
+        </div >
     );
 }
