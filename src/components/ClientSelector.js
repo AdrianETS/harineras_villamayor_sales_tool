@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     margin: 'auto',
-   // width: 'fit-content',
+    width: '300px',
   },
   formControl: {
     marginTop: theme.spacing(2),
@@ -55,7 +55,8 @@ export default function ClientSelector(props) {
         Select client
       </Button>
       <Dialog
-        maxWidth={'xl'}
+      fullWidth = {true}
+        maxWidth={'xs'}
         open={open}
         onClose={handleCancel}
         aria-labelledby="client-selector-dialog-title"
