@@ -3,6 +3,7 @@ import { AppContext } from './../context/ContextProvider';
 import Navbar from "./Navbar";
 import { Link } from 'react-router-dom';
 import { findAllByTestId } from '@testing-library/react';
+import graphic from './../images/graphic.png'
 
 class ClientsDetails extends React.Component {
 
@@ -39,9 +40,10 @@ class ClientsDetails extends React.Component {
     render() {
         return (
             <div><Navbar name={this.context.userName} />
-                <h4 className="title_within_navbar"> Client {this.state.selectedClient.razon_social}</h4>
+            <div className="container">
+                <h4 className=""> Client {this.state.selectedClient.razon_social}</h4>
                 <h5 className="container_within_navbar"> Client's details</h5>
-                <table id="clientDetails">
+                <table id="clientDetails" /*className="table table-bordered"*/>
                     <tr>
                         <th>Id</th>
                         <th>Firm's name</th>
@@ -63,7 +65,7 @@ class ClientsDetails extends React.Component {
                 </table>
                 <h5 className="container_within_navbar"> Sales history</h5>
               
-                      <table id="clientDetails">
+                <table id="clientDetails" /*className="table table-bordered"*/>
                     <tr>
                         <th>Sale</th>
                         <th>Date</th>
@@ -88,7 +90,13 @@ class ClientsDetails extends React.Component {
                         }
                     )}             
                 </table>
-                <i className="fas fa-chart-line"></i>
+               
+                <div className="container_within_navbar">
+                <h5> Sales graphic</h5>
+                </div>
+                <div><h6>Click to show graphic.</h6>
+                <button className="btn-primary"><img src={graphic}/></button></div>
+            </div>
             </div>
         )
 
