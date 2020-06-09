@@ -38,6 +38,7 @@
 }
 
 
+
 .container_within_navbar {
   margin-left: 100px;
   font-family: sans-serif;
@@ -52,12 +53,14 @@
 
 
 #clientDetails {
-margin-left: 100px; 
+margin-left: 100px;
 margin-top: 25px;
 font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 border-collapse: collapse;
 width: 80%;
 }
+
+
 /*
 #productsList {
   margin-left: 100px; 
@@ -74,19 +77,34 @@ width: 80%;
 }
 */
 .productCard {
+  width: 100%;
   margin: 10px;
   padding: 2%;
-  width: 30%;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: white;
   text-align: center;
+ 
 
+}
+
+.productAdd {
+  display: flex;
+  align-items: baseline;
 }
 
 .product-name {
   margin-top: auto;
+}
+
+.imgProduct{
+width: 50%;
+height: 50%;
+} 
+
+.quantity {
+  width: 30%
 }
 
 #clientDetails tr:nth-child(even), #productsList tr:nth-child(even){background-color: white; color: black}
@@ -110,12 +128,16 @@ color: white;
   color: #992327;
   background-color: #e5e5e5;
   border-color: #992327;
+  cursor: pointer;
+  border: none;
 }
 
 .btn-primary:hover, .btn-primary:not(:disabled):not(.disabled):active {
   color: #fff;
   background-color: #992327;
   border-color: #992327;
+  cursor: pointer;
+  border: none;
 }
 
 

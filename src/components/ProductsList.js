@@ -2,8 +2,7 @@ import React from 'react';
 import { AppContext } from './../context/ContextProvider';
 import Navbar from "./Navbar";
 import { Link } from 'react-router-dom';
-import product from './../images/product.png';
-
+import addProductIcon from './../images/addProductIcon.png';
 
 class ProductsList extends React.Component {
 
@@ -51,10 +50,17 @@ class ProductsList extends React.Component {
                         <div className="d-flex flex-wrap">
 
                             {this.state.productsFiltered && this.state.productsFiltered.map(productos =>
+                            <div className="col-xs-12 col-sm-6 col-md-4">
                             <div className="productCard">
-                                <div><img src={product}/></div>
-                                <div>{productos.nombre_comercial}</div>
-                                <div><button className="btn-primary" type="button">Add product</button></div> 
+                                <div><img className="imgProduct" src={"/images/" + productos.img}/></div>
+                                <div><b>{productos.nombre_comercial}</b></div>
+                                    <div>Price: {productos.precio} €/bag </div>
+                                    <div><label>Quantity:</label><input className="quantity" type="number" onChange={this.quantityChosen} placeholder="" aria-label="Search" />
+                                    <button className="btn-primary"><img className="addProductIcon" src={addProductIcon}/></button></div>
+                                    
+                                    
+                                    
+                            </div>
                             </div>
                             )}
   
