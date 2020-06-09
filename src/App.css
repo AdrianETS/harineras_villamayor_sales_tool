@@ -40,17 +40,20 @@
 
 
 .container_within_navbar {
+  margin-left: 100px;
   font-family: sans-serif;
   margin-bottom: 25px;
   margin-top: 25px;
 }
 
 .title_within_navbar {
+  margin-left: 100px;
   font-family: sans-serif;
 }
 
 
 #clientDetails {
+margin-left: 100px;
 margin-top: 25px;
 font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 border-collapse: collapse;

@@ -77,7 +77,7 @@ export default function ClientSelector(props) {
                   id: 'max-width',
                 }}*/
               >
-                {props.clients.map(client=><MenuItem value = {client}>{client.contacto}</MenuItem>)}
+                {props.clients.map(client=><MenuItem value = {client}>{client.razon_social}</MenuItem>)}
               </Select>
             </FormControl>
           </form>

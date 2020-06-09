@@ -174,7 +174,7 @@ export default function Navbar(props) {
     React.useEffect(() => {
         context.getClientsList()
             .then(clientList => setclientList(clientList))
-            .then(()=>window.localStorage.getItem('selectedClient') && setSelectedClient(JSON.parse(window.localStorage.getItem('selectedClient')).contacto))
+            .then(()=>window.localStorage.getItem('selectedClient') && setSelectedClient(JSON.parse(window.localStorage.getItem('selectedClient')).razon_social))
     }, [])
 
     return (

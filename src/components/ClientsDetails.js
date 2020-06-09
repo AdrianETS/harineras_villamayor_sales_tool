@@ -39,7 +39,7 @@ class ClientsDetails extends React.Component {
     render() {
         return (
             <div><Navbar name={this.context.userName} />
-                <h4 className="title_within_navbar"> Client {this.state.selectedClient.contacto}</h4>
+                <h4 className="title_within_navbar"> Client {this.state.selectedClient.razon_social}</h4>
                 <h5 className="container_within_navbar"> Client's details</h5>
                 <table id="clientDetails">
                     <tr>
