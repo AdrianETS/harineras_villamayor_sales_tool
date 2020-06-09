@@ -82,11 +82,21 @@ width: 80%;
   align-items: center;
   background-color: white;
   text-align: center;
+ 
 
+}
+
+.productAdd {
+  display: flex;
+  align-items: baseline;
 }
 
 .product-name {
   margin-top: auto;
+}
+
+.quantity {
+  width: 30%
 }
 
 #clientDetails tr:nth-child(even), #productsList tr:nth-child(even){background-color: white; color: black}
