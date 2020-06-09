@@ -4,7 +4,6 @@ import Navbar from "./Navbar";
 import { Link } from 'react-router-dom';
 import product from './../images/product.png';
 
-
 class ProductsList extends React.Component {
 
     static contextType = AppContext;
@@ -39,7 +38,7 @@ class ProductsList extends React.Component {
             return (<div>
                 <Navbar name = {this.context.userName} />
                 
-                <div className="container">
+                <div className="container-flex">
                     <div style = {{marginLeft: "100px", fontFamily: "sans-serif"}}>
                     <h5>Search product:</h5>
 
@@ -52,9 +51,13 @@ class ProductsList extends React.Component {
 
                             {this.state.productsFiltered && this.state.productsFiltered.map(productos =>
                             <div className="productCard">
-                                <div><img src={product}/></div>
-                                <div>{productos.nombre_comercial}</div>
-                                <div><button className="btn-primary" type="button">Add product</button></div> 
+                                <div><img src={"/images/" + productos.img}/></div>
+                                <div><b>{productos.nombre_comercial}</b></div>
+                                    <div className="productAdd">
+                                    <div>Price: {productos.precio} €/bag </div>
+                                    <div><label>Quantity:</label><input className="quantity" type="number" onChange={this.quantityChosen} placeholder="" aria-label="Search" /></div>
+                                    <div><button className="btn-primary" type="button">+</button></div> 
+                                </div>
                             </div>
                             )}
   
