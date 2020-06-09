@@ -8,7 +8,8 @@ export class ContextProvider extends React.Component {
         super(props);
         this.state = {
         clientsList:[],
-        productsList:[]
+        productsList:[],
+        userName:""
         } 
 
         this.getClientsList=this.getClientsList.bind(this);
@@ -41,7 +42,7 @@ export class ContextProvider extends React.Component {
                 .then(res => {
                     if (res.status != 200) {
                         history.push("/login");
-                        reject();
+                        return Promise.reject();
                     }
                     return res.json();
                 })
@@ -49,6 +50,7 @@ export class ContextProvider extends React.Component {
                     this.setState({ clientsList: json });
                     resolve(json);
                 })
+                .catch(err => reject())
         })
     }
 
@@ -60,7 +62,7 @@ export class ContextProvider extends React.Component {
                 .then(res => {
                     if (res.status != 200) {
                         history.push("/login");
-                        reject();
+                        return Promise.reject();
                     }
                     return res.json();
                 })
@@ -69,6 +71,7 @@ export class ContextProvider extends React.Component {
                     this.setState({ selectedClient: json });
                     resolve(json);
                 })
+                .catch(err => reject())
         })
     }
 
@@ -80,13 +83,14 @@ export class ContextProvider extends React.Component {
                 .then(res => {
                     if (res.status != 200) {
                         history.push("/login");
-                        reject();
+                        return Promise.reject();
                     }
                     return res.json();
                 })
                 .then((json) => {
                     resolve(json);
                 })
+                .catch(err => reject())
         })
     }
 
@@ -96,7 +100,7 @@ export class ContextProvider extends React.Component {
                 .then(res => {
                     if (res.status != 200) {
                         history.push("/login");
-                        reject();
+                        return Promise.reject();
                     }
                     return res.json();
                 })
@@ -104,6 +108,7 @@ export class ContextProvider extends React.Component {
                     this.setState({ productsList: json });
                     resolve(json);
                 })
+                .catch(err => reject())
         })
     }
 

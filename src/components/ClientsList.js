@@ -13,7 +13,6 @@ class ClientsList extends React.Component {
         this.state = {
             clientList: "",
             membersFound: []
-
         }
         this.searchClients = this.searchClients.bind(this);
     }
@@ -37,11 +36,7 @@ class ClientsList extends React.Component {
 
                 <h4 className="title_within_navbar"> List of clients: </h4>
                 <div className={"container_within_navbar"} >
-
-
-
                     <div >
-                       
                             <form className="form-inline mt-2 mb-2">
                             <i className="fas fa-search" aria-hidden="true"></i>
                                 <input className="form-control form-control-sm ml-3 w-45 " type="text" onChange={this.searchClients} placeholder="Search" aria-label="Search" />
@@ -50,17 +45,16 @@ class ClientsList extends React.Component {
                     
                     </div>
                     <ul>
-                        {this.state.membersFound && this.state.membersFound.map(clientes =>
+                        {this.state.clientList && (this.state.membersFound.length == 0 ?  <h5 className = "container_within_navbar">No clients found</h5> 
+                        : this.state.membersFound.map(clientes =>
                             <div>
                                 <li> <Link to={{ pathname: '/clients/details', state: { id: clientes.id } }}>
                                     {clientes.contacto}
                                 </Link>
                                 </li>
                             </div>
-                        )}
+                        ))}
                     </ul>
-
-
                 </div>
             </div>);
         }

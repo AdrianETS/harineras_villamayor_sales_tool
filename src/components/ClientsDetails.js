@@ -13,6 +13,7 @@ class ClientsDetails extends React.Component {
         this.state = {
             selectedClient: {},
             salesDetails: [],
+            groupedSales: {},
             id: this.props.location?.state?.id
         }
     }
@@ -23,11 +24,17 @@ class ClientsDetails extends React.Component {
             .then(client => this.setState({ selectedClient: client }))
             .then(() => this.context.getSalesInfoByClientId(this.props.history, this.state.id))
             .then(salesInfo => this.setState({ salesDetails: salesInfo }))
+            .then(() => {
+                let groupedSalesList = this.state.salesDetails.reduce((groupedSales, sale) => {
+                    if (groupedSales[sale.venta] == null) {
+                        groupedSales[sale.venta] = [];
+                    }
+                    groupedSales[sale.venta].push(sale)
+                    return groupedSales;
+                }, {})
+                this.setState({ groupedSales: groupedSalesList })
+            })
     }
-
-
-
-
 
     render() {
         return (
@@ -55,7 +62,8 @@ class ClientsDetails extends React.Component {
                     </tr>
                 </table>
                 <h5 className="container_within_navbar"> Sales history</h5>
-                <table id="clientDetails">
+              
+                      <table id="clientDetails">
                     <tr>
                         <th>Sale</th>
                         <th>Date</th>
@@ -63,25 +71,28 @@ class ClientsDetails extends React.Component {
                         <th>Quantity</th>
                         <th>Price (unit)</th>
                     </tr>
-                    {this.state.salesDetails.map(salePerProduct => 
-                      <div>  <tr>
-                            <td>{salePerProduct.venta}</td>
-                            <td>{salePerProduct.fecha}</td>
-                            <td>{salePerProduct.producto}</td>
-                            <td>{salePerProduct.cantidad}</td>
-                            <td>{salePerProduct.precio_unitario}</td>                            
-                        </tr>
-
-                    {salePerProduct.precio_total_venta && <tr><td colSpan = "2">Total price per sale {salePerProduct.venta} :</td><td>{salePerProduct.precio_total_venta}</td></tr>}
-  
-                    </div> )}
-                    
+                   {this.state.groupedSales && Object.keys(this.state.groupedSales).map(
+                        key => {
+                            let lines = this.state.groupedSales[key].map(saleLine => {
+                               return (<tr>
+                                    <td>{saleLine.venta}</td>
+                                    <td>{saleLine.fecha}</td>
+                                    <td>{saleLine.producto}</td>
+                                    <td>{saleLine.cantidad}</td>
+                                    <td>{saleLine.precio_unitario}</td>
+                                </tr>)
+                                
+                            })
+                            lines.push(<React.Fragment><tr><td colSpan="3">Total price per sale {key} :</td><td colSpan="2"><b> {this.state.groupedSales[key].reduce((total, current)=> total + (current.cantidad*current.precio_unitario), 0)}</b></td></tr></React.Fragment>);
+                            return lines;
+                        }
+                    )}             
                 </table>
                 <i className="fas fa-chart-line"></i>
             </div>
         )
 
-        
+
     }
 
 }
