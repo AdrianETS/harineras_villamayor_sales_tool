@@ -13,7 +13,8 @@ class ProductsList extends React.Component {
         super(props);
         this.state = {
             productsList: "",
-            productsFiltered: []
+            productsFiltered: [],
+            specialPricePerProduct: []
         }
 
         this.searchProducts = this.searchProducts.bind(this);
@@ -23,6 +24,7 @@ class ProductsList extends React.Component {
        this.context.checkToken(this);
        this.context.getProductsList(this.props.history)
        .then(products => this.setState({productsList: products, productsFiltered: products}))
+       .then (price=> this.setState({specialPricePerProduct:price}))
       
 
     }

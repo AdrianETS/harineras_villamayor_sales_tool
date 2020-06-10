@@ -9,7 +9,8 @@ export class ContextProvider extends React.Component {
         this.state = {
         clientsList:[],
         productsList:[],
-        userName:""
+        userName:"",
+        specialPricePerProduct: []
         } 
 
         this.getClientsList=this.getClientsList.bind(this);
@@ -17,6 +18,7 @@ export class ContextProvider extends React.Component {
         this.getProductsList=this.getProductsList.bind(this);
         this.storeUsersName = this.storeUsersName.bind(this);
         this.getSalesInfoByClientId = this.getSalesInfoByClientId.bind(this);
+        this.getPriceForClient=this.getPriceForClient.bind(this);
     }
 
     checkToken(ctx) {
@@ -75,6 +77,23 @@ export class ContextProvider extends React.Component {
         })
     }
 
+    getPriceForClient(history, id) {
+        return new Promise((resolve, reject) => {
+            fetch('http://127.0.0.1:3001/clients/prices/' + id + '?token=' + this.getTokenFromLocalStorage())
+                .then(res => {
+                    if (res.status != 200) {
+                        history.push("/login");
+                        return Promise.reject();
+                    }
+                    return res.json();
+                })
+                .then((json) => {
+                    this.setState({ specialPricePerProduct: json });
+                    resolve(json);
+                })
+                .catch(err => reject())
+        })
+    }
     //get sales info depending on client id. Displayed on ClientsDetails
 
     getSalesInfoByClientId(history, id){
@@ -118,7 +137,7 @@ export class ContextProvider extends React.Component {
                 value={{
                     ...this.state, checkToken: this.checkToken, getTokenFromLocalStorage: this.getTokenFromLocalStorage, storeUsersName: this.storeUsersName,
                     getClientsList: this.getClientsList, getClientInfo: this.getClientInfo, getProductsList: this.getProductsList,
-                    getSalesInfoByClientId: this.getSalesInfoByClientId
+                    getSalesInfoByClientId: this.getSalesInfoByClientId, getPriceForClient: this.getPriceForClient
                 }}
             >
 
