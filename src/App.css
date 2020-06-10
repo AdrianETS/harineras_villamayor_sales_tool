@@ -141,3 +141,11 @@ color: white;
   cursor: pointer;
   border: none;
 }
+
+
+.link {
+  color: #FFF;
+}
+.link:hover {
+   color: rgb(218, 213, 213)
+}
