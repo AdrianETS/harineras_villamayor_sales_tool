@@ -103,6 +103,12 @@ height: 50%;
   width: 30%
 }
 
+.addQuantity {
+  display: flex;
+    align-items: stretch;
+    justify-content: center;
+}
+
 #clientDetails tr:nth-child(even), #productsList tr:nth-child(even){background-color: white; color: black}
 
 #clientDetails tr:hover, #productsList tr:hover{background-color: #ddd;}
@@ -135,6 +141,3 @@ color: white;
   cursor: pointer;
   border: none;
 }
-
-
-
