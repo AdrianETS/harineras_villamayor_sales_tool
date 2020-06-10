@@ -95,7 +95,7 @@ class ClientsDetails extends React.Component {
                 <h5> Sales graphic</h5>
                 </div>
                 <div><h6>Click to show graphic.</h6>
-                <button className="btn-primary"><img src={graphic}/></button></div>
+                <button className="btn"><img src={graphic}/></button></div>
             </div>
             </div>
         )

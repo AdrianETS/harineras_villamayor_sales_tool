@@ -2,7 +2,7 @@ import React from 'react';
 import { AppContext } from './../context/ContextProvider';
 import Navbar from "./Navbar";
 import { Link } from 'react-router-dom';
-import addProductIcon from './../images/addProductIcon.png';
+
 
 class ProductsList extends React.Component {
 
@@ -55,8 +55,8 @@ class ProductsList extends React.Component {
                                 <div><img className="imgProduct" src={"/images/" + productos.img}/></div>
                                 <div><b>{productos.nombre_comercial}</b></div>
                                     <div>Price: {productos.precio} €/bag </div>
-                                    <div><label>Quantity:</label><input className="quantity" type="number" onChange={this.quantityChosen} placeholder="" aria-label="Search" />
-                                    <button className="btn-primary"><img className="addProductIcon" src={addProductIcon}/></button></div>
+                                    <div className="addQuantity"><label>Quantity:</label><input className="quantity" type="number" onChange={this.quantityChosen} placeholder="" aria-label="Search" />
+                                    <button className="btn-primary" type="button"><i class="fas fa-plus" style = {{color: "white", fontSize: "14px"}}></i></button></div>
                                     
                                     
                                     
