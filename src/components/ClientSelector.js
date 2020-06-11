@@ -12,6 +12,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import Switch from '@material-ui/core/Switch';
+import { render } from '@testing-library/react';
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -42,6 +43,7 @@ export default function ClientSelector(props) {
 
   const handleSave = () => {
     window.localStorage.setItem('selectedClient', JSON.stringify(selectedClient));
+    console.log("SELECTED", JSON.parse(localStorage.selectedClient))
     setOpen(false);
   }
 

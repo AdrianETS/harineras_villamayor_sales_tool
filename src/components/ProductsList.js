@@ -13,7 +13,8 @@ class ProductsList extends React.Component {
         super(props);
         this.state = {
             productsList: "",
-            productsFiltered: []
+            productsFiltered: [],
+            specialPricePerProduct: []
         }
 
         this.searchProducts = this.searchProducts.bind(this);
@@ -21,10 +22,20 @@ class ProductsList extends React.Component {
 
     componentDidMount() {
        this.context.checkToken(this);
-       this.context.getProductsList(this.props.history)
-       .then(products => this.setState({productsList: products, productsFiltered: products}))
-      
 
+      console.log("CONTEXT", this.context)
+      if (localStorage.selectedClient!= null) {
+        console.log("SELECTED", JSON.parse(localStorage.selectedClient))
+        this.context.getPriceForClient(this.props.history, JSON.parse(localStorage.selectedClient).id)
+        .then(products => this.setState({productsList: products, productsFiltered: products}))
+        .then (price=> this.setState({specialPricePerProduct:price}))
+      }
+      else {
+        console.log("NOT SELECTED", localStorage.selectedClient)
+        this.context.getProductsList(this.props.history)
+        .then(products => this.setState({productsList: products, productsFiltered: products}))
+        .then (price=> this.setState({specialPricePerProduct:price}))
+      }
     }
 
     searchProducts(event) {
@@ -55,7 +66,7 @@ class ProductsList extends React.Component {
                                 <div><img className="imgProduct" src={"/images/" + productos.img}/></div>
                                 <div><b>{productos.nombre_comercial}</b></div>
                                     <div>Price: {productos.precio} €/bag </div>
-                                    <div className="addQuantity"><label>Quantity:</label><input className="quantity" type="number" onChange={this.quantityChosen} placeholder="" aria-label="Search" />
+                                    <div className="addQuantity"><label>Quantity:</label><input className="quantity" type="number" min="0" onChange={this.quantityChosen} placeholder="" aria-label="Search" />
                                     <button className="btn-primary" type="button"><i class="fas fa-plus" style = {{color: "white", fontSize: "14px"}}></i></button></div>
                                     
                                     

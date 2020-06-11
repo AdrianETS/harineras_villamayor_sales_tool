@@ -12,7 +12,7 @@ import Button from "@material-ui/core/Button";
 import NavBar from "./Navbar";
 import DeleteIcon from '@material-ui/icons/Delete';
 
-const TAX_RATE = 0.21;
+const TAX_RATE = 0.04;
 
 function ccyFormat(num) {
     return `${num.toFixed(2)}`;
@@ -105,7 +105,7 @@ export default function ShoppingCart() {
                         <TableCell align="right">{ccyFormat(invoiceSubtotal)}</TableCell>
                     </TableRow>
                     <TableRow>
-                        <TableCell colSpan={3}>VAT (21%)</TableCell>
+                        <TableCell colSpan={3}>VAT (4%)</TableCell>
                         <TableCell align="right" colSpan={1}>{ccyFormat(invoiceTaxes)}</TableCell>
                     </TableRow>
                     <TableRow>
