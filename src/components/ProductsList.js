@@ -13,7 +13,8 @@ class ProductsList extends React.Component {
         super(props);
         this.state = {
             productsList: "",
-            productsFiltered: []
+            productsFiltered: [],
+            specialPricePerProduct: []
         }
 
         this.searchProducts = this.searchProducts.bind(this);
@@ -21,10 +22,20 @@ class ProductsList extends React.Component {
 
     componentDidMount() {
        this.context.checkToken(this);
-       this.context.getProductsList(this.props.history)
-       .then(products => this.setState({productsList: products, productsFiltered: products}))
-      
 
+      console.log("CONTEXT", this.context)
+      if (localStorage.selectedClient!= null) {
+        console.log("SELECTED", JSON.parse(localStorage.selectedClient))
+        this.context.getPriceForClient(this.props.history, JSON.parse(localStorage.selectedClient).id)
+        .then(products => this.setState({productsList: products, productsFiltered: products}))
+        .then (price=> this.setState({specialPricePerProduct:price}))
+      }
+      else {
+        console.log("NOT SELECTED", localStorage.selectedClient)
+        this.context.getProductsList(this.props.history)
+        .then(products => this.setState({productsList: products, productsFiltered: products}))
+        .then (price=> this.setState({specialPricePerProduct:price}))
+      }
     }
 
     searchProducts(event) {
