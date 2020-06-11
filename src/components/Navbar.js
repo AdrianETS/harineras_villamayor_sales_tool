@@ -174,7 +174,6 @@ export default function Navbar(props) {
     React.useEffect(() => {
         context.getClientsList()
             .then(clientList => setclientList(clientList))
-            .then(() => window.localStorage.getItem('selectedClient') && setSelectedClient(JSON.parse(window.localStorage.getItem('selectedClient')).razon_social))
     }, [])
 
     return (
@@ -209,7 +208,7 @@ export default function Navbar(props) {
                     </div>
 
 
-                    <Typography type="title" color="inherit">{selectedClient}</Typography>
+                    <Typography type="title" color="inherit">{context.clientSelected && context.clientSelected.razon_social}</Typography>
 
 
                     <div className={classes.clientSelector}>

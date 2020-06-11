@@ -19,6 +19,7 @@ export class ContextProvider extends React.Component {
         this.storeUsersName = this.storeUsersName.bind(this);
         this.getSalesInfoByClientId = this.getSalesInfoByClientId.bind(this);
         this.getPriceForClient=this.getPriceForClient.bind(this);
+        this.setClientSelected = this.setClientSelected.bind(this);
     }
 
     checkToken(ctx) {
@@ -131,13 +132,17 @@ export class ContextProvider extends React.Component {
         })
     }
 
+    setClientSelected(client){
+        this.setState({clientSelected: client});
+    }
+
     render() {
         return (
             <AppContext.Provider
                 value={{
                     ...this.state, checkToken: this.checkToken, getTokenFromLocalStorage: this.getTokenFromLocalStorage, storeUsersName: this.storeUsersName,
                     getClientsList: this.getClientsList, getClientInfo: this.getClientInfo, getProductsList: this.getProductsList,
-                    getSalesInfoByClientId: this.getSalesInfoByClientId, getPriceForClient: this.getPriceForClient
+                    getSalesInfoByClientId: this.getSalesInfoByClientId, getPriceForClient: this.getPriceForClient, setClientSelected: this.setClientSelected
                 }}
             >
 
