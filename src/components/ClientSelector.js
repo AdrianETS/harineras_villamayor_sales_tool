@@ -13,6 +13,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import Switch from '@material-ui/core/Switch';
 import { render } from '@testing-library/react';
+import { AppContext } from "./../context/ContextProvider";
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -31,6 +32,7 @@ export default function ClientSelector(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [selectedClient, setselectedClient] = React.useState({});
+  const context = React.useContext(AppContext);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -43,6 +45,8 @@ export default function ClientSelector(props) {
 
   const handleSave = () => {
     window.localStorage.setItem('selectedClient', JSON.stringify(selectedClient));
+    context.setClientSelected(selectedClient);
+    console.log(JSON.stringify(context))
     console.log("SELECTED", JSON.parse(localStorage.selectedClient))
     setOpen(false);
   }
