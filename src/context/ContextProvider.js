@@ -10,7 +10,10 @@ export class ContextProvider extends React.Component {
         clientsList:[],
         productsList:[],
         userName:"",
-        specialPricePerProduct: []
+        specialPricePerProduct: [],
+        listOfUsers: [], 
+        listOfUserPosts: [],
+        originalUsers: []
         } 
 
         this.getClientsList=this.getClientsList.bind(this);
@@ -20,6 +23,9 @@ export class ContextProvider extends React.Component {
         this.getSalesInfoByClientId = this.getSalesInfoByClientId.bind(this);
         this.getPriceForClient=this.getPriceForClient.bind(this);
         this.setClientSelected = this.setClientSelected.bind(this);
+        this.setOriginalUsers=this.setOriginalUsers.bind(this);
+        this.setListOfUserPosts = this.setListOfUserPosts.bind(this);
+        this.setListOfUsers = this.setListOfUsers.bind(this);
     }
 
     checkToken(ctx) {
@@ -135,6 +141,17 @@ export class ContextProvider extends React.Component {
     setClientSelected(client){
         this.setState({clientSelected: client});
     }
+    
+    setOriginalUsers(list) {
+        this.setState({ originalUsers: list });
+    }
+    setListOfUsers(list) {
+        this.setState({ listOfUsers: list });
+    }
+
+    setListOfUserPosts(posts) {
+        this.setState({ listOfUserPosts: posts });
+    }
 
     render() {
         return (
@@ -142,7 +159,8 @@ export class ContextProvider extends React.Component {
                 value={{
                     ...this.state, checkToken: this.checkToken, getTokenFromLocalStorage: this.getTokenFromLocalStorage, storeUsersName: this.storeUsersName,
                     getClientsList: this.getClientsList, getClientInfo: this.getClientInfo, getProductsList: this.getProductsList,
-                    getSalesInfoByClientId: this.getSalesInfoByClientId, getPriceForClient: this.getPriceForClient, setClientSelected: this.setClientSelected
+                    getSalesInfoByClientId: this.getSalesInfoByClientId, getPriceForClient: this.getPriceForClient, setClientSelected: this.setClientSelected,
+                    setOriginalUsers: this.setOriginalUsers, setListOfUserPosts:this.setListOfUserPosts, setListOfUsers:this.setListOfUsers
                 }}
             >
 
