@@ -63,8 +63,8 @@ class ProductsList extends React.Component {
                             {this.state.productsFiltered && this.state.productsFiltered.map(productos =>
                             <div className="col-xs-12 col-sm-6 col-md-4">
                             <div className="productCard">
-                                <div><img className="imgProduct" src={"/images/" + productos.img}/></div>
-                                <div><b>{productos.nombre_comercial}</b></div>
+                            <Link to={{ pathname: '/product/detail', state: { id: productos.id } }}><div><img className="imgProduct" src={"/images/" + productos.img}/></div>
+                                <div>{productos.nombre_comercial}</div></Link>
                                     <div>Price: {productos.precio} €/bag </div>
                                     <div className="addQuantity"><label>Quantity:</label><input className="quantity" type="number" min="0" onChange={this.quantityChosen} placeholder="" aria-label="Search" />
                                     <button className="btn-primary" type="button"><i class="fas fa-plus" style = {{color: "white", fontSize: "14px"}}></i></button></div>
