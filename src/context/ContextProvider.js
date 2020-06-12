@@ -7,20 +7,40 @@ export class ContextProvider extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-        clientsList:[],
-        productsList:[],
-        userName:"",
-        specialPricePerProduct: []
-        } 
+            clientsList: [],
+            productsList: [],
+            productsListFiltered: [],
+            userName: "",
+            specialPricePerProduct: [],
+            specialPricePerProductFiltered: [],
+            clientUpdated: false
+        }
 
-        this.getClientsList=this.getClientsList.bind(this);
+        this.getClientsList = this.getClientsList.bind(this);
         this.getClientInfo = this.getClientInfo.bind(this);
-        this.getProductsList=this.getProductsList.bind(this);
+        this.getProductsList = this.getProductsList.bind(this);
         this.storeUsersName = this.storeUsersName.bind(this);
         this.getSalesInfoByClientId = this.getSalesInfoByClientId.bind(this);
-        this.getPriceForClient=this.getPriceForClient.bind(this);
+        this.getPriceForClient = this.getPriceForClient.bind(this);
         this.setClientSelected = this.setClientSelected.bind(this);
         this.getProductInfo = this.getProductInfo.bind(this);
+
+        this.setProductList = this.setProductList.bind(this);
+        this.setSpecialPricePerProduct = this.setSpecialPricePerProduct.bind(this);
+    }
+
+    componentDidUpdate() {
+        if (this.state.clientUpdated) {
+            //we change the state every time a user is selected in Product List component so the componente is re-rendered
+            if (this.state.clientSelected != null) {
+                this.getPriceForClient(this.props.history, this.state.clientSelected.id)
+                    .then(() => this.setState({ clientUpdated: false }))
+            }
+            else {
+                this.getProductsList(this.props.history)
+                    .then(() => this.setState({ clientUpdated: false }))
+            }
+        }
     }
 
     checkToken(ctx) {
@@ -35,8 +55,9 @@ export class ContextProvider extends React.Component {
 
     //store user's name in the context so it can be shown in the Navbar along with the welcome message
 
-    storeUsersName(userName){
-        this.setState({userName: userName})}
+    storeUsersName(userName) {
+        this.setState({ userName: userName })
+    }
 
     //get full list of clients for ClienList component
 
@@ -58,7 +79,7 @@ export class ContextProvider extends React.Component {
         })
     }
 
-     //get details for the selected client. It's displayed by ClientDetails component
+    //get details for the selected client. It's displayed by ClientDetails component
 
     getClientInfo(history, id) {
         return new Promise((resolve, reject) => {
@@ -90,7 +111,7 @@ export class ContextProvider extends React.Component {
                     return res.json();
                 })
                 .then((json) => {
-                    this.setState({ specialPricePerProduct: json });
+                    this.setState({ specialPricePerProduct: [...json], specialPricePerProductFiltered: [...json] });
                     resolve(json);
                 })
                 .catch(err => reject())
@@ -98,7 +119,7 @@ export class ContextProvider extends React.Component {
     }
     //get sales info depending on client id. Displayed on ClientsDetails
 
-    getSalesInfoByClientId(history, id){
+    getSalesInfoByClientId(history, id) {
         return new Promise((resolve, reject) => {
             fetch('http://127.0.0.1:3001/sales/' + id + '?token=' + this.getTokenFromLocalStorage())
                 .then(res => {
@@ -126,7 +147,7 @@ export class ContextProvider extends React.Component {
                     return res.json();
                 })
                 .then((json) => {
-                    this.setState({ productsList: json });
+                    this.setState({ productsList: [...json], productsListFiltered: [...json] });
                     resolve(json);
                 })
                 .catch(err => reject())
@@ -152,10 +173,21 @@ export class ContextProvider extends React.Component {
         })
     }
 
-    
+//-----------------setters-----------------------------------------------------------------------------------------------------------------
 
-    setClientSelected(client){
-        this.setState({clientSelected: client});
+    setClientSelected(client) {
+        //update state with the new client selected from ClientSelector component
+        this.setState({ clientSelected: client, clientUpdated: true });
+    }
+
+    setProductList(list) {
+        //update state from the search bar in ProductList
+        this.setState({ productsListFiltered: list });
+    }
+
+    setSpecialPricePerProduct(list) {
+        //update state from the search bar in ProductList
+        this.setState({ specialPricePerProductFiltered: list });
     }
 
     render() {
@@ -164,8 +196,8 @@ export class ContextProvider extends React.Component {
                 value={{
                     ...this.state, checkToken: this.checkToken, getTokenFromLocalStorage: this.getTokenFromLocalStorage, storeUsersName: this.storeUsersName,
                     getClientsList: this.getClientsList, getClientInfo: this.getClientInfo, getProductsList: this.getProductsList,
-                    getSalesInfoByClientId: this.getSalesInfoByClientId, getPriceForClient: this.getPriceForClient, setClientSelected: this.setClientSelected, 
-                    getProductInfo: this.getProductInfo
+                    getSalesInfoByClientId: this.getSalesInfoByClientId, getPriceForClient: this.getPriceForClient, setClientSelected: this.setClientSelected,
+                    getProductInfo: this.getProductInfo, setProductList: this.setProductList, setSpecialPricePerProduct: this.setSpecialPricePerProduct
                 }}
             >
 
