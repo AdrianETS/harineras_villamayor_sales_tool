@@ -30,6 +30,7 @@ import Grid from '@material-ui/core/Grid';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import { Badge } from '@material-ui/core';
 
 
 const drawerWidth = 240;
@@ -213,9 +214,11 @@ export default function Navbar(props) {
 
                     <div className={classes.clientSelector}>
                       
-                            <IconButton aria-label="show 4 new mails" color="secondary">
+                            <IconButton color="secondary">
                             <Link to={{ pathname: '/shoppingcart'}} className="link">
+                            <Badge color="secondary" badgeContent={context.productsAddedToCart.length}>
                                 <ShoppingCartIcon />
+                                </Badge>
                                 </Link>
                             </IconButton>
                      
