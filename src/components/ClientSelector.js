@@ -57,7 +57,7 @@ export default function ClientSelector(props) {
 
   return (
     <React.Fragment>
-      <Button variant="outlined" color="inherit" onClick={handleClickOpen}>
+      <Button color="inherit" onClick={handleClickOpen}>
         Select client
       </Button>
       <Dialog
