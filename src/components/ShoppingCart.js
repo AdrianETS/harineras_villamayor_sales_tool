@@ -11,8 +11,14 @@ import IconButton from "@material-ui/core/IconButton";
 import Button from "@material-ui/core/Button";
 import NavBar from "./Navbar";
 import DeleteIcon from '@material-ui/icons/Delete';
+import { AppContext } from "./../context/ContextProvider";
 
-const TAX_RATE = 0.04;
+
+
+export default function ShoppingCart() {
+    const context = React.useContext(AppContext);
+
+    const TAX_RATE = 0.04;
 
 function ccyFormat(num) {
     return `${num.toFixed(2)}`;
@@ -22,12 +28,11 @@ function priceRow(qty, unit) {
     return qty * unit;
 }
 
-function createRow(desc, qty, unit) {
+function createRow(desc, qty, unit, id) {
     const price = priceRow(qty, unit);
-    return { desc, qty, unit, price };
+    return { desc, qty, unit, price, id };
 }
 
-//
 
 function subtotal(items) {
     return items.map(({ price }) => price).reduce((sum, i) => sum + i, 0);
@@ -39,12 +44,12 @@ let productosNuestros = [
     { desc: "producto3", quantity: 150, price: 2 }
 ];
 
-let rows = createRows(productosNuestros);
+let rows = createRows(context.productsAddedToCart);
 
 function createRows(object) {
     let obj = [];
     object.forEach(element => {
-        obj.push(createRow(element.desc, element.quantity, element.price));
+        obj.push(createRow(element.nombre_comercial, element.cantidad, element.precio, element.id));
     });
     return obj;
 }
@@ -62,9 +67,7 @@ const invoiceSubtotal = subtotal(rows);
 const invoiceTaxes = TAX_RATE * invoiceSubtotal;
 const invoiceTotal = invoiceTaxes + invoiceSubtotal;
 
-export default function ShoppingCart() {
-
-    return (productosNuestros.length === 0 ? <React.Fragment><NavBar/><h5 style={{ marginLeft: 100}} >Your cart is empty</h5> </React.Fragment>:
+    return (context.productsAddedToCart.length === 0 ? <React.Fragment><NavBar/><h5 style={{ marginLeft: 100}} >Your cart is empty</h5> </React.Fragment>:
         <React.Fragment>
        <NavBar/>
         <TableContainer>
@@ -81,7 +84,7 @@ export default function ShoppingCart() {
                         <TableCell>Product</TableCell>
                         <TableCell align="right">Quantity.</TableCell>
                         <TableCell align="right">Price</TableCell>
-                        <TableCell align="right">Sum</TableCell>
+                        <TableCell align="right">Total</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -90,7 +93,7 @@ export default function ShoppingCart() {
                             <TableCell style={{ width: 100}}>
                             <DeleteIcon size="small"
                                     color="disabled"
-                                    onClick={() => handleClick(row.desc)} />
+                                    onClick={() => context.deleteProductFromCart(row.id)} />
                             </TableCell>
                             <TableCell style={{ width: 100}}>{row.desc}</TableCell>
                             <TableCell align="right">{row.qty}</TableCell>
