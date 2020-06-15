@@ -40,7 +40,7 @@ class ProductDetail extends React.Component {
                         <td className="subRow" rowSpan="5"><img className="imgProduct" src={"/images/productXl/" + this.state.selectedProduct.img}/></td>
                         <th className="subTitle">Id producto</th><td className="subRow">{this.state.selectedProduct.id}</td></tr>
                         <tr><th className="subTitle">Nombre comercial</th><td className="subRow">{this.state.selectedProduct.nombre_comercial}</td></tr>
-                        <tr><th className="subTitle">Precio</th><td className="subRow">{this.state.selectedProduct.precio}</td></tr>
+                        <tr><th className="subTitle">Precio</th><td className="subRow">{this.state.selectedProduct.precio} Euros</td></tr>
                         <tr><th className="subTitle">Unidad de medida</th><td className="subRow">{this.state.selectedProduct.unidad_medida}</td></tr>
                         <tr><th className="subTitle">Otros datos</th><td className="subRow">{this.state.selectedProduct.otros_datos}</td></tr>
                             
