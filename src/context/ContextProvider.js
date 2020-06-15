@@ -28,6 +28,7 @@ export class ContextProvider extends React.Component {
         this.setProductList = this.setProductList.bind(this);
         this.setSpecialPricePerProduct = this.setSpecialPricePerProduct.bind(this);
         this.addProductToCart = this.addProductToCart.bind(this);
+        this.deleteProductFromCart = this.deleteProductFromCart.bind(this);
     }
 
     componentDidUpdate() {
@@ -74,6 +75,11 @@ export class ContextProvider extends React.Component {
             updateProductsAdded.push(productAdded);
         }
         this.setState({ productsAddedToCart: updateProductsAdded })
+    }
+
+    deleteProductFromCart(id){
+        let updatedCart = this.state.productsAddedToCart.filter(product => product.id != id);
+        this.setState({productsAddedToCart: updatedCart });
     }
 
 
@@ -218,7 +224,7 @@ export class ContextProvider extends React.Component {
                     getClientsList: this.getClientsList, getClientInfo: this.getClientInfo, getProductsList: this.getProductsList,
                     getSalesInfoByClientId: this.getSalesInfoByClientId, getPriceForClient: this.getPriceForClient, setClientSelected: this.setClientSelected,
                     getProductInfo: this.getProductInfo, setProductList: this.setProductList, setSpecialPricePerProduct: this.setSpecialPricePerProduct,
-                    addProductToCart: this.addProductToCart
+                    addProductToCart: this.addProductToCart, deleteProductFromCart: this.deleteProductFromCart
                 }}
             >
 
