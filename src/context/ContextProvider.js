@@ -29,6 +29,7 @@ export class ContextProvider extends React.Component {
         this.setSpecialPricePerProduct = this.setSpecialPricePerProduct.bind(this);
         this.addProductToCart = this.addProductToCart.bind(this);
         this.deleteProductFromCart = this.deleteProductFromCart.bind(this);
+        this.submitSale = this.submitSale.bind(this);
     }
 
     componentDidUpdate() {
@@ -199,6 +200,31 @@ export class ContextProvider extends React.Component {
         })
     }
 
+
+    submitSale(clientSelected, productsAddedToCart) {
+        return new Promise((resolve, reject) => {
+            fetch('http://127.0.0.1:3001/sales?token=' + this.getTokenFromLocalStorage(), {
+                method: 'POST',
+                body: JSON.stringify({
+                    cliente: clientSelected.id,
+                    cartData: productsAddedToCart
+
+                }),
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            })
+                .then(res => {
+                    if (res.status != 200) {
+                        //history.push("/login");
+                        reject();
+                    }
+                    return res.json();
+                })
+                .then(json => resolve(json));
+        })
+    }
+
     //-----------------setters-----------------------------------------------------------------------------------------------------------
 
     setClientSelected(client) {
@@ -224,7 +250,7 @@ export class ContextProvider extends React.Component {
                     getClientsList: this.getClientsList, getClientInfo: this.getClientInfo, getProductsList: this.getProductsList,
                     getSalesInfoByClientId: this.getSalesInfoByClientId, getPriceForClient: this.getPriceForClient, setClientSelected: this.setClientSelected,
                     getProductInfo: this.getProductInfo, setProductList: this.setProductList, setSpecialPricePerProduct: this.setSpecialPricePerProduct,
-                    addProductToCart: this.addProductToCart, deleteProductFromCart: this.deleteProductFromCart
+                    addProductToCart: this.addProductToCart, deleteProductFromCart: this.deleteProductFromCart, submitSale: this.submitSale
                 }}
             >
 
