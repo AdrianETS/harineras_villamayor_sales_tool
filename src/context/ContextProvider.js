@@ -14,7 +14,9 @@ export class ContextProvider extends React.Component {
             specialPricePerProduct: [],
             specialPricePerProductFiltered: [],
             clientUpdated: false,
-            productsAddedToCart: []
+            productsAddedToCart: [],
+            isClientSelected: false
+            
         }
 
         this.getClientsList = this.getClientsList.bind(this);
@@ -229,7 +231,7 @@ export class ContextProvider extends React.Component {
 
     setClientSelected(client) {
         //update state with the new client selected from ClientSelector component
-        this.setState({ clientSelected: client, clientUpdated: true, productsAddedToCart:[]});
+        this.setState({ clientSelected: client, clientUpdated: true, productsAddedToCart:[], isClientSelected: true});
     }
 
     setProductList(list) {

@@ -205,11 +205,13 @@ export default function Navbar(props) {
 
                     <div className={classes.grow} />
                     <div className={classes.clientSelector}>
-                        <ClientSelector clients={clientList} />
+                        {!context.isClientSelected && <ClientSelector clients={clientList} />}
                     </div>
 
 
-                    <Typography type="title" color="inherit">{context.clientSelected && context.clientSelected.razon_social}</Typography>
+                    <Typography type="title" color="inherit">
+                    {context.isClientSelected && <ClientSelector clients={clientList} />}
+                    </Typography>
 
 
                     <div className={classes.clientSelector}>
