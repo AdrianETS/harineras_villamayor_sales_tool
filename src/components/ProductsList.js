@@ -2,7 +2,6 @@ import React from 'react';
 import { AppContext } from './../context/ContextProvider';
 import Navbar from "./Navbar";
 import { Link } from 'react-router-dom';
-import product from './../images/product.png';
 
 
 class ProductsList extends React.Component {
@@ -14,25 +13,40 @@ class ProductsList extends React.Component {
         super(props);
         this.state = {
             productsList: "",
-            productsFiltered: []
+            numberValid: false,
+            submitDisabled: true 
         }
 
         this.searchProducts = this.searchProducts.bind(this);
+        this.handleNumberChange = this.handleNumberChange.bind(this);
     }
 
     componentDidMount() {
        this.context.checkToken(this);
-       this.context.getProductsList(this.props.history)
-       .then(products => this.setState({productsList: products, productsFiltered: products}))
-      
+      if (this.context.clientSelected!= null) {
+        this.context.getPriceForClient(this.props.history, this.context.clientSelected.id)
+      }
+      else {
+        this.context.getProductsList(this.props.history)
+      }
+    }
 
+    handleNumberChange(event) {
+        let numberValid = event.target.value ? true : false; // basic number validation
+        this.setState({numberValid: numberValid, submitDisabled: !numberValid });
     }
 
     searchProducts(event) {
         let productsFound = [];
-        event.target.value == "" ? productsFound = this.state.productsList : productsFound = this.state.productsList.filter(productos => productos.nombre_comercial.toUpperCase().includes(event.target.value.toUpperCase()));
-        productsFound == this.state.productsList ? this.setState({ productsFiltered: productsFound }) : this.setState({ productsFiltered: productsFound.slice(0, 7) })
+        if (this.context.clientSelected != null){
+            productsFound = this.context.specialPricePerProduct.filter(productos => productos.nombre_comercial.toUpperCase().includes(event.target.value.toUpperCase()));
+            this.context.setSpecialPricePerProduct(productsFound);
+        } else {
+            productsFound = this.context.productsList.filter(productos => productos.nombre_comercial.toUpperCase().includes(event.target.value.toUpperCase()));
+            this.context.setProductList(productsFound);
+        }
     }
+
 
     render() {
         {
@@ -50,13 +64,35 @@ class ProductsList extends React.Component {
 
                         <div className="d-flex flex-wrap">
 
-                            {this.state.productsFiltered && this.state.productsFiltered.map(productos =>
+                            {this.context.specialPricePerProduct.length !=0? this.context.specialPricePerProductFiltered.map(producto =>
+                            <div className="col-xs-12 col-sm-6 col-md-4">
                             <div className="productCard">
-                                <div><img src={product}/></div>
-                                <div>{productos.nombre_comercial}</div>
-                                <div><button className="btn-primary" type="button">Add product</button></div> 
+                            <Link to={{ pathname: '/product/detail', state: { id: producto.id } }}><div><img className="imgProduct" src={"/images/productXs/" + producto.img}/></div>
+                                <div>{producto.nombre_comercial}</div></Link>
+                                    <div>Price: {producto.precio} €/bag </div>
+                                    <div className="addQuantity"><label>Quantity:</label><input className="quantity" id= {"quantitySelector" + producto.id} type="number" min="0" onChange={this.handleNumberChange} aria-label="Search" />
+                                    <button className="btn-primary" type="button" onClick= {()=>this.context.addProductToCart({id: producto.id, nombre_comercial: producto.nombre_comercial, precio: producto.precio, unidad_medida: producto.unidad_medida, 
+                                        cantidad: parseInt(document.getElementById("quantitySelector" + producto.id).value)})} disabled={this.state.submitDisabled} ><i class="fas fa-plus" style = {{color: "white", fontSize: "14px"}} ></i></button></div>
+                                    
+                                    
+                                    
                             </div>
-                            )}
+                            </div>
+                            ): this.context.productsListFiltered.map(producto =>
+                                <div className="col-xs-12 col-sm-6 col-md-4">
+                                <div className="productCard">
+                                <Link to={{ pathname: '/product/detail', state: { id: producto.id } }}><div><img className="imgProduct" src={"/images/productXs/" + producto.img}/></div>
+                                    <div>{producto.nombre_comercial}</div></Link>
+                                        <div>Price: {producto.precio} €/bag </div>
+                                        <div className="addQuantity"><label>Quantity:</label><input className="quantity" id= {"quantitySelector" + producto.id} type="number" min="0" onChage={this.handleNumberChange} aria-label="Search" />
+                                        <button className="btn-primary" type="button" onClick= {()=>this.context.addProductToCart({id: producto.id, nombre_comercial: producto.nombre_comercial, precio: producto.precio, unidad_medida: producto.unidad_medida, 
+                                            cantidad: parseInt(document.getElementById("quantitySelector" + producto.id).value)})} disabled={this.state.submitDisabled} ><i class="fas fa-plus" style = {{color: "white", fontSize: "14px"}}></i></button></div>
+                                        
+                                        
+                                        
+                                </div>
+                                </div>
+                                )}
   
                         </div>
                     </div>

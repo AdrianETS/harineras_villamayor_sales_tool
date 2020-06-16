@@ -38,55 +38,97 @@
 }
 
 
+
 .container_within_navbar {
-  margin-left: 100px;
   font-family: sans-serif;
   margin-bottom: 25px;
-  margin-top: 25px;
+  margin-top: 50px;
 }
 
 .title_within_navbar {
-  margin-left: 100px;
   font-family: sans-serif;
 }
 
 
-#clientDetails {
-margin-left: 100px; 
-margin-top: 25px;
-font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-border-collapse: collapse;
-width: 80%;
-}
-/*
-#productsList {
-  margin-left: 100px; 
-  margin-top: 25px;
-  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
-  width: 40%;
-  }
-
-.productsList {
+.imgDash {
   display: flex;
-  justify-content: space-between;
-  height: 20px;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 50px;
+ 
 }
-*/
+
+hr {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.carousel-inner img {
+  width: 100%;
+  height: 100%;
+}
+
 .productCard {
+  height: 95%;
+  width: 100%;
   margin: 10px;
   padding: 2%;
-  width: 30%;
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
   align-items: center;
   background-color: white;
   text-align: center;
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
 
+.productAdd {
+  display: flex;
+  align-items: baseline;
 }
 
 .product-name {
   margin-top: auto;
+}
+
+.imgProduct{
+
+} 
+
+.quantity {
+  width: 30%
+}
+
+.addQuantity {
+  display: flex;
+    align-items: stretch;
+    justify-content: center;
+}
+
+#clientDetails {
+  margin-top: 25px;
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  border-collapse: collapse;
+  width: 100%;
+  }
+
+#clientDetails .subTitle {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #e5e5e5;
+  color: black;
+}
+
+#clientDetails .subRow {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: white;
+  color: black;
 }
 
 #clientDetails tr:nth-child(even), #productsList tr:nth-child(even){background-color: white; color: black}
@@ -110,13 +152,22 @@ color: white;
   color: #992327;
   background-color: #e5e5e5;
   border-color: #992327;
+  cursor: pointer;
+  border: none;
 }
 
 .btn-primary:hover, .btn-primary:not(:disabled):not(.disabled):active {
   color: #fff;
   background-color: #992327;
   border-color: #992327;
+  cursor: pointer;
+  border: none;
 }
 
 
-
+.link {
+  color: #FFF;
+}
+.link:hover {
+   color: rgb(218, 213, 213)
+}

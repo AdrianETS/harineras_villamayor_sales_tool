@@ -12,6 +12,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import Switch from '@material-ui/core/Switch';
+import { render } from '@testing-library/react';
+import { AppContext } from "./../context/ContextProvider";
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -30,6 +32,7 @@ export default function ClientSelector(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [selectedClient, setselectedClient] = React.useState({});
+  const context = React.useContext(AppContext);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -42,6 +45,9 @@ export default function ClientSelector(props) {
 
   const handleSave = () => {
     window.localStorage.setItem('selectedClient', JSON.stringify(selectedClient));
+    context.setClientSelected(selectedClient);
+    console.log(JSON.stringify(context))
+    console.log("SELECTED", JSON.parse(localStorage.selectedClient))
     setOpen(false);
   }
 
@@ -51,7 +57,7 @@ export default function ClientSelector(props) {
 
   return (
     <React.Fragment>
-      <Button variant="outlined" color="inherit" onClick={handleClickOpen}>
+      <Button color="inherit" onClick={handleClickOpen}>
         Select client
       </Button>
       <Dialog
@@ -77,7 +83,7 @@ export default function ClientSelector(props) {
                   id: 'max-width',
                 }}*/
               >
-                {props.clients.map(client=><MenuItem value = {client}>{client.contacto}</MenuItem>)}
+                {props.clients.map(client=><MenuItem value = {client}>{client.razon_social}</MenuItem>)}
               </Select>
             </FormControl>
           </form>

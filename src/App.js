@@ -8,6 +8,9 @@ import { ContextProvider } from './context/ContextProvider';
 import ClientsList from './components/ClientsList';
 import ClientsDetails from "./components/ClientsDetails";
 import ProductsList from './components/ProductsList';
+import ShoppingCart from "./components/ShoppingCart";
+import ProductDetail from './components/ProductDetail';
+
 
 class App extends React.Component {
 
@@ -27,6 +30,8 @@ class App extends React.Component {
               <Route path="/clients/list" exact component={ClientsList} />
               <Route path="/clients/details" exact component={ClientsDetails} />
               <Route path="/products/list" exact component={ProductsList} />
+              <Route path="/product/detail" exact component={ProductDetail} />
+              <Route path="/shoppingcart" exact component = {ShoppingCart} />
 
             </Switch>
           </Router>

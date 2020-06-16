@@ -33,8 +33,8 @@ class ClientsList extends React.Component {
         {
             return (<div>
                 <Navbar name={this.context.userName} />
-
-                <h4 className="title_within_navbar"> List of clients: </h4>
+                <div className="container">
+                <h4 className=""> List of clients: </h4>
                 <div className={"container_within_navbar"} >
                     <div >
                             <form className="form-inline mt-2 mb-2">
@@ -49,13 +49,14 @@ class ClientsList extends React.Component {
                         : this.state.membersFound.map(clientes =>
                             <div>
                                 <li> <Link to={{ pathname: '/clients/details', state: { id: clientes.id } }}>
-                                    {clientes.contacto}
+                                    {clientes.razon_social}
                                 </Link>
                                 </li>
                             </div>
                         ))}
                     </ul>
                 </div>
+            </div>
             </div>);
         }
     }

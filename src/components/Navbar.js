@@ -30,6 +30,7 @@ import Grid from '@material-ui/core/Grid';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import { Badge } from '@material-ui/core';
 
 
 const drawerWidth = 240;
@@ -125,7 +126,7 @@ export default function Navbar(props) {
     const context = React.useContext(AppContext);
     const [selectedClient, setSelectedClient] = React.useState("");
 
-    
+
     //small navbar logic-----------------------------------------------------------------------------------------------
 
     const mobileMenuId = 'primary-search-account-menu-mobile';
@@ -133,7 +134,7 @@ export default function Navbar(props) {
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
     const handleMobileMenuClose = () => {
         setMobileMoreAnchorEl(null);
-      };
+    };
 
     const renderMobileMenu = (
         <Menu
@@ -152,7 +153,7 @@ export default function Navbar(props) {
                 <p>Shopping Cart</p>
             </MenuItem>
             <MenuItem>
-            <ClientSelector clients={clientList} />
+                <ClientSelector clients={clientList} />
             </MenuItem>
         </Menu>
     );
@@ -174,7 +175,6 @@ export default function Navbar(props) {
     React.useEffect(() => {
         context.getClientsList()
             .then(clientList => setclientList(clientList))
-            .then(()=>window.localStorage.getItem('selectedClient') && setSelectedClient(JSON.parse(window.localStorage.getItem('selectedClient')).contacto))
     }, [])
 
     return (
@@ -205,17 +205,23 @@ export default function Navbar(props) {
 
                     <div className={classes.grow} />
                     <div className={classes.clientSelector}>
-                        <ClientSelector clients={clientList}/>
+                        <ClientSelector clients={clientList} />
                     </div>
 
-                    
-                        <Typography type="title" color="inherit">{selectedClient}</Typography>
-                    
+
+                    <Typography type="title" color="inherit">{context.clientSelected && context.clientSelected.razon_social}</Typography>
+
 
                     <div className={classes.clientSelector}>
-                        <IconButton aria-label="show 4 new mails" color="inherit">
-                            <ShoppingCartIcon />
-                        </IconButton>
+                      
+                            <IconButton color="secondary">
+                            <Link to={{ pathname: '/shoppingcart'}} className="link">
+                            <Badge color="secondary" badgeContent={context.productsAddedToCart.length}>
+                                <ShoppingCartIcon />
+                                </Badge>
+                                </Link>
+                            </IconButton>
+                     
                         <div>
                         </div>
                     </div>
@@ -232,7 +238,7 @@ export default function Navbar(props) {
                             <MoreIcon />
                         </IconButton>
                     </div>
-                    {renderMobileMenu}  
+                    {renderMobileMenu}
                 </Toolbar>
             </AppBar>
             <Drawer
