@@ -15,7 +15,7 @@ import { AppContext } from "./../context/ContextProvider";
 
 
 
-export default function ShoppingCart() {
+export default function ShoppingCart(props) {
     const context = React.useContext(AppContext);
 
     const TAX_RATE = 0.04;
@@ -118,7 +118,7 @@ export default function ShoppingCart() {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <Button style={{marginLeft: "100px"}} variant="contained" color="secondary" onClick ={()=>context.submitSale(context.clientSelected, context.productsAddedToCart)}>
+            <Button style={{marginLeft: "100px"}} variant="contained" color="secondary" onClick ={()=>context.submitSale(props.history, context.clientSelected, context.productsAddedToCart)}>
                 Submit
             </Button>
 

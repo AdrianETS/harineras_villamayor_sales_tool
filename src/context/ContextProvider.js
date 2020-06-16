@@ -15,7 +15,8 @@ export class ContextProvider extends React.Component {
             specialPricePerProductFiltered: [],
             clientUpdated: false,
             productsAddedToCart: [],
-            isClientSelected: false
+            isClientSelected: false,
+            openPopup: false
             
         }
 
@@ -32,6 +33,7 @@ export class ContextProvider extends React.Component {
         this.addProductToCart = this.addProductToCart.bind(this);
         this.deleteProductFromCart = this.deleteProductFromCart.bind(this);
         this.submitSale = this.submitSale.bind(this);
+        this.setPopup = this.setPopup.bind(this);
     }
 
     componentDidUpdate() {
@@ -203,7 +205,7 @@ export class ContextProvider extends React.Component {
     }
 
 
-    submitSale(clientSelected, productsAddedToCart) {
+    submitSale(history, clientSelected, productsAddedToCart) {
         return new Promise((resolve, reject) => {
             fetch('http://127.0.0.1:3001/sales?token=' + this.getTokenFromLocalStorage(), {
                 method: 'POST',
@@ -218,12 +220,14 @@ export class ContextProvider extends React.Component {
             })
                 .then(res => {
                     if (res.status != 200) {
-                        //history.push("/login");
+                        history.push("/login");
                         reject();
                     }
                     return res.json();
                 })
-                .then(json => resolve(json));
+                .then(json => resolve(json))
+                .then(()=>this.setState({ openPopup: true, productsAddedToCart:[] }))
+                .then(()=>history.push("/"))
         })
     }
 
@@ -244,6 +248,10 @@ export class ContextProvider extends React.Component {
         this.setState({ specialPricePerProductFiltered: list });
     }
 
+    setPopup(boolean){
+        this.setState({ openPopup: boolean });
+    }
+
     render() {
         return (
             <AppContext.Provider
@@ -252,7 +260,7 @@ export class ContextProvider extends React.Component {
                     getClientsList: this.getClientsList, getClientInfo: this.getClientInfo, getProductsList: this.getProductsList,
                     getSalesInfoByClientId: this.getSalesInfoByClientId, getPriceForClient: this.getPriceForClient, setClientSelected: this.setClientSelected,
                     getProductInfo: this.getProductInfo, setProductList: this.setProductList, setSpecialPricePerProduct: this.setSpecialPricePerProduct,
-                    addProductToCart: this.addProductToCart, deleteProductFromCart: this.deleteProductFromCart, submitSale: this.submitSale
+                    addProductToCart: this.addProductToCart, deleteProductFromCart: this.deleteProductFromCart, submitSale: this.submitSale, setPopup: this.setPopup
                 }}
             >
 

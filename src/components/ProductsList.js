@@ -51,7 +51,7 @@ class ProductsList extends React.Component {
     render() {
         {
             return (<div>
-                <Navbar name = {this.context.userName} />
+                <Navbar name = {this.context.userName} history={this.props.history}/>
                 
                 <div className="container">
                     <div style = {{marginLeft: "100px", fontFamily: "sans-serif"}}>

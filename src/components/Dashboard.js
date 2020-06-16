@@ -2,7 +2,8 @@ import React from 'react';
 import {AppContext} from './../context/ContextProvider';
 import Navbar from './Navbar';
 import { Link } from 'react-router-dom';
-import Carousel from 'react-bootstrap/Carousel'
+import Carousel from 'react-bootstrap/Carousel';
+import PopupMessage from './PopupMessage';
 
 
 class Dashboard extends React.Component {
@@ -28,7 +29,7 @@ class Dashboard extends React.Component {
     render() {
         return (
             <div>
-                 <Navbar />
+                 <Navbar history={this.props.history}/>
                 <div className="container">
                 <div style={{marginTop: "100px", marginBottom: "100px"}}>
                 <Carousel>
@@ -80,6 +81,7 @@ class Dashboard extends React.Component {
                     </div>
                     
                 </div>
+                <PopupMessage></PopupMessage>
             </div>
 
         )

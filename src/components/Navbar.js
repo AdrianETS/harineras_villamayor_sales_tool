@@ -217,7 +217,7 @@ export default function Navbar(props) {
                     <div className={classes.clientSelector}>
                       
                             <IconButton color="secondary">
-                            <Link to={{ pathname: '/shoppingcart'}} className="link">
+                            <Link to={{ pathname: '/shoppingcart'}} history ={props.history} className="link">
                             <Badge color="secondary" badgeContent={context.productsAddedToCart.length}>
                                 <ShoppingCartIcon />
                                 </Badge>
