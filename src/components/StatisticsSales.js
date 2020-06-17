@@ -78,13 +78,15 @@ class StatisticsSales extends React.Component {
     }*/
 
     getXaxisData() {
-        let usersAndPosts = [];
-        this.context.clientList.forEach(clients => {
-            let userAndPosts = { clients: clients.name };
-            userAndPosts.posts = this.context.clientList.filter(post => clients.id == post.clientsId).length;
-            usersAndPosts.push(userAndPosts);
+        let salesAndProducts = [];
+        console.log("salesList", this.context.salesList);
+        this.context.salesList.forEach(sale => {
+            salesAndProducts.product = sale.id_producto;
+            salesAndProducts.push({sale:sale.id_venta, product: sale.id_producto});
+            console.log("salesAndProductsAfter", salesAndProducts);
+            console.log("sale", sale);
         });
-        return usersAndPosts;
+        return salesAndProducts;
     }
 
     render() {

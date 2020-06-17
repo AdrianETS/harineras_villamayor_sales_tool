@@ -11,9 +11,9 @@ export class ContextProvider extends React.Component {
         productsList:[],
         userName:"",
         specialPricePerProduct: [],
-        listOfUsers: [], 
-        listOfUserPosts: [],
-        originalUsers: []
+        listOfUsers: [],
+        originalUsers: [],
+        salesList: []
         } 
 
         this.getClientsList=this.getClientsList.bind(this);
@@ -24,8 +24,9 @@ export class ContextProvider extends React.Component {
         this.getPriceForClient=this.getPriceForClient.bind(this);
         this.setClientSelected = this.setClientSelected.bind(this);
         this.setOriginalUsers=this.setOriginalUsers.bind(this);
-        this.setListOfUserPosts = this.setListOfUserPosts.bind(this);
         this.setListOfUsers = this.setListOfUsers.bind(this);
+        this.getSalesList = this.getSalesList.bind(this);
+       
     }
 
     checkToken(ctx) {
@@ -66,6 +67,7 @@ export class ContextProvider extends React.Component {
      //get details for the selected client. It's displayed by ClientDetails component
 
     getClientInfo(history, id) {
+        
         return new Promise((resolve, reject) => {
             fetch('http://127.0.0.1:3001/clients/' + id + '?token=' + this.getTokenFromLocalStorage())
                 .then(res => {
@@ -73,11 +75,13 @@ export class ContextProvider extends React.Component {
                         history.push("/login");
                         return Promise.reject();
                     }
+                    console.log("devuelvo...")
                     return res.json();
                 })
                 .then((json) => {
                     this.setState({ clientId: id });
                     this.setState({ selectedClient: json });
+                    console.log("json...")
                     resolve(json);
                 })
                 .catch(err => reject())
@@ -138,6 +142,25 @@ export class ContextProvider extends React.Component {
         })
     }
 
+
+    getSalesList(history) {
+        return new Promise((resolve, reject) => {
+            fetch('http://127.0.0.1:3001/sales/?token=' + this.getTokenFromLocalStorage())
+                .then(res => {
+                    if (res.status != 200) {
+                        history.push("/login");
+                        return Promise.reject();
+                    }
+                    return res.json();
+                })
+                .then((json) => {
+                    this.setState({ salesList: json });
+                    resolve(json);
+                })
+                .catch(err => reject())
+        })
+    }
+
     setClientSelected(client){
         this.setState({clientSelected: client});
     }
@@ -148,10 +171,8 @@ export class ContextProvider extends React.Component {
     setListOfUsers(list) {
         this.setState({ listOfUsers: list });
     }
+    
 
-    setListOfUserPosts(posts) {
-        this.setState({ listOfUserPosts: posts });
-    }
 
     render() {
         return (
@@ -160,7 +181,7 @@ export class ContextProvider extends React.Component {
                     ...this.state, checkToken: this.checkToken, getTokenFromLocalStorage: this.getTokenFromLocalStorage, storeUsersName: this.storeUsersName,
                     getClientsList: this.getClientsList, getClientInfo: this.getClientInfo, getProductsList: this.getProductsList,
                     getSalesInfoByClientId: this.getSalesInfoByClientId, getPriceForClient: this.getPriceForClient, setClientSelected: this.setClientSelected,
-                    setOriginalUsers: this.setOriginalUsers, setListOfUserPosts:this.setListOfUserPosts, setListOfUsers:this.setListOfUsers
+                    setOriginalUsers: this.setOriginalUsers, setListOfUsers:this.setListOfUsers, getSalesList:this.getSalesList
                 }}
             >
 
