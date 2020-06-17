@@ -14,26 +14,71 @@ class ProductsList extends React.Component {
         this.state = {
             productsList: "",
             numberValid: false,
-            submitDisabled: true 
+            submitDisabled: true,
+            productSelectors: {}
         }
 
         this.searchProducts = this.searchProducts.bind(this);
         this.handleNumberChange = this.handleNumberChange.bind(this);
     }
 
-    componentDidMount() {
-       this.context.checkToken(this);
-      if (this.context.clientSelected!= null) {
-        this.context.getPriceForClient(this.props.history, this.context.clientSelected.id)
-      }
-      else {
-        this.context.getProductsList(this.props.history)
-      }
+    checkIfObjectsAreEqual(obj1, obj2){
+        let props1 = Object.getOwnPropertyNames(obj1);
+        let props2 = Object.getOwnPropertyNames(obj2);
+
+        if(props1.length != props2.length){
+            return false;
+        }
+
+        for(let prop in props1) {
+            if(obj1[prop] != obj2[prop])
+                return false;
+        }
+        return true;
     }
 
-    handleNumberChange(event) {
-        let numberValid = event.target.value ? true : false; // basic number validation
-        this.setState({numberValid: numberValid, submitDisabled: !numberValid });
+    initProductSelectors(products, previousState) {
+        let productSelectors = {};
+        products.forEach(product => {
+            productSelectors[product.id] = 0;
+        })
+        if(previousState == undefined){
+            this.setState({productSelectors});
+            return null;
+        }
+        !this.checkIfObjectsAreEqual(productSelectors, previousState.productSelectors) && this.setState({productSelectors});
+    }
+    
+    componentDidMount() {
+        this.context.checkToken(this);
+        if (this.context.clientSelected!= null) {
+            this.context.getPriceForClient(this.props.history, this.context.clientSelected.id);
+            this.initProductSelectors(this.context.specialPricePerProduct);
+        }
+        else {
+            this.context.getProductsList(this.props.history);
+            this.initProductSelectors(this.context.productsList);
+        }
+    }
+    
+    componentDidUpdate(previousProps, previousState) {
+        this.context.checkToken(this);
+        if(this.context.clientUpdated){
+            if (this.context.clientSelected!= null) {
+            this.initProductSelectors(this.context.specialPricePerProduct, previousState);
+        }
+        else {
+            this.initProductSelectors(this.context.productsList, previousState);
+        }
+        }
+    }
+    
+    handleNumberChange(event, productId) {
+        let productSelectors = this.state.productSelectors;
+        productSelectors[productId] = event.target.value ? event.target.value : 0;
+        console.log(productId);
+        console.log(JSON.stringify(productSelectors));
+        this.setState({productSelectors});
     }
 
     searchProducts(event) {
@@ -70,9 +115,9 @@ class ProductsList extends React.Component {
                             <Link to={{ pathname: '/product/detail', state: { id: producto.id } }}><div><img className="imgProduct" src={"/images/productXs/" + producto.img}/></div>
                                 <div>{producto.nombre_comercial}</div></Link>
                                     <div>Price: {producto.precio} €/bag </div>
-                                    <div className="addQuantity"><label>Quantity:</label><input className="quantity" id= {"quantitySelector" + producto.id} type="number" min="0" onChange={this.handleNumberChange} aria-label="Search" />
-                                    <button className="btn-primary" type="button" onClick= {()=>this.context.addProductToCart({id: producto.id, nombre_comercial: producto.nombre_comercial, precio: producto.precio, unidad_medida: producto.unidad_medida, 
-                                        cantidad: parseInt(document.getElementById("quantitySelector" + producto.id).value)})} disabled={this.state.submitDisabled} ><i class="fas fa-plus" style = {{color: "white", fontSize: "14px"}} ></i></button></div>
+                                    <div className="addQuantity"><label>Quantity:</label><input className="quantity" id= {"quantitySelector" + producto.id} type="number" min="0" onChange={(ev)=>this.handleNumberChange(ev,producto.id)} aria-label="Search" />
+                                    <button type="button" className="addProductBtn" type="button" onClick= {()=>this.context.addProductToCart({id: producto.id, nombre_comercial: producto.nombre_comercial, precio: producto.precio, unidad_medida: producto.unidad_medida, 
+                                        cantidad: parseInt(this.state.productSelectors[producto.id])})} disabled={this.state.productSelectors[producto.id]<1} ><i class="fas fa-plus" style = {{color: "white", fontSize: "14px"}} ></i></button></div>
                                     
                                     
                                     
@@ -85,7 +130,7 @@ class ProductsList extends React.Component {
                                     <div>{producto.nombre_comercial}</div></Link>
                                         <div>Price: {producto.precio} €/bag </div>
                                         <div className="addQuantity"><label>Quantity:</label><input className="quantity" id= {"quantitySelector" + producto.id} type="number" min="0" onChage={this.handleNumberChange} aria-label="Search" />
-                                        <button className="btn-primary" type="button" onClick= {()=>this.context.addProductToCart({id: producto.id, nombre_comercial: producto.nombre_comercial, precio: producto.precio, unidad_medida: producto.unidad_medida, 
+                                        <button className="addProductBtn" type="button" onClick= {()=>this.context.addProductToCart({id: producto.id, nombre_comercial: producto.nombre_comercial, precio: producto.precio, unidad_medida: producto.unidad_medida, 
                                             cantidad: parseInt(document.getElementById("quantitySelector" + producto.id).value)})} disabled={this.state.submitDisabled} ><i class="fas fa-plus" style = {{color: "white", fontSize: "14px"}}></i></button></div>
                                         
                                         
