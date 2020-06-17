@@ -6,6 +6,7 @@ import Navbar from "./Navbar";
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
+import { Box, Typography } from "@material-ui/core";
 
 class StatisticsSales extends React.Component {
 
@@ -14,38 +15,78 @@ class StatisticsSales extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            listofUserPosts: []
-        }
+            salesList: []
+            } 
     }
 
     componentDidMount() {
-        this.context.getClientInfo()
+        //this.context.getClientInfo(this.props.history, this.state.id)
         //.then(()=>this.retrieveUserPosts())
-        .then(()=>this.createChart());
+        this.context.getSalesList(this.props.history)
+        .then(()=> {
+            this.createChartSalesVsNProdutcs();
+            this.createChartSalesVsQuantity();
+        });
     }
 
-    createChart() {
+    createChartSalesVsNProdutcs() {
 
-        let chart = am4core.create("chartdiv", am4charts.XYChart);
+        let chart = am4core.create("salesVsNProdutcs", am4charts.XYChart);
 
         // Add data
-        chart.data = this.getXaxisData();
-        console.log(chart.data);
+        chart.data = this.getXaxisDataSalesVsNProdutcs();
+        //chart.data = this.context.getSalesList(this.props.history)
+        console.log("CHART DATA", chart.data);
         // Create axes
 
         let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-        categoryAxis.dataFields.category = "user";
+        categoryAxis.dataFields.category = "sale";
         categoryAxis.renderer.grid.template.location = 0;
         categoryAxis.renderer.minGridDistance = 30;
+        categoryAxis.title.text="Id_Venta"
 
 
         let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+        valueAxis.title.text = "numProducts";
 
         // Create series
         let series = chart.series.push(new am4charts.ColumnSeries());
-        series.dataFields.valueY = "venta_fecha";
-        series.dataFields.categoryX = "cantidad_pedida";
-        series.name = "sales";
+        series.dataFields.valueY = "numProducts";
+        series.dataFields.categoryX = "sale";
+        series.name = "sale";
+        series.columns.template.tooltipText = "{categoryX}: [bold]{valueY}[/]";
+        series.columns.template.fillOpacity = .8;
+        series.title = "NProducts";
+
+        let columnTemplate = series.columns.template;
+        columnTemplate.strokeWidth = 2;
+        columnTemplate.strokeOpacity = 1;
+    }
+
+    createChartSalesVsQuantity() {
+
+        let chart = am4core.create("salesVsQuantity", am4charts.XYChart);
+
+        // Add data
+        chart.data = this.getXaxisDataDalesVsQuantity();
+        console.log("CHART DATA", chart.data);
+        // Create axes
+
+        let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+        categoryAxis.dataFields.category = "sale";
+        categoryAxis.renderer.grid.template.location = 0;
+        categoryAxis.renderer.minGridDistance = 30;
+        categoryAxis.title.text="Id_Venta"
+
+
+        let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+        valueAxis.title.text = "Cantidad";
+
+        // Create series
+        let series = chart.series.push(new am4charts.ColumnSeries());
+        series.dataFields.valueY = "quantity";
+        series.dataFields.categoryX = "sale";
+        series.name = "sale";
         series.columns.template.tooltipText = "{categoryX}: [bold]{valueY}[/]";
         series.columns.template.fillOpacity = .8;
 
@@ -54,45 +95,68 @@ class StatisticsSales extends React.Component {
         columnTemplate.strokeOpacity = 1;
     }
 
-    /*retrieveUsers(id) {
-        return new Promise((resolve, reject) => {
-            fetch('http://127.0.0.1:3001/sales/' + id + '?token=' + this.context.getTokenFromLocalStorage())
-            .then(res => res.json())
-            .then((json) => {
-                this.context.setListOfUsers([...json]);
-                this.context.setOriginalUsers([...json]);
-                resolve();
-            })
-        });
-    }*/
-
-    /*retrieveUserPosts(id) {
-        return new Promise((resolve, reject) => {
-            fetch('http://127.0.0.1:3001/clients/list/' + id + '?token=' + this.context.getTokenFromLocalStorage())
-            .then(res => res.json())
-            .then((json) => {
-                this.context.setListOfUserPosts(json)
-                resolve();
-            })
-        });
-    }*/
-
-    getXaxisData() {
-        let salesAndProducts = [];
-        console.log("salesList", this.context.salesList);
+    getXaxisDataSalesVsNProdutcs() {
+        const numSale = []
+        let productInSales = [];
         this.context.salesList.forEach(sale => {
-            salesAndProducts.product = sale.id_producto;
-            salesAndProducts.push({sale:sale.id_venta, product: sale.id_producto});
-            console.log("salesAndProductsAfter", salesAndProducts);
-            console.log("sale", sale);
+            if(!(sale.id_venta in numSale)) {
+                numSale.push(sale.id_venta);
+            }
         });
-        return salesAndProducts;
+
+        [...new Set(numSale)].forEach(saleProduct => {
+            productInSales.sale = saleProduct;
+            productInSales.products = this.context.salesList.filter(sale => sale.id_venta==saleProduct).length;
+            productInSales.push({sale:productInSales.sale , numProducts: productInSales.products});
+        });
+
+        return productInSales;
+    }
+
+    getXaxisDataDalesVsQuantity() {
+        const numSale = []
+        let quantProductsInSales = [];
+        this.context.salesList.forEach(sale => {
+            if(!(sale.id_venta in numSale)) {
+                numSale.push(sale.id_venta);
+            }
+        });
+
+
+        [...new Set(numSale)].forEach(saleProduct => {
+            quantProductsInSales.sale = saleProduct;
+            let quantity = 0;
+            this.context.salesList.filter(sale => sale.id_venta==saleProduct).forEach(sale => {
+                quantity+= sale.cantidad_pedida;
+
+            });
+            quantProductsInSales.quantity = quantity;
+            quantProductsInSales.push({sale:quantProductsInSales.sale , quantity: quantProductsInSales.quantity});
+        });
+
+        return quantProductsInSales;
     }
 
     render() {
-        return <div><Navbar />
-            <div id="chartdiv"></div>
-        </div>
+        return (
+        <>
+            <Navbar/>
+            <div className="container">
+                <Box>
+                    <Typography variant="h5">
+                        Número de Productos por venta
+                    </Typography>
+                    <div id="salesVsNProdutcs"></div>
+                </Box>
+                <Box>
+                    <Typography variant="h5">
+                        Cantidad de productos por venta
+                    </Typography>
+                    <div id="salesVsQuantity"></div>
+                </Box>
+            </div>
+        </>
+        )
     }
 }
 

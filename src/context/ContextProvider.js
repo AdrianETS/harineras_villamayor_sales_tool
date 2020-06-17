@@ -16,12 +16,13 @@ export class ContextProvider extends React.Component {
             clientUpdated: false,
             productsAddedToCart: [],
             isClientSelected: false,
-            openPopup: false
+            openPopup: false,
+            listOfUsers: [],
+            originalUsers: [],
+            salesList: []
             
         }
-        listOfUsers: [],
-        originalUsers: [],
-        salesList: []
+        
 
         this.getClientsList = this.getClientsList.bind(this);
         this.getClientInfo = this.getClientInfo.bind(this);
@@ -211,6 +212,7 @@ export class ContextProvider extends React.Component {
                 })
                 .catch(err => reject())
         })
+    }
 
     getSalesList(history) {
         return new Promise((resolve, reject) => {
@@ -297,7 +299,7 @@ export class ContextProvider extends React.Component {
                     ...this.state, checkToken: this.checkToken, getTokenFromLocalStorage: this.getTokenFromLocalStorage, storeUsersName: this.storeUsersName,
                     getClientsList: this.getClientsList, getClientInfo: this.getClientInfo, getProductsList: this.getProductsList,
                     getSalesInfoByClientId: this.getSalesInfoByClientId, getPriceForClient: this.getPriceForClient, setClientSelected: this.setClientSelected,
-                    setOriginalUsers: this.setOriginalUsers, setListOfUsers:this.setListOfUsers, getSalesList:this.getSalesList
+                    setOriginalUsers: this.setOriginalUsers, setListOfUsers:this.setListOfUsers, getSalesList:this.getSalesList,
                     getSalesInfoByClientId: this.getSalesInfoByClientId, getPriceForClient: this.getPriceForClient, setClientSelected: this.setClientSelected,
                     getProductInfo: this.getProductInfo, setProductList: this.setProductList, setSpecialPricePerProduct: this.setSpecialPricePerProduct,
                     addProductToCart: this.addProductToCart, deleteProductFromCart: this.deleteProductFromCart, submitSale: this.submitSale, setPopup: this.setPopup
