@@ -50,30 +50,6 @@
 }
 
 
-#clientDetails {
-margin-top: 25px;
-font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-border-collapse: collapse;
-width: 100%;
-}
-
-
-/*
-#productsList {
-  margin-left: 100px; 
-  margin-top: 25px;
-  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
-  width: 40%;
-  }
-
-.productsList {
-  display: flex;
-  justify-content: space-between;
-  height: 20px;
-}
-*/
-
 .imgDash {
   display: flex;
   flex-direction: row;
@@ -95,11 +71,13 @@ hr {
 }
 
 .productCard {
+  height: 95%;
   width: 100%;
   margin: 10px;
   padding: 2%;
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
   align-items: center;
   background-color: white;
   text-align: center;
@@ -116,8 +94,7 @@ hr {
 }
 
 .imgProduct{
-width: 50%;
-height: 50%;
+
 } 
 
 .quantity {
@@ -128,6 +105,30 @@ height: 50%;
   display: flex;
     align-items: stretch;
     justify-content: center;
+}
+
+#clientDetails {
+  margin-top: 25px;
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  border-collapse: collapse;
+  width: 100%;
+  }
+
+#clientDetails .subTitle {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #e5e5e5;
+  color: black;
+}
+
+#clientDetails .subRow {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: white;
+  color: black;
 }
 
 #clientDetails tr:nth-child(even), #productsList tr:nth-child(even){background-color: white; color: black}

@@ -13,41 +13,45 @@ class ProductsList extends React.Component {
         super(props);
         this.state = {
             productsList: "",
-            productsFiltered: [],
-            specialPricePerProduct: []
+            numberValid: false,
+            submitDisabled: true 
         }
 
         this.searchProducts = this.searchProducts.bind(this);
+        this.handleNumberChange = this.handleNumberChange.bind(this);
     }
 
     componentDidMount() {
        this.context.checkToken(this);
-
-      console.log("CONTEXT", this.context)
-      if (localStorage.selectedClient!= null) {
-        console.log("SELECTED", JSON.parse(localStorage.selectedClient))
-        this.context.getPriceForClient(this.props.history, JSON.parse(localStorage.selectedClient).id)
-        .then(products => this.setState({productsList: products, productsFiltered: products}))
-        .then (price=> this.setState({specialPricePerProduct:price}))
+      if (this.context.clientSelected!= null) {
+        this.context.getPriceForClient(this.props.history, this.context.clientSelected.id)
       }
       else {
-        console.log("NOT SELECTED", localStorage.selectedClient)
         this.context.getProductsList(this.props.history)
-        .then(products => this.setState({productsList: products, productsFiltered: products}))
-        .then (price=> this.setState({specialPricePerProduct:price}))
       }
+    }
+
+    handleNumberChange(event) {
+        let numberValid = event.target.value ? true : false; // basic number validation
+        this.setState({numberValid: numberValid, submitDisabled: !numberValid });
     }
 
     searchProducts(event) {
         let productsFound = [];
-        event.target.value == "" ? productsFound = this.state.productsList : productsFound = this.state.productsList.filter(productos => productos.nombre_comercial.toUpperCase().includes(event.target.value.toUpperCase()));
-        productsFound == this.state.productsList ? this.setState({ productsFiltered: productsFound }) : this.setState({ productsFiltered: productsFound.slice(0, 7) })
+        if (this.context.clientSelected != null){
+            productsFound = this.context.specialPricePerProduct.filter(productos => productos.nombre_comercial.toUpperCase().includes(event.target.value.toUpperCase()));
+            this.context.setSpecialPricePerProduct(productsFound);
+        } else {
+            productsFound = this.context.productsList.filter(productos => productos.nombre_comercial.toUpperCase().includes(event.target.value.toUpperCase()));
+            this.context.setProductList(productsFound);
+        }
     }
+
 
     render() {
         {
             return (<div>
-                <Navbar name = {this.context.userName} />
+                <Navbar name = {this.context.userName} history={this.props.history}/>
                 
                 <div className="container">
                     <div style = {{marginLeft: "100px", fontFamily: "sans-serif"}}>
@@ -60,20 +64,35 @@ class ProductsList extends React.Component {
 
                         <div className="d-flex flex-wrap">
 
-                            {this.state.productsFiltered && this.state.productsFiltered.map(productos =>
+                            {this.context.specialPricePerProduct.length !=0? this.context.specialPricePerProductFiltered.map(producto =>
                             <div className="col-xs-12 col-sm-6 col-md-4">
                             <div className="productCard">
-                                <div><img className="imgProduct" src={"/images/" + productos.img}/></div>
-                                <div><b>{productos.nombre_comercial}</b></div>
-                                    <div>Price: {productos.precio} €/bag </div>
-                                    <div className="addQuantity"><label>Quantity:</label><input className="quantity" type="number" min="0" onChange={this.quantityChosen} placeholder="" aria-label="Search" />
-                                    <button className="btn-primary" type="button"><i class="fas fa-plus" style = {{color: "white", fontSize: "14px"}}></i></button></div>
+                            <Link to={{ pathname: '/product/detail', state: { id: producto.id } }}><div><img className="imgProduct" src={"/images/productXs/" + producto.img}/></div>
+                                <div>{producto.nombre_comercial}</div></Link>
+                                    <div>Price: {producto.precio} €/bag </div>
+                                    <div className="addQuantity"><label>Quantity:</label><input className="quantity" id= {"quantitySelector" + producto.id} type="number" min="0" onChange={this.handleNumberChange} aria-label="Search" />
+                                    <button className="btn-primary" type="button" onClick= {()=>this.context.addProductToCart({id: producto.id, nombre_comercial: producto.nombre_comercial, precio: producto.precio, unidad_medida: producto.unidad_medida, 
+                                        cantidad: parseInt(document.getElementById("quantitySelector" + producto.id).value)})} disabled={this.state.submitDisabled} ><i class="fas fa-plus" style = {{color: "white", fontSize: "14px"}} ></i></button></div>
                                     
                                     
                                     
                             </div>
                             </div>
-                            )}
+                            ): this.context.productsListFiltered.map(producto =>
+                                <div className="col-xs-12 col-sm-6 col-md-4">
+                                <div className="productCard">
+                                <Link to={{ pathname: '/product/detail', state: { id: producto.id } }}><div><img className="imgProduct" src={"/images/productXs/" + producto.img}/></div>
+                                    <div>{producto.nombre_comercial}</div></Link>
+                                        <div>Price: {producto.precio} €/bag </div>
+                                        <div className="addQuantity"><label>Quantity:</label><input className="quantity" id= {"quantitySelector" + producto.id} type="number" min="0" onChage={this.handleNumberChange} aria-label="Search" />
+                                        <button className="btn-primary" type="button" onClick= {()=>this.context.addProductToCart({id: producto.id, nombre_comercial: producto.nombre_comercial, precio: producto.precio, unidad_medida: producto.unidad_medida, 
+                                            cantidad: parseInt(document.getElementById("quantitySelector" + producto.id).value)})} disabled={this.state.submitDisabled} ><i class="fas fa-plus" style = {{color: "white", fontSize: "14px"}}></i></button></div>
+                                        
+                                        
+                                        
+                                </div>
+                                </div>
+                                )}
   
                         </div>
                     </div>
