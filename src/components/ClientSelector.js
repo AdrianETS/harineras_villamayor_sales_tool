@@ -45,10 +45,11 @@ export default function ClientSelector(props) {
   };
 
   const handleSave = () => {
+    //console.log("BEFORE SAVE", JSON.parse(localStorage.selectedClient))
     window.localStorage.setItem('selectedClient', JSON.stringify(selectedClient));
     context.setClientSelected(selectedClient);
     console.log(JSON.stringify(context))
-    console.log("SELECTED", JSON.parse(localStorage.selectedClient))
+    console.log("SAVED", JSON.parse(localStorage.selectedClient))
     setOpen(false);
   }
 
