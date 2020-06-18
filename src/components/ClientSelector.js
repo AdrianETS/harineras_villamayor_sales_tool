@@ -14,6 +14,7 @@ import Select from '@material-ui/core/Select';
 import Switch from '@material-ui/core/Switch';
 import { render } from '@testing-library/react';
 import { AppContext } from "./../context/ContextProvider";
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -44,10 +45,11 @@ export default function ClientSelector(props) {
   };
 
   const handleSave = () => {
+    //console.log("BEFORE SAVE", JSON.parse(localStorage.selectedClient))
     window.localStorage.setItem('selectedClient', JSON.stringify(selectedClient));
     context.setClientSelected(selectedClient);
     console.log(JSON.stringify(context))
-    console.log("SELECTED", JSON.parse(localStorage.selectedClient))
+    console.log("SAVED", JSON.parse(localStorage.selectedClient))
     setOpen(false);
   }
 
@@ -57,9 +59,10 @@ export default function ClientSelector(props) {
 
   return (
     <React.Fragment>
-      <Button color="inherit" onClick={handleClickOpen}>
+      {context.isClientSelected? <Typography type="title" color="inherit" onClick={handleClickOpen}>{context.clientSelected && context.clientSelected.razon_social}</Typography> :
+       <Button color="inherit" onClick={handleClickOpen}>
         Select client
-      </Button>
+      </Button>}
       <Dialog
       fullWidth = {true}
         maxWidth={'xs'}

@@ -33,16 +33,16 @@ class ProductDetail extends React.Component {
                 <table id="clientDetails" /*className="table table-bordered"*/>
                     <tr>
                         
-                        <th>Imagen del producto</th>
-                        <th colSpan="2">Datos del producto</th>   
+                        <th>Product Image</th>
+                        <th colSpan="2">Product Details</th>   
                     </tr>
                     <tr>
                         <td className="subRow" rowSpan="5"><img className="imgProduct" src={"/images/productXl/" + this.state.selectedProduct.img}/></td>
-                        <th className="subTitle">Id producto</th><td className="subRow">{this.state.selectedProduct.id}</td></tr>
-                        <tr><th className="subTitle">Nombre comercial</th><td className="subRow">{this.state.selectedProduct.nombre_comercial}</td></tr>
-                        <tr><th className="subTitle">Precio</th><td className="subRow">{this.state.selectedProduct.precio}</td></tr>
-                        <tr><th className="subTitle">Unidad de medida</th><td className="subRow">{this.state.selectedProduct.unidad_medida}</td></tr>
-                        <tr><th className="subTitle">Otros datos</th><td className="subRow">{this.state.selectedProduct.otros_datos}</td></tr>
+                        <th className="subTitle">Product Id</th><td className="subRow">{this.state.selectedProduct.id}</td></tr>
+                        <tr><th className="subTitle">Tradename</th><td className="subRow">{this.state.selectedProduct.nombre_comercial}</td></tr>
+                        <tr><th className="subTitle">Price</th><td className="subRow">{this.state.selectedProduct.precio} Euros</td></tr>
+                        <tr><th className="subTitle">Unit of measurement</th><td className="subRow">{this.state.selectedProduct.unidad_medida}</td></tr>
+                        <tr><th className="subTitle">Other data</th><td className="subRow">{this.state.selectedProduct.otros_datos}</td></tr>
                             
                     
                 </table>

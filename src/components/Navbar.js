@@ -205,17 +205,19 @@ export default function Navbar(props) {
 
                     <div className={classes.grow} />
                     <div className={classes.clientSelector}>
-                        <ClientSelector clients={clientList} />
+                        {!context.isClientSelected && <ClientSelector clients={clientList} />}
                     </div>
 
 
-                    <Typography type="title" color="inherit">{context.clientSelected && context.clientSelected.razon_social}</Typography>
+                    <Typography type="title" color="inherit">
+                    {context.isClientSelected && <ClientSelector clients={clientList} />}
+                    </Typography>
 
 
                     <div className={classes.clientSelector}>
                       
                             <IconButton color="secondary">
-                            <Link to={{ pathname: '/shoppingcart'}} className="link">
+                            <Link to={{ pathname: '/shoppingcart'}} history ={props.history} className="link">
                             <Badge color="secondary" badgeContent={context.productsAddedToCart.length}>
                                 <ShoppingCartIcon />
                                 </Badge>
@@ -277,7 +279,7 @@ export default function Navbar(props) {
                         <ListItemIcon> <SettingsIcon /> </ListItemIcon>
                         <ListItemText>Settings</ListItemText>
                     </ListItem>
-                    <ListItem button>
+                    <ListItem button component={Link} to="/clients/statistics">
                         <ListItemIcon> <BarChartIcon /> </ListItemIcon>
                         <ListItemText>Statistics</ListItemText>
                     </ListItem>
