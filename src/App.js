@@ -11,6 +11,8 @@ import ProductsList from './components/ProductsList';
 import ShoppingCart from "./components/ShoppingCart";
 import StatisticsSales from './components/StatisticsSales';
 import ProductDetail from './components/ProductDetail';
+import ClientStatistics from './components/ClientStatistics';
+
 
 
 class App extends React.Component {
@@ -34,6 +36,7 @@ class App extends React.Component {
               <Route path="/product/detail" exact component={ProductDetail} />
               <Route path="/shoppingcart" exact component = {ShoppingCart} />
               <Route path="/clients/statistics" exact component={StatisticsSales}/>
+              <Route path="/clients/stats" exact component={ClientStatistics}/>
 
             </Switch>
           </Router>
