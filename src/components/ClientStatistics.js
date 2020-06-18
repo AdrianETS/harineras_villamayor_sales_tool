@@ -100,7 +100,9 @@ class ClientStatistics extends React.Component {
             clientSales[sale].forEach(sale => {
                 totalSales+= sale.cantidad * sale.precio_unitario;
             });
-            salesInYear.year = clientSales[sale][0].fecha.substr(0,4);
+            console.log("clientSales[sale][0]", clientSales[sale][0]);
+            salesInYear.year = clientSales[sale][0].fecha.substr(clientSales[sale][0].fecha.length - 4, clientSales[sale][0].fecha.length);
+            console.log("salesInYear", salesInYear.year);
             salesInYear.sale = totalSales
 
             salesInYear.push({year:salesInYear.year , totalSales: salesInYear.sale});
