@@ -6,8 +6,6 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
-import IconButton from "@material-ui/core/IconButton";
 import Button from "@material-ui/core/Button";
 import NavBar from "./Navbar";
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -70,58 +68,61 @@ export default function ShoppingCart(props) {
     return (context.productsAddedToCart.length === 0 ? <React.Fragment><NavBar /><h5 style={{ marginLeft: 100 }} >Your cart is empty</h5> </React.Fragment> :
         <React.Fragment>
             <NavBar />
+            <div className="container">
             <TableContainer align="center">
                 <Table style={{ width: 900}} aria-label="spanning table">
                     <TableHead>
                         <TableRow>
-                            <TableCell align="center" colSpan={4}>
+                            <TableCell align="center" colSpan={3}>
                                 Details
-            </TableCell>
-                            <TableCell align="right">Price</TableCell>
+                            </TableCell>
+                            <TableCell align="left">Price</TableCell>
                         </TableRow>
                         <TableRow>
-                            <TableCell align="right"/>
+                            
                             <TableCell style={{ width: 100 }}>Product</TableCell>
                             <TableCell align="right"style={{ width: 100 }}>Quantity.</TableCell>
                             <TableCell align="right"style={{ width: 100 }}>Price</TableCell>
                             <TableCell align="right"style={{ width: 100 }} >Total</TableCell>
+                            <TableCell align="right"/>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {rows.map(row => (
                             <TableRow key={row.desc}>
+                                
+                                <TableCell style={{ width: 100 }}>{row.desc}</TableCell>
+                                <TableCell align="right">{row.qty}</TableCell>
+                                <TableCell align="right">{row.unit}</TableCell>
+                                <TableCell align="right">{ccyFormat(row.price)}</TableCell>
                                 <TableCell style={{ width: 10 }}>
                                     <DeleteIcon size="small"
                                         color="disabled"
                                         onClick={() => context.deleteProductFromCart(row.id)} />
                                 </TableCell>
-                                <TableCell style={{ width: 100 }}>{row.desc}</TableCell>
-                                <TableCell align="right">{row.qty}</TableCell>
-                                <TableCell align="right">{row.unit}</TableCell>
-                                <TableCell align="right">{ccyFormat(row.price)}</TableCell>
                             </TableRow>
                         ))}
 
                         <TableRow>
                             <TableCell rowSpan={3} />
-                            <TableCell colSpan={3}>Subtotal</TableCell>
+                            <TableCell colSpan={2}>Subtotal</TableCell>
                             <TableCell align="right">{ccyFormat(invoiceSubtotal)}</TableCell>
                         </TableRow>
                         <TableRow>
-                            <TableCell colSpan={3}>VAT (4%)</TableCell>
+                            <TableCell colSpan={2}>VAT (4%)</TableCell>
                             <TableCell align="right" colSpan={1}>{ccyFormat(invoiceTaxes)}</TableCell>
                         </TableRow>
                         <TableRow>
-                            <TableCell colSpan={3}>Total</TableCell>
+                            <TableCell colSpan={2}>Total</TableCell>
                             <TableCell align="right">{ccyFormat(invoiceTotal)}</TableCell>
                         </TableRow>
                     </TableBody>
                 </Table>
             </TableContainer>
-            <Button style={{marginLeft: "100px"}} variant="contained" color="secondary" onClick ={()=>context.submitSale(props.history, context.clientSelected, context.productsAddedToCart)}>
+            <Button class="btnSubmitSale" variant="contained" color="secondary" onClick ={()=>context.submitSale(props.history, context.clientSelected, context.productsAddedToCart)}>
                 Submit
             </Button>
-
+            </div>
         </React.Fragment>
     );
 }
