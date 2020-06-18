@@ -32,7 +32,7 @@ class ClientsList extends React.Component {
     render() {
         {
             return (<div>
-                <Navbar name={this.context.userName} />
+                <Navbar name={this.context.userName} history={this.props.history} />
                 <div className="container">
                 <h4 className=""> List of clients: </h4>
                 <div className={"container_within_navbar"} >
