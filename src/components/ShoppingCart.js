@@ -70,8 +70,8 @@ export default function ShoppingCart(props) {
     return (context.productsAddedToCart.length === 0 ? <React.Fragment><NavBar /><h5 style={{ marginLeft: 100 }} >Your cart is empty</h5> </React.Fragment> :
         <React.Fragment>
             <NavBar />
-            <TableContainer>
-                <Table style={{ width: 1200, marginLeft: "100px" }} aria-label="spanning table">
+            <TableContainer align="center">
+                <Table style={{ width: 900}} aria-label="spanning table">
                     <TableHead>
                         <TableRow>
                             <TableCell align="center" colSpan={4}>
@@ -80,17 +80,17 @@ export default function ShoppingCart(props) {
                             <TableCell align="right">Price</TableCell>
                         </TableRow>
                         <TableRow>
-                            <TableCell align="right" />
-                            <TableCell>Product</TableCell>
-                            <TableCell align="right">Quantity.</TableCell>
-                            <TableCell align="right">Price</TableCell>
-                            <TableCell align="right">Total</TableCell>
+                            <TableCell align="right"/>
+                            <TableCell style={{ width: 100 }}>Product</TableCell>
+                            <TableCell align="right"style={{ width: 100 }}>Quantity.</TableCell>
+                            <TableCell align="right"style={{ width: 100 }}>Price</TableCell>
+                            <TableCell align="right"style={{ width: 100 }} >Total</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {rows.map(row => (
                             <TableRow key={row.desc}>
-                                <TableCell style={{ width: 100 }}>
+                                <TableCell style={{ width: 10 }}>
                                     <DeleteIcon size="small"
                                         color="disabled"
                                         onClick={() => context.deleteProductFromCart(row.id)} />

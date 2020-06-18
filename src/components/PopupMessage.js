@@ -21,6 +21,13 @@ export default function PopupMessage() {
   const classes = useStyles();
   const context = React.useContext(AppContext);
 
+  const [state, setState] = React.useState({
+    vertical: 'top',
+    horizontal: 'center',
+  });
+
+  const { vertical, horizontal } = state;
+
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -31,7 +38,7 @@ export default function PopupMessage() {
 
   return (
     <div className={classes.root}>
-      <Snackbar open={context.openPopup} autoHideDuration={4000} onClose={handleClose}>
+      <Snackbar open={context.openPopup} autoHideDuration={2000} onClose={handleClose} anchorOrigin={{ vertical, horizontal }}>
         <Alert onClose={handleClose} severity="success">
           Sale successfully complete
         </Alert>
