@@ -18,11 +18,13 @@ class ProductDetail extends React.Component {
     componentDidMount() {
         this.context.checkToken(this);
         this.context.getProductInfo(this.props.history, this.state.id)
-            .then(product => this.setState({ selectedProduct: product[0] }))
-            
-            
+            .then(product => this.setState({ selectedProduct: product[0] }))       
     }
 
+    handleNumberChange(event) {
+        this.setState({quantitySelected: event.target.value});
+        
+    }
     render() {
         return (
             <div><Navbar name={this.context.userName} />
@@ -43,9 +45,19 @@ class ProductDetail extends React.Component {
                         <tr><th className="subTitle">Price</th><td className="subRow">{this.state.selectedProduct.precio} Euros</td></tr>
                         <tr><th className="subTitle">Unit of measurement</th><td className="subRow">{this.state.selectedProduct.unidad_medida}</td></tr>
                         <tr><th className="subTitle">Other data</th><td className="subRow">{this.state.selectedProduct.otros_datos}</td></tr>
-                            
-                    
+                        
                 </table>
+                <br/>
+                <div className="lastCell">
+                <input className="inputUnit" id= "quantitySelector" type="number" min="0" placeholder="Add units"
+                                onChange={(event)=>this.handleNumberChange(event)} aria-label="Search" />
+                                <button type="button" 
+                                className="btnSubmitSale" type="button" 
+                                onClick= {()=>this.context.addProductToCart({id: this.state.selectedProduct.id, nombre_comercial: this.state.selectedProduct.nombre_comercial, 
+                                precio: this.state.selectedProduct.precio, unidad_medida: this.state.selectedProduct.unidad_medida, cantidad: parseInt(this.state.quantitySelected)})}>
+                                <i class="fas fa-plus" style = {{color: "white", fontSize: "16px"}} ></i>
+                                </button>
+                </div>
                 
             </div>
             </div>

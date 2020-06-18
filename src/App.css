@@ -71,6 +71,7 @@ hr {
 }
 
 .productCard {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   height: 95%;
   width: 100%;
   margin: 10px;
@@ -155,44 +156,63 @@ color: white;
 
 }
 
-.btn-primary, .btn-primary:disabled, .addProductBtn {
+
+.btn-primary, .btn-primary:disabled, .addProductBtn, .btn-primary:hover, .btn-primary:not(:disabled):not(.disabled):active {
   color: #e5e5e5;
   background-color: #992327;
   border-color: #992327;
   cursor: pointer;
-  border: none;
+  border-radius: 10px 10px 10px 10px;
+  -moz-border-radius: 10px 10px 10px 10px;
+  -webkit-border-radius: 10px 10px 10px 10px;
+  border: 0px solid #000000;
 }
 
-.btn-primary:hover, .btn-primary:not(:disabled):not(.disabled):active {
-  color: #fff;
-  background-color: #992327;
-  border-color: #992327;
-  cursor: pointer;
-  border: none;
-}
+.inputUnit {
+  width: 100px;
+  height: 50px;
+  float: right;
+  font-size: 16px;
+  text-align: center;
 
+}
 .btnSubmitSale {
-  color: #992327;
+  color: #eea320;
   background-color: #e5e5e5;
-  border-color: #992327;
+  border-color: #eea320;
   cursor: pointer;
   width: 100px;
   height: 50px;
   float: right;
+  border-radius: 10px 10px 10px 10px;
+-moz-border-radius: 10px 10px 10px 10px;
+-webkit-border-radius: 10px 10px 10px 10px;
+border: 0px solid #000000;
 }
 
 .btnSubmitSale:hover {
   color: #e5e5e5;
-  background-color: #992327;
-  border-color: #992327;
+  background-color: #eea320;
+  border-color: #eea320;
   cursor: pointer;
   width: 100px;
   height: 50px;
   float: right;
   font-weight: bold;
+  border-radius: 10px 10px 10px 10px;
+  -moz-border-radius: 10px 10px 10px 10px;
+  -webkit-border-radius: 10px 10px 10px 10px;
+  border: 0px solid #000000;
 }
 
+.sendProduct {
+  float: right;
+}
 
+.lastCell {
+  display: flex;
+  justify-content: flex-end;
+}
 
 .link {
   color: #FFF;

@@ -140,7 +140,7 @@ class ClientStatistics extends React.Component {
                 <>
                 <Navbar/>
                 <div className="container">
-                    
+                <h4 className=""> Cliente {this.state.selectedClient.razon_social}</h4>
                     <Box>
                         <Typography variant="h5">
                             Venta por año
