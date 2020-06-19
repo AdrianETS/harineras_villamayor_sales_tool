@@ -37,7 +37,9 @@
   }
 }
 
-
+.card-body {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
 
 .container_within_navbar {
   font-family: sans-serif;
@@ -49,6 +51,9 @@
   font-family: sans-serif;
 }
 
+.imgD{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
 
 .imgDash {
   display: flex;
@@ -103,7 +108,7 @@ hr {
 }
 
 .addQuantity {
-  display: flex;
+    display: flex;
     align-items: stretch;
     justify-content: center;
 }
@@ -165,7 +170,7 @@ color: white;
   border-radius: 10px 10px 10px 10px;
   -moz-border-radius: 10px 10px 10px 10px;
   -webkit-border-radius: 10px 10px 10px 10px;
-  border: 0px solid #000000;
+  border: 1px solid #992327;
 }
 
 .inputUnit {
@@ -180,31 +185,26 @@ color: white;
   color: #eea320;
   background-color: #e5e5e5;
   border-color: #eea320;
-  cursor: pointer;
-  width: 100px;
-  height: 50px;
-  float: right;
-  border-radius: 10px 10px 10px 10px;
--moz-border-radius: 10px 10px 10px 10px;
--webkit-border-radius: 10px 10px 10px 10px;
-border: 0px solid #000000;
 }
 
 .btnSubmitSale:hover {
   color: #e5e5e5;
   background-color: #eea320;
   border-color: #eea320;
+  font-weight: bold;
+}
+
+.btnSubmitSale, .btnSubmitSale:hover {
   cursor: pointer;
   width: 100px;
   height: 50px;
   float: right;
-  font-weight: bold;
   border-radius: 10px 10px 10px 10px;
   -moz-border-radius: 10px 10px 10px 10px;
   -webkit-border-radius: 10px 10px 10px 10px;
-  border: 0px solid #000000;
-}
+  border: 1px solid #eea320;
 
+}
 .sendProduct {
   float: right;
 }

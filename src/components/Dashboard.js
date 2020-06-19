@@ -77,7 +77,7 @@ class Dashboard extends React.Component {
                     <div>   <hr className="style11"/></div>
                     <Link to={{ pathname: '/clients/list'}}><img className="imgD" src={"/images/clientsDashboard.png"}/></Link>
                     <Link to={{ pathname: '/products/list'}}><img className="imgD" src={"/images/productsDashboard.png"}/></Link>
-                        <img className="imgD" src={"/images/businessDashboard.png"}/>
+                    <Link to={{ pathname: '/clients/statistics'}}><img className="imgD" src={"/images/businessDashboard.png"}/></Link>
                     </div>
                     
                 </div>
