@@ -37,6 +37,21 @@
   }
 }
 
+a {
+color:black
+}
+
+a:hover {
+color:#992327;
+font-weight: bold;
+text-decoration: none;
+}
+
+.clientList {
+  font-size: 16px;
+  padding: 2px;
+}
+
 .card-body {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }

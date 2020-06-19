@@ -44,17 +44,17 @@ class ClientsList extends React.Component {
                        
                     
                     </div>
-                    <ul>
+                    
                         {this.state.clientList && (this.state.membersFound.length == 0 ?  <h5 className = "container_within_navbar">No clients found</h5> 
                         : this.state.membersFound.map(clientes =>
-                            <div>
-                                <li> <Link to={{ pathname: '/clients/details', state: { id: clientes.id } }}>
+                            <div className="clientList">
+                                <Link to={{ pathname: '/clients/details', state: { id: clientes.id } }}>
                                     {clientes.razon_social}
                                 </Link>
-                                </li>
+                                
                             </div>
                         ))}
-                    </ul>
+                    
                 </div>
             </div>
             </div>);
