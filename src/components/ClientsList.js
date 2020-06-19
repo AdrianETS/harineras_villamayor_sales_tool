@@ -30,7 +30,7 @@ export default function ClienList(props) {
     const classes = useStyles();
     const [clientList, setClientList] = React.useState([]);
     const [membersFound, setmembersFound] = React.useState([]);
-    const itemsPerPage = 10;
+    const itemsPerPage = 15;
     const [page, setPage] = React.useState(1);
     const [noOfPages, setNoOfPages] = React.useState(null);
 
@@ -38,10 +38,9 @@ export default function ClienList(props) {
         context.checkToken(this);
         context.getClientsList(props.history)
             .then(clients => {
-                setClientList(clients)
-                setmembersFound(clients)
-                let totalPages = Math.ceil(clients.length / itemsPerPage)
-                setNoOfPages(totalPages);
+                setClientList(clients);
+                setmembersFound(clients);
+                modifyPagination(clients);
             })
     }, [])
 
@@ -51,8 +50,10 @@ export default function ClienList(props) {
 
     const searchClients = (event) => {
         let clientsFound = [];
-        event.target.value == "" ? clientsFound = clientList : clientsFound = clientList.filter(clientes => clientes.contacto.toUpperCase().includes(event.target.value.toUpperCase()));
-        clientsFound == clientList ? setmembersFound(clientsFound) : setmembersFound(clientsFound.slice(0, 7))
+        console.log(event.target.value);
+        event.target.value == "" ? clientsFound = clientList : clientsFound = clientList.filter(clientes => clientes.razon_social.toUpperCase().includes(event.target.value.toUpperCase()));
+        setmembersFound(clientsFound.slice(0, 7))
+        modifyPagination(clientsFound);
     }
 
     const sendToDetails = (event, id) =>{
@@ -60,6 +61,11 @@ export default function ClienList(props) {
         pathname: '/clients/details',
         state: { id: id }}
         )
+    }
+
+    const modifyPagination = (array) =>{
+        let totalPages = Math.ceil(array.length / itemsPerPage);
+        setNoOfPages(totalPages);
     }
 
     return (<div>
@@ -70,7 +76,7 @@ export default function ClienList(props) {
                 <div >
                     <form className="form-inline mt-2 mb-2">
                         <i className="fas fa-search" aria-hidden="true"></i>
-                        <input className="form-control form-control-sm ml-3 w-45 " type="text" onChange={searchClients} placeholder="Search" aria-label="Search" />
+                        <input className="form-control form-control-sm ml-3 w-45 " type="text" onChange={event=>searchClients(event)} placeholder="Search" aria-label="Search" />
                     </form>
                 </div>
                 
