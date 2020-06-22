@@ -37,10 +37,29 @@ class ProductsList extends React.Component {
         return true;
     }
 
+    checkIfProductIsInCart(productToCheck){
+        for (let [index, product] of this.context.productsAddedToCart.entries()){
+            if(product.id == productToCheck.id){
+                return product.cantidad;
+            } 
+
+            if(index == this.context.productsAddedToCart.length-1){
+                return "";
+            }
+        }
+    }
+
+
     initProductSelectors(products, previousState) {
         let productSelectors = {};
         products.forEach(product => {
-            productSelectors[product.id] = 0;
+            if(this.context.productsAddedToCart.length !=0){
+                let quantity = this.checkIfProductIsInCart(product);
+                productSelectors[product.id] = quantity;
+            } else {
+                productSelectors[product.id] = 0;
+            }
+            
         })
         if(previousState == undefined){
             this.setState({productSelectors});
@@ -51,7 +70,7 @@ class ProductsList extends React.Component {
     
     componentDidMount() {
         this.context.checkToken(this);
-        if (this.context.clientSelected!= null) {
+        if (this.context.clientSelected!= null && this.context.clientUpdated) {
             this.context.getPriceForClient(this.props.history, this.context.clientSelected.id);
             this.initProductSelectors(this.context.specialPricePerProduct);
         }
@@ -115,6 +134,7 @@ class ProductsList extends React.Component {
                             <Link to={{ pathname: '/product/detail', state: { id: producto.id } }}><div><img className="imgProduct" src={"/images/productXs/" + producto.img}/></div>
                                 <div>{producto.nombre_comercial}</div></Link>
                                     <div>Price: {producto.precio} €/bag </div>
+                                    <div>Quantity added to cart: {this.context.productSelectors && this.context.productSelectors[producto.id]}</div>
                                     <div className="addQuantity"><label>Quantity:</label><input className="quantity" id= {"quantitySelector" + producto.id} type="number" min="0" onChange={(ev)=>this.handleNumberChange(ev,producto.id)} aria-label="Search" />
                                     <button type="button" className="addProductBtn" type="button" onClick= {()=>this.context.addProductToCart({id: producto.id, nombre_comercial: producto.nombre_comercial, precio: producto.precio, unidad_medida: producto.unidad_medida, 
                                         cantidad: parseInt(this.state.productSelectors[producto.id])})} disabled={this.state.productSelectors[producto.id]<1} ><i class="fas fa-plus" style = {{color: "white", fontSize: "14px"}} ></i></button></div>
