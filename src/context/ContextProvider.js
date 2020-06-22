@@ -20,9 +20,9 @@ export class ContextProvider extends React.Component {
             listOfUsers: [],
             originalUsers: [],
             salesList: []
-            
+
         }
-        
+
 
         this.getClientsList = this.getClientsList.bind(this);
         this.getClientInfo = this.getClientInfo.bind(this);
@@ -31,7 +31,7 @@ export class ContextProvider extends React.Component {
         this.getSalesInfoByClientId = this.getSalesInfoByClientId.bind(this);
         this.getPriceForClient = this.getPriceForClient.bind(this);
         this.setClientSelected = this.setClientSelected.bind(this);
-        this.setOriginalUsers=this.setOriginalUsers.bind(this);
+        this.setOriginalUsers = this.setOriginalUsers.bind(this);
         this.setListOfUsers = this.setListOfUsers.bind(this);
         this.getSalesList = this.getSalesList.bind(this);
         this.getProductInfo = this.getProductInfo.bind(this);
@@ -70,28 +70,29 @@ export class ContextProvider extends React.Component {
 
     addProductToCart(productAdded) {
         let updateProductsAdded = [...this.state.productsAddedToCart];
-        if (updateProductsAdded.length !=0) {
-            let i = 1;
-            for(let product of updateProductsAdded){
-                if(product.id == productAdded.id){
+        if (updateProductsAdded.length != 0) {
+            for (let [index, product] of updateProductsAdded.entries()) {
+                if (product.id == productAdded.id) {
                     product.cantidad = productAdded.cantidad + product.cantidad;
+                    this.state.productSelectors[product.id] = product.cantidad
                     break;
                 }
-                if(i == updateProductsAdded.length){
+                if (index == updateProductsAdded.length -1) {
+                    this.state.productSelectors[productAdded.id] = productAdded.cantidad
                     updateProductsAdded.push(productAdded)
                     break;
                 }
-                i += 1;
             }
         } else {
+            this.state.productSelectors[productAdded.id] = productAdded.cantidad
             updateProductsAdded.push(productAdded);
         }
         this.setState({ productsAddedToCart: updateProductsAdded })
     }
 
-    deleteProductFromCart(id){
+    deleteProductFromCart(id) {
         let updatedCart = this.state.productsAddedToCart.filter(product => product.id != id);
-        this.setState({productsAddedToCart: updatedCart });
+        this.setState({ productsAddedToCart: updatedCart });
     }
 
 
@@ -121,7 +122,7 @@ export class ContextProvider extends React.Component {
 
     //get details for the selected client. It's displayed by ClientDetails component
     getClientInfo(history, id) {
-        
+
         return new Promise((resolve, reject) => {
             fetch('http://127.0.0.1:3001/clients/' + id + '?token=' + this.getTokenFromLocalStorage())
                 .then(res => {
@@ -154,6 +155,7 @@ export class ContextProvider extends React.Component {
                 })
                 .then((json) => {
                     this.setState({ specialPricePerProduct: [...json], specialPricePerProductFiltered: [...json] });
+                    this.initProductSelectors(json);
                     resolve(json);
                 })
                 .catch(err => reject())
@@ -232,17 +234,26 @@ export class ContextProvider extends React.Component {
         })
     }
 
-    setClientSelected(client){
-        this.setState({clientSelected: client});
+    setClientSelected(client) {
+        this.setState({ clientSelected: client });
     }
-    
+
     setOriginalUsers(list) {
         this.setState({ originalUsers: list });
     }
     setListOfUsers(list) {
         this.setState({ listOfUsers: list });
     }
-    
+
+    initProductSelectors(products) {
+        let productSelectors = {};
+        products.forEach(product => {
+            productSelectors[product.id] = 0;
+        })
+        this.setState({productSelectors: productSelectors })
+    }
+
+
 
 
     submitSale(history, clientSelected, productsAddedToCart) {
@@ -266,8 +277,8 @@ export class ContextProvider extends React.Component {
                     return res.json();
                 })
                 .then(json => resolve(json))
-                .then(()=>this.setState({ openPopup: true, productsAddedToCart:[] }))
-                .then(()=>history.push("/"))
+                .then(() => this.setState({ openPopup: true, productsAddedToCart: [] }))
+                .then(() => history.push("/"))
         })
     }
 
@@ -275,7 +286,7 @@ export class ContextProvider extends React.Component {
 
     setClientSelected(client) {
         //update state with the new client selected from ClientSelector component
-        this.setState({ clientSelected: client, clientUpdated: true, productsAddedToCart:[], isClientSelected: true});
+        this.setState({ clientSelected: client, clientUpdated: true, productsAddedToCart: [], isClientSelected: true });
     }
 
     setProductList(list) {
@@ -288,7 +299,7 @@ export class ContextProvider extends React.Component {
         this.setState({ specialPricePerProductFiltered: list });
     }
 
-    setPopup(boolean){
+    setPopup(boolean) {
         this.setState({ openPopup: boolean });
     }
 
@@ -299,7 +310,7 @@ export class ContextProvider extends React.Component {
                     ...this.state, checkToken: this.checkToken, getTokenFromLocalStorage: this.getTokenFromLocalStorage, storeUsersName: this.storeUsersName,
                     getClientsList: this.getClientsList, getClientInfo: this.getClientInfo, getProductsList: this.getProductsList,
                     getSalesInfoByClientId: this.getSalesInfoByClientId, getPriceForClient: this.getPriceForClient, setClientSelected: this.setClientSelected,
-                    setOriginalUsers: this.setOriginalUsers, setListOfUsers:this.setListOfUsers, getSalesList:this.getSalesList,
+                    setOriginalUsers: this.setOriginalUsers, setListOfUsers: this.setListOfUsers, getSalesList: this.getSalesList,
                     getSalesInfoByClientId: this.getSalesInfoByClientId, getPriceForClient: this.getPriceForClient, setClientSelected: this.setClientSelected,
                     getProductInfo: this.getProductInfo, setProductList: this.setProductList, setSpecialPricePerProduct: this.setSpecialPricePerProduct,
                     addProductToCart: this.addProductToCart, deleteProductFromCart: this.deleteProductFromCart, submitSale: this.submitSale, setPopup: this.setPopup
