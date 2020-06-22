@@ -70,24 +70,25 @@ export class ContextProvider extends React.Component {
 
     addProductToCart(productAdded) {
         let updateProductsAdded = [...this.state.productsAddedToCart];
+        let productSelectors = this.state.productSelectors;
         if (updateProductsAdded.length != 0) {
             for (let [index, product] of updateProductsAdded.entries()) {
                 if (product.id == productAdded.id) {
                     product.cantidad = productAdded.cantidad + product.cantidad;
-                    this.state.productSelectors[product.id] = product.cantidad
+                    productSelectors[product.id] = product.cantidad
                     break;
                 }
                 if (index == updateProductsAdded.length -1) {
-                    this.state.productSelectors[productAdded.id] = productAdded.cantidad
+                    productSelectors[productAdded.id] = productAdded.cantidad
                     updateProductsAdded.push(productAdded)
                     break;
                 }
             }
         } else {
-            this.state.productSelectors[productAdded.id] = productAdded.cantidad
+            productSelectors[productAdded.id] = productAdded.cantidad
             updateProductsAdded.push(productAdded);
         }
-        this.setState({ productsAddedToCart: updateProductsAdded })
+        this.setState({ productsAddedToCart: updateProductsAdded, productSelectors })
     }
 
     deleteProductFromCart(id) {
