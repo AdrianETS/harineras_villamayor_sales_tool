@@ -1,5 +1,9 @@
 .App {
   text-align: center;
+  
+}
+.container {
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }
 
 .App-logo {
@@ -57,13 +61,13 @@ text-decoration: none;
 }
 
 .container_within_navbar {
-  font-family: sans-serif;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   margin-bottom: 25px;
   margin-top: 50px;
 }
 
 .title_within_navbar {
-  font-family: sans-serif;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }
 
 .imgD{
@@ -140,7 +144,7 @@ hr {
   align-items: center;
   background-color: white;
   text-align: center;
-  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }
 
 .productAdd {
@@ -166,13 +170,22 @@ hr {
     justify-content: center;
 }
 
+.totalPrice {
+  text-align: right;
+  font-weight: bold;
+  height: 50px;
+  
+  }
+
 #clientDetails {
   margin-top: 25px;
-  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-size: 16px;
   border-collapse: collapse;
   width: 100%;
+  text-align: right;
   }
+
 
 #clientDetails .subTitle {
   padding-top: 12px;
@@ -185,35 +198,38 @@ hr {
 #clientDetails .subRow {
   padding-top: 12px;
   padding-bottom: 12px;
-  text-align: center;
   background-color: white;
   color: black;
 }
 
-#clientDetails tr:nth-child(even), #productsList tr:nth-child(even){background-color: white; color: black}
+#clientDetails tr:nth-child(even) {background-color: white; color: black}
 
-#clientDetails tr:hover, #productsList tr:hover{background-color: #ddd;}
+#clientDetails tr:hover {background-color: #ddd;}
+tr .totalPrice:hover {background-color: white;}
 
-#clientDetails td, #clientDetails th, #productsList td, #productsList th {
+#clientDetails td, #clientDetails th {
 border: 1px solid #ddd;
 padding: 7px;
 }
 
-#clientDetails th, #productsList th {
+#clientDetails th {
 padding-top: 12px;
 padding-bottom: 12px;
-text-align: left;
+text-align: center;
 background-color: #eea320;
 color: white;
 }
+
+.date, .productName {
+  text-align: center;
+}
+
 
 .addProductBtn:disabled {
   color: #992327;
   background-color: #e5e5e5;
   border-color: #e5e5e5;
-
 }
-
 
 .btn-primary, .btn-primary:disabled, .addProductBtn, .btn-primary:hover, .btn-primary:not(:disabled):not(.disabled):active {
   color: #e5e5e5;
