@@ -76,8 +76,6 @@ class ProductsList extends React.Component {
     handleNumberChange(event, productId) {
         let productSelectors = this.state.productSelectors;
         productSelectors[productId] = event.target.value ? event.target.value : 0;
-        console.log(productId);
-        console.log(JSON.stringify(productSelectors));
         this.setState({ productSelectors });
     }
 

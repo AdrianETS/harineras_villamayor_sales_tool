@@ -72,20 +72,22 @@ class ClientsDetails extends React.Component {
                         <th>Product</th>
                         <th>Quantity</th>
                         <th>Price (unit)</th>
+                        <th>Subtotal</th>
                     </tr>
                    {this.state.groupedSales && Object.keys(this.state.groupedSales).map(
                         key => {
                             let lines = this.state.groupedSales[key].map(saleLine => {
                                return (<tr>
                                     <td>{saleLine.venta}</td>
-                                    <td>{saleLine.fecha}</td>
-                                    <td>{saleLine.producto}</td>
+                                    <td className="date">{saleLine.fecha}</td>
+                                    <td className="productName">{saleLine.producto}</td>
                                     <td>{saleLine.cantidad}</td>
                                     <td>{saleLine.precio_unitario}</td>
+                                    <td className="subTotal">{Number((saleLine.precio_unitario * saleLine.cantidad).toFixed(2)) + " €"}</td>
                                 </tr>)
                                 
                             })
-                            lines.push(<React.Fragment><tr><td colSpan="3">Total price per sale {key} :</td><td colSpan="2"><b> {this.state.groupedSales[key].reduce((total, current)=> total + (current.cantidad*current.precio_unitario), 0)}</b></td></tr></React.Fragment>);
+                            lines.push(<React.Fragment><tr className="totalPrice"><td className="totalPrice" colSpan="5">Total price per sale {key} :</td><td className="totalPrice" colSpan="1"> {this.state.groupedSales[key].reduce((total, current) => total + Number((current.cantidad*current.precio_unitario).toFixed(2)), 0)} €</td></tr></React.Fragment>);
                             return lines;
                         }
                     )}             

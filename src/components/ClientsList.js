@@ -33,6 +33,7 @@ export default function ClienList(props) {
     const itemsPerPage = 15;
     const [page, setPage] = React.useState(1);
     const [noOfPages, setNoOfPages] = React.useState(null);
+    const [pageIsLoaded, setPageIsLoaded] = React.useState(false);
 
     React.useEffect(() => {
         context.checkToken(this);
@@ -41,6 +42,7 @@ export default function ClienList(props) {
                 setClientList(clients);
                 setmembersFound(clients);
                 modifyPagination(clients);
+                setPageIsLoaded(true);
             })
     }, [])
 
@@ -52,8 +54,10 @@ export default function ClienList(props) {
         let clientsFound = [];
         console.log(event.target.value);
         event.target.value == "" ? clientsFound = clientList : clientsFound = clientList.filter(clientes => clientes.razon_social.toUpperCase().includes(event.target.value.toUpperCase()));
-        setmembersFound(clientsFound.slice(0, 7))
+        setmembersFound(clientsFound);
         modifyPagination(clientsFound);
+        //get to page 1 everytime something is typed in the search bar
+        setPage(1);
     }
 
     const sendToDetails = (event, id) =>{
@@ -81,7 +85,7 @@ export default function ClienList(props) {
                     </form>
                 </div>
                 
-                    {clientList && (membersFound.length == 0 ? <h5 className="container_within_navbar">No clients found</h5>
+                    {pageIsLoaded && (membersFound.length == 0 ? <h5 className="container_within_navbar">No clients found</h5>
                         : membersFound.slice((page - 1) * itemsPerPage, page * itemsPerPage).map(clientes =>
                             
                             
