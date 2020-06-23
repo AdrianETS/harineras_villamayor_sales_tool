@@ -95,6 +95,7 @@ export class ContextProvider extends React.Component {
 
     deleteProductFromCart(id) {
         let updatedCart = this.state.productsAddedToCart.filter(product => product.id != id);
+        this.setProductSelectors(0, id)
         this.setState({ productsAddedToCart: updatedCart });
     }
 
