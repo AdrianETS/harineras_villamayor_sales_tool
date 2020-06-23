@@ -19,7 +19,8 @@ export class ContextProvider extends React.Component {
             openPopup: false,
             listOfUsers: [],
             originalUsers: [],
-            salesList: []
+            salesList: [],
+            productSelectors: {}
 
         }
 
@@ -41,6 +42,7 @@ export class ContextProvider extends React.Component {
         this.deleteProductFromCart = this.deleteProductFromCart.bind(this);
         this.submitSale = this.submitSale.bind(this);
         this.setPopup = this.setPopup.bind(this);
+        this.setProductSelectors = this.setProductSelectors.bind(this);
     }
 
     componentDidUpdate() {
@@ -74,11 +76,11 @@ export class ContextProvider extends React.Component {
         if (updateProductsAdded.length != 0) {
             for (let [index, product] of updateProductsAdded.entries()) {
                 if (product.id == productAdded.id) {
-                    product.cantidad = productAdded.cantidad + product.cantidad;
+                    product.cantidad = productAdded.cantidad;
                     productSelectors[product.id] = product.cantidad
                     break;
                 }
-                if (index == updateProductsAdded.length -1) {
+                if (index == updateProductsAdded.length - 1) {
                     productSelectors[productAdded.id] = productAdded.cantidad
                     updateProductsAdded.push(productAdded)
                     break;
@@ -251,7 +253,7 @@ export class ContextProvider extends React.Component {
         products.forEach(product => {
             productSelectors[product.id] = 0;
         })
-        this.setState({productSelectors: productSelectors })
+        this.setState({ productSelectors: productSelectors })
     }
 
 
@@ -304,6 +306,12 @@ export class ContextProvider extends React.Component {
         this.setState({ openPopup: boolean });
     }
 
+    setProductSelectors(quantity, id) {
+        let productSelectors = this.state.productSelectors;
+        productSelectors[id] = quantity;
+        this.setState({productSelectors});
+    }
+
     render() {
         return (
             <AppContext.Provider
@@ -314,7 +322,8 @@ export class ContextProvider extends React.Component {
                     setOriginalUsers: this.setOriginalUsers, setListOfUsers: this.setListOfUsers, getSalesList: this.getSalesList,
                     getSalesInfoByClientId: this.getSalesInfoByClientId, getPriceForClient: this.getPriceForClient, setClientSelected: this.setClientSelected,
                     getProductInfo: this.getProductInfo, setProductList: this.setProductList, setSpecialPricePerProduct: this.setSpecialPricePerProduct,
-                    addProductToCart: this.addProductToCart, deleteProductFromCart: this.deleteProductFromCart, submitSale: this.submitSale, setPopup: this.setPopup
+                    addProductToCart: this.addProductToCart, deleteProductFromCart: this.deleteProductFromCart, submitSale: this.submitSale, setPopup: this.setPopup,
+                    setProductSelectors: this.setProductSelectors
                 }}
             >
 

@@ -51,9 +51,14 @@ class ProductsList extends React.Component {
 
     componentDidMount() {
         this.context.checkToken(this);
+        this.context.clientSelected != null && this.context.productsAddedToCart.forEach(product =>{
+            this.context.setProductSelectors(product.cantidad, product.id)
+        })
+
         if (this.context.clientSelected != null && this.context.clientUpdated) {
             this.context.getPriceForClient(this.props.history, this.context.clientSelected.id);
             this.initProductSelectors(this.context.specialPricePerProduct);
+
         }
         else {
             this.context.getProductsList(this.props.history);
@@ -74,9 +79,7 @@ class ProductsList extends React.Component {
     }
 
     handleNumberChange(event, productId) {
-        let productSelectors = this.state.productSelectors;
-        productSelectors[productId] = event.target.value ? event.target.value : 0;
-        this.setState({ productSelectors });
+        this.context.setProductSelectors(event.target.value, productId);
     }
 
     searchProducts(event) {
@@ -113,12 +116,11 @@ class ProductsList extends React.Component {
                                         <Link to={{ pathname: '/product/detail', state: { id: producto.id } }}><div><img className="imgProduct" src={"/images/productXs/" + producto.img} /></div>
                                             <div>{producto.nombre_comercial}</div></Link>
                                         <div>Price: {producto.precio} €/bag </div>
-                                        <div>Quantity added to cart: {this.context.productSelectors && this.context.productSelectors[producto.id]}</div>
-                                        <div className="addQuantity"><label>Quantity:</label><input className="quantity" id={"quantitySelector" + producto.id} type="number" min="0" onChange={(ev) => this.handleNumberChange(ev, producto.id)} aria-label="Search" />
+                                        <div className="addQuantity"><label>Quantity:</label><input className="quantity" id={"quantitySelector" + producto.id} type="number" min="0" onChange={(ev) => this.handleNumberChange(ev, producto.id)} aria-label="Search" value = {this.context.productSelectors && this.context.productSelectors[producto.id]}/>
                                             <button type="button" className="addProductBtn" type="button" onClick={() => this.context.addProductToCart({
                                                 id: producto.id, nombre_comercial: producto.nombre_comercial, precio: producto.precio, unidad_medida: producto.unidad_medida,
-                                                cantidad: parseInt(this.state.productSelectors[producto.id])
-                                            })} disabled={this.state.productSelectors[producto.id] < 1} ><i class="fas fa-plus" style={{ color: "white", fontSize: "14px" }} ></i></button></div>
+                                                cantidad: parseInt(this.context.productSelectors[producto.id])
+                                            })} disabled={this.context.productSelectors[producto.id] < 1} ><i class="fas fa-plus" style={{ color: "white", fontSize: "14px" }} ></i></button></div>
 
 
 
