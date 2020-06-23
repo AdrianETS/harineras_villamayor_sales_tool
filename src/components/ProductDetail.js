@@ -49,14 +49,16 @@ class ProductDetail extends React.Component {
                 </table>
                 <br/>
                 <div className="lastCell">
-                <input className="inputUnit" id= "quantitySelector" type="number" min="0" placeholder="Add units"
+                    <Link to={{ pathname: '/products/list'}}><button type="button" className="btnGoBack" onClick="">Go back</button></Link>
+                    <div><input className="inputUnit" id= "quantitySelector" type="number" min="0" placeholder="Add units"
                                 onChange={(event)=>this.handleNumberChange(event)} aria-label="Search" />
-                                <button type="button" 
-                                className="btnSubmitSale" type="button" 
-                                onClick= {()=>this.context.addProductToCart({id: this.state.selectedProduct.id, nombre_comercial: this.state.selectedProduct.nombre_comercial, 
-                                precio: this.state.selectedProduct.precio, unidad_medida: this.state.selectedProduct.unidad_medida, cantidad: parseInt(this.state.quantitySelected)})}>
-                                <i class="fas fa-plus" style = {{color: "white", fontSize: "16px"}} ></i>
-                                </button>
+                    <button type="button" 
+                            className="btnSubmitSale" 
+                            onClick= {()=>this.context.addProductToCart({id: this.state.selectedProduct.id, nombre_comercial: this.state.selectedProduct.nombre_comercial, 
+                            precio: this.state.selectedProduct.precio, unidad_medida: this.state.selectedProduct.unidad_medida, cantidad: parseInt(this.state.quantitySelected)})}>
+                            <i class="fas fa-plus" style = {{color: "white", fontSize: "16px"}} ></i>
+                    </button>
+                    </div>
                 </div>
                 
             </div>
