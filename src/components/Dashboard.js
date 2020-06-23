@@ -2,7 +2,8 @@ import React from 'react';
 import {AppContext} from './../context/ContextProvider';
 import Navbar from './Navbar';
 import { Link } from 'react-router-dom';
-import Carousel from 'react-bootstrap/Carousel'
+import Carousel from 'react-bootstrap/Carousel';
+import PopupMessage from './PopupMessage';
 
 
 class Dashboard extends React.Component {
@@ -28,7 +29,7 @@ class Dashboard extends React.Component {
     render() {
         return (
             <div>
-                 <Navbar />
+                 <Navbar history={this.props.history}/>
                 <div className="container">
                 <div style={{marginTop: "100px", marginBottom: "100px"}}>
                 <Carousel>
@@ -39,8 +40,8 @@ class Dashboard extends React.Component {
                         alt="First slide"
                         />
                         <Carousel.Caption>
-                        <h3>First slide label</h3>
-                        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                        <h3></h3>
+                        <p></p>
                         </Carousel.Caption>
                     </Carousel.Item>
                     <Carousel.Item>
@@ -51,8 +52,8 @@ class Dashboard extends React.Component {
                         />
 
                         <Carousel.Caption>
-                        <h3>Second slide label</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <h3></h3>
+                        <p></p>
                         </Carousel.Caption>
                     </Carousel.Item>
                     <Carousel.Item>
@@ -63,8 +64,8 @@ class Dashboard extends React.Component {
                         />
 
                         <Carousel.Caption>
-                        <h3>Third slide label</h3>
-                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                        <h3></h3>
+                        <p></p>
                         </Carousel.Caption>
                     </Carousel.Item>
                 </Carousel>
@@ -76,10 +77,11 @@ class Dashboard extends React.Component {
                     <div>   <hr className="style11"/></div>
                     <Link to={{ pathname: '/clients/list'}}><img className="imgD" src={"/images/clientsDashboard.png"}/></Link>
                     <Link to={{ pathname: '/products/list'}}><img className="imgD" src={"/images/productsDashboard.png"}/></Link>
-                        <img className="imgD" src={"/images/businessDashboard.png"}/>
+                    <Link to={{ pathname: '/clients/statistics'}}><img className="imgD" src={"/images/businessDashboard.png"}/></Link>
                     </div>
                     
                 </div>
+                <PopupMessage></PopupMessage>
             </div>
 
         )

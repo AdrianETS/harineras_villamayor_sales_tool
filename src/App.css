@@ -37,7 +37,24 @@
   }
 }
 
+a {
+color:black
+}
 
+a:hover {
+color:#992327;
+font-weight: bold;
+text-decoration: none;
+}
+
+.clientList {
+  font-size: 16px;
+  padding: 2px;
+}
+
+.card-body {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
 
 .container_within_navbar {
   font-family: sans-serif;
@@ -49,36 +66,15 @@
   font-family: sans-serif;
 }
 
-
-#clientDetails {
-margin-top: 25px;
-font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-border-collapse: collapse;
-width: 100%;
+.imgD{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
-
-
-/*
-#productsList {
-  margin-left: 100px; 
-  margin-top: 25px;
-  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
-  width: 40%;
-  }
-
-.productsList {
-  display: flex;
-  justify-content: space-between;
-  height: 20px;
-}
-*/
 
 .imgDash {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  margin-top: 100px;
+  margin-top: 50px;
  
 }
 
@@ -95,11 +91,14 @@ hr {
 }
 
 .productCard {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  height: 95%;
   width: 100%;
   margin: 10px;
   padding: 2%;
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
   align-items: center;
   background-color: white;
   text-align: center;
@@ -116,8 +115,7 @@ hr {
 }
 
 .imgProduct{
-width: 50%;
-height: 50%;
+
 } 
 
 .quantity {
@@ -125,9 +123,33 @@ height: 50%;
 }
 
 .addQuantity {
-  display: flex;
+    display: flex;
     align-items: stretch;
     justify-content: center;
+}
+
+#clientDetails {
+  margin-top: 25px;
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  border-collapse: collapse;
+  width: 100%;
+  }
+
+#clientDetails .subTitle {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #e5e5e5;
+  color: black;
+}
+
+#clientDetails .subRow {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: white;
+  color: black;
 }
 
 #clientDetails tr:nth-child(even), #productsList tr:nth-child(even){background-color: white; color: black}
@@ -147,22 +169,65 @@ background-color: #eea320;
 color: white;
 }
 
-.btn-primary, .btn-primary:disabled {
+.addProductBtn:disabled {
   color: #992327;
   background-color: #e5e5e5;
-  border-color: #992327;
-  cursor: pointer;
-  border: none;
+  border-color: #e5e5e5;
+
 }
 
-.btn-primary:hover, .btn-primary:not(:disabled):not(.disabled):active {
-  color: #fff;
+
+.btn-primary, .btn-primary:disabled, .addProductBtn, .btn-primary:hover, .btn-primary:not(:disabled):not(.disabled):active {
+  color: #e5e5e5;
   background-color: #992327;
   border-color: #992327;
   cursor: pointer;
-  border: none;
+  border-radius: 10px 10px 10px 10px;
+  -moz-border-radius: 10px 10px 10px 10px;
+  -webkit-border-radius: 10px 10px 10px 10px;
+  border: 1px solid #992327;
 }
 
+.inputUnit {
+  width: 100px;
+  height: 50px;
+  float: right;
+  font-size: 16px;
+  text-align: center;
+
+}
+.btnSubmitSale {
+  color: #eea320;
+  background-color: #e5e5e5;
+  border-color: #eea320;
+}
+
+.btnSubmitSale:hover {
+  color: #e5e5e5;
+  background-color: #eea320;
+  border-color: #eea320;
+  font-weight: bold;
+}
+
+.btnSubmitSale, .btnSubmitSale:hover {
+  cursor: pointer;
+  width: 100px;
+  height: 50px;
+  float: right;
+  border-radius: 10px 10px 10px 10px;
+  -moz-border-radius: 10px 10px 10px 10px;
+  -webkit-border-radius: 10px 10px 10px 10px;
+  border: 1px solid #eea320;
+
+}
+.sendProduct {
+  float: right;
+}
+
+.lastCell {
+  display: flex;
+  justify-content: flex-end;
+}
 
 .link {
   color: #FFF;
