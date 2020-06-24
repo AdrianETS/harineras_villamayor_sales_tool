@@ -36,7 +36,7 @@ class App extends React.Component {
               <Route path="/product/detail" exact component={ProductDetail} />
               <Route path="/shoppingcart" exact component = {ShoppingCart} />
               <Route path="/clients/statistics" exact component={StatisticsSales}/>
-              <Route path="/clients/stats" exact component={ClientStatistics}/>
+              <Route path="/clients/details" exact component={ClientStatistics}/>
 
             </Switch>
           </Router>

@@ -4,6 +4,9 @@ import Navbar from "./Navbar";
 import { Link } from 'react-router-dom';
 import { findAllByTestId } from '@testing-library/react';
 import graphic from './../images/graphic.png'
+import ClientStatistics from './ClientStatistics';
+import { Box, Typography } from "@material-ui/core";
+
 
 class ClientsDetails extends React.Component {
 
@@ -34,6 +37,8 @@ class ClientsDetails extends React.Component {
                     return groupedSales;
                 }, {})
                 this.setState({ groupedSales: groupedSalesList })
+                
+
             })
     }
 
@@ -95,14 +100,12 @@ class ClientsDetails extends React.Component {
                
                 <div className="container_within_navbar">
                 <h5> Sales graphic</h5>
+             <div>
+               <ClientStatistics value = {this.state.selectedClient.id}></ClientStatistics>
+                    
                 </div>
-                <div><h6>Click to show graphic.</h6>
-                <button className="btn">
-                    <Link to={{ pathname: '/clients/stats', state: { id: this.state.selectedClient.id } }}>
-                        <img src={graphic}/>
-                    </Link>
-                </button>
                 </div>
+                
             </div>
             </div>
         )

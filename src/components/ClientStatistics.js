@@ -20,6 +20,9 @@ class ClientStatistics extends React.Component {
             groupedSales: {},
             id: this.props.location?.state?.id
         }
+
+        this.createChartSalesVsYear=this.createChartSalesVsYear.bind(this);
+        this.getXaxisDataSalesVsYear=this.getXaxisDataSalesVsYear.bind(this)
     }
 
     componentDidMount() {
@@ -140,10 +143,10 @@ class ClientStatistics extends React.Component {
                 <>
                 <Navbar/>
                 <div className="container">
-                <h4 className=""> Cliente {this.state.selectedClient.razon_social}</h4>
+                <h4 className=""> Client {this.state.selectedClient.razon_social}</h4>
                     <Box>
                         <Typography variant="h5">
-                            Venta por año
+                            Sales per year
                         </Typography>
                         <Box id="salesVsYear" height="350px"></Box>
                     </Box>
