@@ -24,10 +24,9 @@ class ClientsDetails extends React.Component {
 
     componentDidMount() {
         this.context.checkToken(this);
-        this.context.getClientInfo(this.props.history, this.state.id)
-            .then(client => this.setState({ selectedClient: client }))
-            .then(() => this.context.getSalesInfoByClientId(this.props.history, this.state.id))
-            .then(salesInfo => this.setState({ salesDetails: salesInfo }))
+        
+            this.context.getSalesInfoByClientId(this.props.history, this.state.id)
+            .then(salesInfo => this.state.salesDetails = salesInfo )
             .then(() => {
                 let groupedSalesList = this.state.salesDetails.reduce((groupedSales, sale) => {
                     if (groupedSales[sale.venta] == null) {
@@ -36,9 +35,11 @@ class ClientsDetails extends React.Component {
                     groupedSales[sale.venta].push(sale)
                     return groupedSales;
                 }, {})
-                this.setState({ groupedSales: groupedSalesList })
+                this.state.groupedSales = groupedSalesList;
                 
-
+            }).then(()=>this.context.getClientInfo(this.props.history, this.state.id))
+            .then(client => {
+                this.setState({ ...this.state, selectedClient : client })
             })
     }
 
@@ -46,7 +47,7 @@ class ClientsDetails extends React.Component {
         return (
             <div><Navbar name={this.context.userName} />
             <div className="container">
-                <h4 className=""> Client {this.state.selectedClient.razon_social}</h4>
+                <h4 className=""> Client {this.state.selectedClient && this.state.selectedClient.razon_social}</h4>
                 <h5 className="container_within_navbar"> Client's details</h5>
                 <table id="clientDetails" /*className="table table-bordered"*/>
                     <tr>
@@ -58,7 +59,7 @@ class ClientsDetails extends React.Component {
                         <th>Phone number</th>
                         <th>Email</th>
                     </tr>
-                    <tr>
+                    {this.state.selectedClient && <tr>
                         <td>{this.state.selectedClient.id}</td>
                         <td>{this.state.selectedClient.razon_social}</td>
                         <td>{this.state.selectedClient.cif}</td>
@@ -66,7 +67,7 @@ class ClientsDetails extends React.Component {
                         <td>{this.state.selectedClient.direccion}</td>
                         <td>{this.state.selectedClient.telefono}</td>
                         <td>{this.state.selectedClient.email}</td>
-                    </tr>
+                    </tr>}
                 </table>
                 <h5 className="container_within_navbar"> Sales history</h5>
               
@@ -101,7 +102,11 @@ class ClientsDetails extends React.Component {
                 <div className="container_within_navbar">
                 <h5> Sales graphic</h5>
              <div>
-               <ClientStatistics value = {this.state.selectedClient.id}></ClientStatistics>
+               <ClientStatistics 
+               selectedClient = {this.state.selectedClient}
+               salesDetails = {this.state.salesDetails}
+               groupedSales = {this.state.groupedSales}
+                clientId = {this.state.id} ></ClientStatistics>
                     
                 </div>
                 </div>
