@@ -99,8 +99,7 @@ class ClientsDetails extends React.Component {
                     )}             
                 </table>
                
-                <div className="container_within_navbar">
-                <h5> Sales graphic</h5>
+                
              <div>
                <ClientStatistics 
                selectedClient = {this.state.selectedClient}
@@ -111,7 +110,6 @@ class ClientsDetails extends React.Component {
                 </div>
                 </div>
                 
-            </div>
             </div>
         )
 

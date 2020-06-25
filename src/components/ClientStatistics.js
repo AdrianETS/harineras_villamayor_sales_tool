@@ -59,11 +59,11 @@ class ClientStatistics extends React.Component {
         categoryAxis.dataFields.category = "year";
         categoryAxis.renderer.grid.template.location = 0;
         categoryAxis.renderer.minGridDistance = 30;
-        categoryAxis.title.text = "Año"
+        categoryAxis.title.text = "Year"
 
 
         let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-        valueAxis.title.text = "Importe de Venta";
+        valueAxis.title.text = "Sales amount";
         valueAxis.renderer.minGridDistance = 20;
 
         // Create series
