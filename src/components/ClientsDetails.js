@@ -6,6 +6,7 @@ import { findAllByTestId } from '@testing-library/react';
 import graphic from './../images/graphic.png'
 import ClientStatistics from './ClientStatistics';
 import { Box, Typography } from "@material-ui/core";
+import TrafficLight from 'react-trafficlight';
 
 
 class ClientsDetails extends React.Component {
@@ -41,6 +42,8 @@ class ClientsDetails extends React.Component {
             .then(client => {
                 this.setState({ ...this.state, selectedClient : client })
             })
+            .then(()=>this.context.getClientRisk(this.props.history, this.state.id))
+            .then(riskIndex => this.setState({riskIndex: parseFloat(riskIndex)}));
     }
 
     render() {
@@ -108,6 +111,12 @@ class ClientsDetails extends React.Component {
                 clientId = {this.state.id} ></ClientStatistics>
                     
                 </div>
+                <React.Fragment>
+                {this.state.riskIndex < 30 && <TrafficLight GreenOn Horizontal/>}
+                {this.state.riskIndex > 70 && <TrafficLight RedOn Horizontal/>}
+                {(this.state.riskIndex >= 30 && this.state.riskIndex <= 70) && <TrafficLight YellowOn Horizontal/>}
+                <h3>Risk Index: </h3> {this.state.riskIndex}
+                </React.Fragment>
                 </div>
                 
             </div>
