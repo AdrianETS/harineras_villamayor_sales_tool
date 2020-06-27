@@ -51,7 +51,8 @@ class ClientsDetails extends React.Component {
         return (
             <div><Navbar name={this.context.userName} />
             <div className="container">
-                <h4 className=""> Client {this.state.selectedClient && this.state.selectedClient.razon_social}</h4>
+                {!Object.keys(this.state.selectedClient).length? <CircularProgress color = "secondary"/>:
+                <React.Fragment><h4 className=""> Client {this.state.selectedClient && this.state.selectedClient.razon_social}</h4>
                 <h5 className="container_within_navbar"> Client's details</h5>
                 <table id="clientDetails" /*className="table table-bordered"*/>
                     <tr>
@@ -74,6 +75,7 @@ class ClientsDetails extends React.Component {
                     </tr>}
                 </table>
                 <h5 className="container_within_navbar"> Sales history</h5>
+                
               
                 <table id="clientDetails" /*className="table table-bordered"*/>
                     <tr>
@@ -118,8 +120,8 @@ class ClientsDetails extends React.Component {
                 {(this.state.riskIndex >= 30 && this.state.riskIndex <= 70) && <TrafficLight YellowOn Horizontal/>}
                 <h3>Risk Index: </h3> {this.state.riskIndex}
                 </React.Fragment>
+                </React.Fragment>}
                 </div>
-                
             </div>
         )
 
