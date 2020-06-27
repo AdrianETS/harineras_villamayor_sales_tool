@@ -7,6 +7,7 @@ import graphic from './../images/graphic.png'
 import ClientStatistics from './ClientStatistics';
 import { Box, Typography } from "@material-ui/core";
 import TrafficLight from 'react-trafficlight';
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 
 class ClientsDetails extends React.Component {
