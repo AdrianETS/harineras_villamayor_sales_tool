@@ -64,10 +64,15 @@ class ClientsDetails extends React.Component {
                 <div>
              <React.Fragment>
                  <div className="trafficLight">
-                 {this.state.riskIndex < 30 && <TrafficLight GreenOn Horizontal BlackColor="transparent" />}
-                {this.state.riskIndex > 70 && <TrafficLight RedOn Horizontal  BlackColor="transparent" />}
-                {(this.state.riskIndex >= 30 && this.state.riskIndex <= 70) && <TrafficLight YellowOn Horizontal  BlackColor="transparent"/>}
-                <h5>Risk Index: {this.state.riskIndex} %</h5>
+                     <div>
+                     <h5>Risk Index: {this.state.riskIndex} %</h5>
+                     </div>
+                     <div>
+                 {this.state.riskIndex < 30 && <TrafficLight Size="40" GreenOn Horizontal BlackColor="transparent" />}
+                {this.state.riskIndex > 70 && <TrafficLight  Size="40" RedOn Horizontal  BlackColor="transparent" />}
+                {(this.state.riskIndex >= 30 && this.state.riskIndex <= 70) && <TrafficLight  Size="40" YellowOn Horizontal  BlackColor="transparent"  />}
+                     </div>
+                
                  </div>
                 
                 </React.Fragment>
