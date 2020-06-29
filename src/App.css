@@ -119,6 +119,10 @@ text-decoration: none;
     -o-transform:scale(0.8); 
   }
 
+.title {
+  display: flex;
+  justify-content: space-between;
+}
 
 hr {
   margin-top: 1rem;
@@ -146,6 +150,7 @@ hr {
   text-align: center;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }
+
 
 .productAdd {
   display: flex;
@@ -250,20 +255,18 @@ color: white;
   text-align: center;
 
 }
-.btnGoBack {
-font-size: 16px;
-color: e5e5e5;
+
+.addProductDetail {
+  display: flex;
 }
 
-.btnGoBack:hover {
+.btnGoBack:hover, .btnSubmitSale:hover {
   font-weight: bold;
   }
 
-.btnSubmitSale:hover {
-
-}
 
 .btnSubmitSale, .btnSubmitSale:hover, .btnGoBack, .btnGoBack:hover {
+  font-size: 16px;
   color: white;
   background-color: #eea320;
   border-color: #eea320;
