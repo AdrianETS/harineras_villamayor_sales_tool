@@ -43,6 +43,7 @@ export class ContextProvider extends React.Component {
         this.submitSale = this.submitSale.bind(this);
         this.setPopup = this.setPopup.bind(this);
         this.setProductSelectors = this.setProductSelectors.bind(this);
+        this.getClientRisk = this.getClientRisk.bind(this);
     }
 
     componentDidUpdate() {
@@ -95,6 +96,7 @@ export class ContextProvider extends React.Component {
 
     deleteProductFromCart(id) {
         let updatedCart = this.state.productsAddedToCart.filter(product => product.id != id);
+        this.setProductSelectors(0, id)
         this.setState({ productsAddedToCart: updatedCart });
     }
 
@@ -237,15 +239,24 @@ export class ContextProvider extends React.Component {
         })
     }
 
-    setClientSelected(client) {
-        this.setState({ clientSelected: client });
-    }
 
-    setOriginalUsers(list) {
-        this.setState({ originalUsers: list });
-    }
-    setListOfUsers(list) {
-        this.setState({ listOfUsers: list });
+    
+    getClientRisk(history, id) {
+    //get index risk for the traffic light displayed in ClientDetails   
+        return new Promise((resolve, reject) => {
+            fetch('http://127.0.0.1:3001/clients/risk/' + id + '?token=' + this.getTokenFromLocalStorage())
+                .then(res => {
+                    if (res.status != 200) {
+                        history.push("/login");
+                        return Promise.reject();
+                    }
+                    return res.json();
+                })
+                .then((json) => {
+                    resolve(json);
+                })
+                .catch(err => reject())
+        })
     }
 
     initProductSelectors(products) {
@@ -255,8 +266,6 @@ export class ContextProvider extends React.Component {
         })
         this.setState({ productSelectors: productSelectors })
     }
-
-
 
 
     submitSale(history, clientSelected, productsAddedToCart) {
@@ -303,6 +312,7 @@ export class ContextProvider extends React.Component {
     }
 
     setPopup(boolean) {
+        //control pop up that appears when the purchase is complete
         this.setState({ openPopup: boolean });
     }
 
@@ -310,6 +320,14 @@ export class ContextProvider extends React.Component {
         let productSelectors = this.state.productSelectors;
         productSelectors[id] = quantity;
         this.setState({productSelectors});
+    }
+
+
+    setOriginalUsers(list) {
+        this.setState({ originalUsers: list });
+    }
+    setListOfUsers(list) {
+        this.setState({ listOfUsers: list });
     }
 
     render() {
@@ -323,7 +341,7 @@ export class ContextProvider extends React.Component {
                     getSalesInfoByClientId: this.getSalesInfoByClientId, getPriceForClient: this.getPriceForClient, setClientSelected: this.setClientSelected,
                     getProductInfo: this.getProductInfo, setProductList: this.setProductList, setSpecialPricePerProduct: this.setSpecialPricePerProduct,
                     addProductToCart: this.addProductToCart, deleteProductFromCart: this.deleteProductFromCart, submitSale: this.submitSale, setPopup: this.setPopup,
-                    setProductSelectors: this.setProductSelectors
+                    setProductSelectors: this.setProductSelectors, getClientRisk: this.getClientRisk
                 }}
             >
 

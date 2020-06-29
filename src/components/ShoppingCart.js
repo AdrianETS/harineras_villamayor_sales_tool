@@ -72,12 +72,7 @@ export default function ShoppingCart(props) {
             <TableContainer align="center">
                 <Table style={{ width: 900}} aria-label="spanning table">
                     <TableHead>
-                        <TableRow>
-                            <TableCell align="center" colSpan={3}>
-                                Details
-                            </TableCell>
-                            <TableCell align="left">Price</TableCell>
-                        </TableRow>
+                        
                         <TableRow>
                             
                             <TableCell style={{ width: 100 }}>Product</TableCell>

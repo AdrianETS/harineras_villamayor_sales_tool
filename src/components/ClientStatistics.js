@@ -15,31 +15,31 @@ class ClientStatistics extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedClient: {},
-            salesDetails: [],
-            groupedSales: {},
-            id: this.props.location?.state?.id
+            selectedClient: props.selectedClient,
+            salesDetails: props.salesDetails,
+            groupedSales: props.groupedSales,
+            id: props.clientId
         }
+
+        this.createChartSalesVsYear = this.createChartSalesVsYear.bind(this);
+        this.getXaxisDataSalesVsYear = this.getXaxisDataSalesVsYear.bind(this)
     }
 
     componentDidMount() {
-        this.context.checkToken(this);
-        this.context.getClientInfo(this.props.history, this.state.id)
-            .then(client => this.setState({ selectedClient: client }))
-            .then(() => this.context.getSalesInfoByClientId(this.props.history, this.state.id))
-            .then(salesInfo => this.setState({ salesDetails: salesInfo }))
-            .then(() => {
-                let groupedSalesList = this.state.salesDetails.reduce((groupedSales, sale) => {
-                    if (groupedSales[sale.venta] == null) {
-                        groupedSales[sale.venta] = [];
-                    }
-                    groupedSales[sale.venta].push(sale)
-                    return groupedSales;
-                }, {})
-                this.setState({ groupedSales: groupedSalesList })
-            }).then(()=> {
-            this.createChartSalesVsYear();
-        });
+        this.state.groupedSales && this.createChartSalesVsYear();
+    }
+
+    componentDidUpdate() {
+        console.log(JSON.stringify(this.props));
+        if (this.props.selectedClient != null && this.props.selectedClient.id != null &&
+             (!this.state.selectedClient || this.state.selectedClient.id == null))
+            this.setState({
+                selectedClient: this.props.selectedClient,
+                salesDetails: this.props.salesDetails,
+                groupedSales: this.props.groupedSales,
+                id: this.props.clientId
+            });
+        this.state.groupedSales && this.createChartSalesVsYear();
     }
 
     createChartSalesVsYear() {
@@ -59,11 +59,11 @@ class ClientStatistics extends React.Component {
         categoryAxis.dataFields.category = "year";
         categoryAxis.renderer.grid.template.location = 0;
         categoryAxis.renderer.minGridDistance = 30;
-        categoryAxis.title.text="Año"
+        categoryAxis.title.text = "Year"
 
 
         let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-        valueAxis.title.text = "Importe de Venta";
+        valueAxis.title.text = "Sales amount";
         valueAxis.renderer.minGridDistance = 20;
 
         // Create series
@@ -95,41 +95,41 @@ class ClientStatistics extends React.Component {
         let salesInYear = [];
         let clientSales = this.state.groupedSales;
 
-        for ( let sale in clientSales) {
+        for (let sale in clientSales) {
             let totalSales = 0;
             clientSales[sale].forEach(sale => {
-                totalSales+= sale.cantidad * sale.precio_unitario;
+                totalSales += sale.cantidad * sale.precio_unitario;
             });
             console.log("clientSales[sale][0]", clientSales[sale][0]);
             salesInYear.year = clientSales[sale][0].fecha.substr(clientSales[sale][0].fecha.length - 4, clientSales[sale][0].fecha.length);
             console.log("salesInYear", salesInYear.year);
             salesInYear.sale = totalSales
 
-            salesInYear.push({year:salesInYear.year , totalSales: salesInYear.sale});
+            salesInYear.push({ year: salesInYear.year, totalSales: salesInYear.sale });
         }
 
         let years = []
-      
+
         salesInYear.forEach(sale => {
-            if(!(sale.year in years)) {
+            if (!(sale.year in years)) {
                 years.push(sale.year);
             }
         });
 
         let dataChart = [];
         [...new Set(years)].forEach(year => {
-            if(!(year == dataChart.year)) {
+            if (!(year == dataChart.year)) {
                 dataChart.year = year;
                 let total = 0;
                 salesInYear.filter(sale => sale.year == year).forEach(sale => {
-                    total+=sale.totalSales;
+                    total += sale.totalSales;
                 })
                 dataChart.total = total;
-                dataChart.push({year:dataChart.year , totalSales: dataChart.total});
+                dataChart.push({ year: dataChart.year, totalSales: dataChart.total });
             }
         });
 
-        return dataChart.sort(function (a, b){
+        return dataChart.sort(function (a, b) {
             return (a.year - b.year)
         })
     }
@@ -138,17 +138,17 @@ class ClientStatistics extends React.Component {
         {
             return (
                 <>
-                <Navbar/>
-                <div className="container">
-                <h4 className=""> Cliente {this.state.selectedClient.razon_social}</h4>
-                    <Box>
-                        <Typography variant="h5">
-                            Venta por año
+                    <Navbar />
+                    <div className="container">
+                        <h4 className=""> Client {this.state.selectedClient && this.state.selectedClient.razon_social}</h4>
+                        <Box>
+                            <Typography variant="h5">
+                                Sales per year
                         </Typography>
-                        <Box id="salesVsYear" height="350px"></Box>
-                    </Box>
-                </div>
-                
+                            <Box id="salesVsYear" height="350px"></Box>
+                        </Box>
+                    </div>
+
                 </>
             );
         }
