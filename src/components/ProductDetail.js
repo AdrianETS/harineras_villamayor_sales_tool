@@ -50,7 +50,7 @@ class ProductDetail extends React.Component {
                 <br/>
                 <div className="lastCell">
                     <Link to={{ pathname: '/products/list'}}><button type="button" className="btnGoBack" onClick="">Go back</button></Link>
-                    <div><input className="inputUnit" id= "quantitySelector" type="number" min="0" placeholder="Add units"
+                    <div className="addProductDetail"><input className="inputUnit" id= "quantitySelector" type="number" min="0" placeholder="Add units"
                                 onChange={(event)=>this.handleNumberChange(event)} aria-label="Search" />
                     <button type="button" 
                             className="btnSubmitSale" 
