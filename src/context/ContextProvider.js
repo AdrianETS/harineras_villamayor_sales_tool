@@ -322,9 +322,6 @@ export class ContextProvider extends React.Component {
         this.setState({productSelectors});
     }
 
-    setClientSelected(client) {
-        this.setState({ clientSelected: client });
-    }
 
     setOriginalUsers(list) {
         this.setState({ originalUsers: list });

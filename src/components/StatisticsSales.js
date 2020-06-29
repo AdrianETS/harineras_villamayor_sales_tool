@@ -43,11 +43,11 @@ class StatisticsSales extends React.Component {
         categoryAxis.dataFields.category = "sale";
         categoryAxis.renderer.grid.template.location = 0;
         categoryAxis.renderer.minGridDistance = 30;
-        categoryAxis.title.text="Id_Venta"
+        categoryAxis.title.text="ID of the Sale"
 
 
         let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-        valueAxis.title.text = "numProducts";
+        valueAxis.title.text = "Number of Products";
 
         // Create series
         let series = chart.series.push(new am4charts.ColumnSeries());
@@ -76,11 +76,11 @@ class StatisticsSales extends React.Component {
         categoryAxis.dataFields.category = "sale";
         categoryAxis.renderer.grid.template.location = 0;
         categoryAxis.renderer.minGridDistance = 30;
-        categoryAxis.title.text="Id_Venta"
+        categoryAxis.title.text="ID of the Sale"
 
 
         let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-        valueAxis.title.text = "Cantidad";
+        valueAxis.title.text = "Quantity";
 
         // Create series
         let series = chart.series.push(new am4charts.ColumnSeries());
@@ -144,13 +144,13 @@ class StatisticsSales extends React.Component {
             <div className="container">
                 <Box>
                     <Typography variant="h5">
-                        Número de productos por venta
+                    Number of products per sale
                     </Typography>
                     <div id="salesVsNProdutcs"></div>
                 </Box>
                 <Box>
                     <Typography variant="h5">
-                        Cantidad de productos por venta
+                    Quantity of products per sale
                     </Typography>
                     <div id="salesVsQuantity"></div>
                 </Box>
