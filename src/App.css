@@ -161,9 +161,10 @@ hr {
   margin-top: auto;
 }
 
-.imgProduct{
-
-} 
+.trafficLight{
+  display: flex;
+  align-items: center;
+  } 
 
 .quantity {
   width: 30%
