@@ -10,6 +10,7 @@ import Button from "@material-ui/core/Button";
 import NavBar from "./Navbar";
 import DeleteIcon from '@material-ui/icons/Delete';
 import { AppContext } from "./../context/ContextProvider";
+import { Link } from 'react-router-dom';
 
 
 
@@ -114,9 +115,13 @@ export default function ShoppingCart(props) {
                     </TableBody>
                 </Table>
             </TableContainer>
+            <div className="lastCell">
+            <Link to={{ pathname: '/products/list'}}><button type="button" className="btnGoBack" onClick="">Go back</button></Link>
             <Button class="btnSubmitSale" variant="contained" color="secondary" onClick ={()=>context.submitSale(props.history, context.clientSelected, context.productsAddedToCart)}>
                 Submit
             </Button>
+            </div>
+            
             </div>
         </React.Fragment>
     );
