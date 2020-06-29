@@ -52,7 +52,23 @@ class ClientsDetails extends React.Component {
             <div><Navbar name={this.context.userName} />
             <div className="container">
                 {!Object.keys(this.state.selectedClient).length? <CircularProgress color = "secondary"/>:
-                <React.Fragment><h4 className=""> Client {this.state.selectedClient && this.state.selectedClient.razon_social}</h4>
+                <React.Fragment>
+                <div className="title">
+                <div>
+                <h4 className=""> Client {this.state.selectedClient && this.state.selectedClient.razon_social}</h4>
+                </div>
+                
+                <div>
+             <React.Fragment>
+                {this.state.riskIndex < 30 && <TrafficLight GreenOn Horizontal/>}
+                {this.state.riskIndex > 70 && <TrafficLight RedOn Horizontal/>}
+                {(this.state.riskIndex >= 30 && this.state.riskIndex <= 70) && <TrafficLight YellowOn Horizontal/>}
+                <h5>Risk Index: {this.state.riskIndex}</h5>
+                </React.Fragment>
+             </div>
+
+                </div>
+            
                 <h5 className="container_within_navbar"> Client's details</h5>
                 <table id="clientDetails" /*className="table table-bordered"*/>
                     <tr>
@@ -114,12 +130,8 @@ class ClientsDetails extends React.Component {
                 clientId = {this.state.id} ></ClientStatistics>
                     
                 </div>
-                <React.Fragment>
-                {this.state.riskIndex < 30 && <TrafficLight GreenOn Horizontal/>}
-                {this.state.riskIndex > 70 && <TrafficLight RedOn Horizontal/>}
-                {(this.state.riskIndex >= 30 && this.state.riskIndex <= 70) && <TrafficLight YellowOn Horizontal/>}
-                <h3>Risk Index: </h3> {this.state.riskIndex}
-                </React.Fragment>
+            
+              
                 </React.Fragment>}
                 </div>
             </div>
