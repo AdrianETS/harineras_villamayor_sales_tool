@@ -10,6 +10,7 @@ import TrafficLight from 'react-trafficlight';
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 
+
 class ClientsDetails extends React.Component {
 
     static contextType = AppContext;
@@ -47,6 +48,8 @@ class ClientsDetails extends React.Component {
             .then(riskIndex => this.setState({riskIndex: parseFloat(riskIndex)}));
     }
 
+      
+       
     render() {
         return (
             <div><Navbar name={this.context.userName} />
@@ -60,10 +63,13 @@ class ClientsDetails extends React.Component {
                 
                 <div>
              <React.Fragment>
-                {this.state.riskIndex < 30 && <TrafficLight GreenOn Horizontal/>}
-                {this.state.riskIndex > 70 && <TrafficLight RedOn Horizontal/>}
-                {(this.state.riskIndex >= 30 && this.state.riskIndex <= 70) && <TrafficLight YellowOn Horizontal/>}
-                <h5>Risk Index: {this.state.riskIndex}</h5>
+                 <div className="trafficLight">
+                 {this.state.riskIndex < 30 && <TrafficLight GreenOn Horizontal BlackColor="transparent" />}
+                {this.state.riskIndex > 70 && <TrafficLight RedOn Horizontal  BlackColor="transparent" />}
+                {(this.state.riskIndex >= 30 && this.state.riskIndex <= 70) && <TrafficLight YellowOn Horizontal  BlackColor="transparent"/>}
+                <h5>Risk Index: {this.state.riskIndex} %</h5>
+                 </div>
+                
                 </React.Fragment>
              </div>
 
@@ -134,6 +140,7 @@ class ClientsDetails extends React.Component {
               
                 </React.Fragment>}
                 </div>
+                
             </div>
         )
 
