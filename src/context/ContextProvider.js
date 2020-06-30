@@ -267,6 +267,15 @@ export class ContextProvider extends React.Component {
         this.setState({ productSelectors: productSelectors })
     }
 
+    resetProductSelectors(){
+        let productSelectors = this.state.productSelectors;
+            for (let [index, product] of this.state.specialPricePerProduct.entries()) {
+                    productSelectors[product.id] = 0;
+            }
+         
+        this.setState({ productSelectors })
+    }
+
 
     submitSale(history, clientSelected, productsAddedToCart) {
         return new Promise((resolve, reject) => {
@@ -289,6 +298,7 @@ export class ContextProvider extends React.Component {
                     return res.json();
                 })
                 .then(json => resolve(json))
+                .then(()=>this.resetProductSelectors())
                 .then(() => this.setState({ openPopup: true, productsAddedToCart: [] }))
                 .then(() => history.push("/"))
         })
