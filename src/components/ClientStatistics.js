@@ -128,10 +128,20 @@ class ClientStatistics extends React.Component {
                 dataChart.push({ year: dataChart.year, totalSales: dataChart.total });
             }
         });
+  
+        let year = new Date().getFullYear();
+        let chartYears = [];
+        for(let past = year - 4 ; past<=year ; past++) {
+            chartYears.year = past;
+            chartYears.totalSales = 0;
+            let totalInYear = dataChart.filter(el => el.year == chartYears.year)
+            if (totalInYear.length != 0) {
+                chartYears.totalSales = totalInYear[0].totalSales;
+            }
+            chartYears.push({ year: chartYears.year.toString(), totalSales: chartYears.totalSales });
 
-        return dataChart.sort(function (a, b) {
-            return (a.year - b.year)
-        })
+        }
+        return chartYears;
     }
 
     render() {
