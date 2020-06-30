@@ -44,6 +44,7 @@ export class ContextProvider extends React.Component {
         this.setPopup = this.setPopup.bind(this);
         this.setProductSelectors = this.setProductSelectors.bind(this);
         this.getClientRisk = this.getClientRisk.bind(this);
+        this.setSalesDataForSelectedClient = this.setSalesDataForSelectedClient.bind(this);
     }
 
     componentDidUpdate() {
@@ -135,13 +136,11 @@ export class ContextProvider extends React.Component {
                         history.push("/login");
                         return Promise.reject();
                     }
-                    console.log("devuelvo...")
                     return res.json();
                 })
                 .then((json) => {
                     this.setState({ clientId: id });
                     this.setState({ selectedClient: json });
-                    console.log("json...")
                     resolve(json);
                 })
                 .catch(err => reject())
@@ -299,6 +298,7 @@ export class ContextProvider extends React.Component {
 
     setClientSelected(client) {
         //update state with the new client selected from ClientSelector component
+        this.setSalesDataForSelectedClient(client)
         this.setState({ clientSelected: client, clientUpdated: true, productsAddedToCart: [], isClientSelected: true });
     }
 
@@ -323,12 +323,27 @@ export class ContextProvider extends React.Component {
         this.setState({ productSelectors });
     }
 
-
     setOriginalUsers(list) {
         this.setState({ originalUsers: list });
     }
     setListOfUsers(list) {
         this.setState({ listOfUsers: list });
+    }
+
+    setSalesDataForSelectedClient(client){
+        console.log("my id is " + client.id)
+        this.getSalesInfoByClientId(this.props.history, client.id)
+        .then(salesDetails => {
+            let groupedSalesList = salesDetails.reduce((groupedSales, sale) => {
+                if (groupedSales[sale.venta] == null) {
+                    groupedSales[sale.venta] = [];
+                }
+                groupedSales[sale.venta].push(sale)
+                return groupedSales;
+            }, {})
+            //this.state.groupedSales = groupedSalesList;   
+            this.setState({groupedSales:groupedSalesList })
+        })
     }
 
     render() {
