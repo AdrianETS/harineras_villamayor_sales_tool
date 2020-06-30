@@ -21,7 +21,8 @@ class ClientsDetails extends React.Component {
             selectedClient: {},
             salesDetails: [],
             groupedSales: {},
-            id: this.props.location?.state?.id
+            id: this.props.location?.state?.id,
+            riskIndex: ""
         }
     }
 
@@ -45,7 +46,13 @@ class ClientsDetails extends React.Component {
                 this.setState({ ...this.state, selectedClient : client })
             })
             .then(()=>this.context.getClientRisk(this.props.history, this.state.id))
-            .then(riskIndex => this.setState({riskIndex: parseFloat(riskIndex)}));
+            .then(riskIndex => {
+                if(riskIndex){
+                    return this.setState({riskIndex: parseFloat(riskIndex)})
+                } else {
+                    return this.setState({riskIndex: "No data for this user"})
+                }
+            });
     }
 
       

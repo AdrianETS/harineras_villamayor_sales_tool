@@ -240,9 +240,9 @@ export class ContextProvider extends React.Component {
     }
 
 
-    
+
     getClientRisk(history, id) {
-    //get index risk for the traffic light displayed in ClientDetails   
+        //get index risk for the traffic light displayed in ClientDetails   
         return new Promise((resolve, reject) => {
             fetch('http://127.0.0.1:3001/clients/risk/' + id + '?token=' + this.getTokenFromLocalStorage())
                 .then(res => {
@@ -253,6 +253,7 @@ export class ContextProvider extends React.Component {
                     return res.json();
                 })
                 .then((json) => {
+                    console.log("respuesta:" + json)
                     resolve(json);
                 })
                 .catch(err => reject())
@@ -319,7 +320,7 @@ export class ContextProvider extends React.Component {
     setProductSelectors(quantity, id) {
         let productSelectors = this.state.productSelectors;
         productSelectors[id] = quantity;
-        this.setState({productSelectors});
+        this.setState({ productSelectors });
     }
 
 
