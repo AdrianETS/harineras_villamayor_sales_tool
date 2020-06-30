@@ -99,14 +99,14 @@ class StatisticsSales extends React.Component {
         const numSale = []
         let productInSales = [];
         this.context.salesList.forEach(sale => {
-            if(!(sale.id_venta in numSale)) {
-                numSale.push(sale.id_venta);
+            if(!(sale.venta in numSale)) {
+                numSale.push(sale.venta);
             }
         });
 
         [...new Set(numSale)].forEach(saleProduct => {
             productInSales.sale = saleProduct;
-            productInSales.products = this.context.salesList.filter(sale => sale.id_venta==saleProduct).length;
+            productInSales.products = this.context.salesList.filter(sale => sale.venta==saleProduct).length;
             productInSales.push({sale:productInSales.sale , numProducts: productInSales.products});
         });
 
@@ -117,8 +117,8 @@ class StatisticsSales extends React.Component {
         const numSale = []
         let quantProductsInSales = [];
         this.context.salesList.forEach(sale => {
-            if(!(sale.id_venta in numSale)) {
-                numSale.push(sale.id_venta);
+            if(!(sale.venta in numSale)) {
+                numSale.push(sale.venta);
             }
         });
 
@@ -126,8 +126,8 @@ class StatisticsSales extends React.Component {
         [...new Set(numSale)].forEach(saleProduct => {
             quantProductsInSales.sale = saleProduct;
             let quantity = 0;
-            this.context.salesList.filter(sale => sale.id_venta==saleProduct).forEach(sale => {
-                quantity+= sale.cantidad_pedida;
+            this.context.salesList.filter(sale => sale.venta==saleProduct).forEach(sale => {
+                quantity+= sale.cantidad;
 
             });
             quantProductsInSales.quantity = quantity;
