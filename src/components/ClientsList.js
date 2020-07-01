@@ -85,7 +85,7 @@ export default function ClienList(props) {
                         <input className="form-control form-control-sm ml-3 w-45 " type="text" onChange={event=>searchClients(event)} placeholder="Search" aria-label="Search" />
                     </form>
                 </div>
-                    {!pageIsLoaded? <CircularProgress color = "secondary"/>:<React.Fragment>
+                    {!pageIsLoaded? <div className="circularProgress"><CircularProgress color = "secondary"/></div>:<React.Fragment>
                     {(membersFound.length == 0 ? <h5 className="container_within_navbar">No clients found</h5>
                         : membersFound.slice((page - 1) * itemsPerPage, page * itemsPerPage).map(clientes =>
                             
