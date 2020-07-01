@@ -131,11 +131,11 @@ class ClientsDetails extends React.Component {
                                     <td className="productName">{saleLine.producto}</td>
                                     <td>{saleLine.cantidad}</td>
                                     <td>{saleLine.precio_unitario}</td>
-                                    <td className="subTotal">{Number((saleLine.precio_unitario * saleLine.cantidad).toFixed(2)) + " €"}</td>
+                                    <td className="subTotal">{Number(saleLine.precio_unitario * saleLine.cantidad).toFixed(2) + " €"}</td>
                                 </tr>)
                                 
                             })
-                            lines.push(<React.Fragment><tr className="totalPrice"><td className="totalPrice" colSpan="5">Total price per sale {key} :</td><td className="totalPrice" colSpan="1"> {this.state.groupedSales[key].reduce((total, current) => total + Number((current.cantidad*current.precio_unitario).toFixed(2)), 0)} €</td></tr></React.Fragment>);
+                            lines.push(<React.Fragment><tr className="totalPrice"><td className="totalPrice" colSpan="5">Total price per sale {key} :</td><td className="totalPrice" colSpan="1"> {Number(this.state.groupedSales[key].reduce((total, current) => total + (current.cantidad*current.precio_unitario), 0)).toFixed(2)} €</td></tr></React.Fragment>);
                             return lines;
                         }
                     )}             
