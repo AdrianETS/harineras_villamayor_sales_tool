@@ -63,8 +63,11 @@ class ClientsDetails extends React.Component {
         return (
             <div><Navbar name={this.context.userName} />
             <div className="container">
-                { !this.state.pageLoaded ? <CircularProgress color = "secondary"/>:
+                
+                { !this.state.pageLoaded ? <div className="circularProgress"><CircularProgress color = "secondary"/></div>:
+               
                 <React.Fragment>
+                     
                 <div className="title">
                 <div>
                 <h4 className=""> Client {this.state.selectedClient && this.state.selectedClient.razon_social}</h4>

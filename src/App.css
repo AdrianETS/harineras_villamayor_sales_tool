@@ -176,6 +176,10 @@ hr {
     justify-content: center;
 }
 
+.circularProgress {
+display: flex;
+justify-content: center;
+}
 .totalPrice {
   text-align: right;
   font-weight: bold;
