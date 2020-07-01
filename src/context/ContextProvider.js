@@ -21,7 +21,8 @@ export class ContextProvider extends React.Component {
             originalUsers: [],
             salesList: [],
             productSelectors: {},
-            selectedProduct: {},
+            selectedProduct: "",
+            selectedProductId: "",
             selectedClient: ""
 
         }
@@ -56,6 +57,7 @@ export class ContextProvider extends React.Component {
             if (this.state.clientSelected != null) {
                 this.getPriceForClient(this.props.history, this.state.clientSelected.id)
                     .then(() => this.setState({ clientUpdated: false }))
+                    .then(()=>this.state.selectedProductId && this.findSelectedProduct(this.state.selectedProductId))
             }
             else {
                 this.getProductsList(this.props.history)
@@ -106,10 +108,10 @@ export class ContextProvider extends React.Component {
 
     findSelectedProduct(id) {
         if (this.state.isClientSelected) {
-            let productFound = this.state.specialPricePerProduct.find(product => product.id = id);
+            let productFound = this.state.specialPricePerProduct.find(product => product.id == id);
             this.setState({ selectedProduct: productFound, selectedProductId: id })
         } else {
-            let productFound = this.state.productsList.find(product => product.id = id);
+            let productFound = this.state.productsList.find(product => product.id == id);
             this.setState({ selectedProduct: productFound, selectedProductId: id })
         }
     }

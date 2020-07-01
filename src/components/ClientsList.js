@@ -8,6 +8,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Pagination from "@material-ui/lab/Pagination";
 import { useHistory } from "react-router";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -84,8 +85,8 @@ export default function ClienList(props) {
                         <input className="form-control form-control-sm ml-3 w-45 " type="text" onChange={event=>searchClients(event)} placeholder="Search" aria-label="Search" />
                     </form>
                 </div>
-                
-                    {pageIsLoaded && (membersFound.length == 0 ? <h5 className="container_within_navbar">No clients found</h5>
+                    {!pageIsLoaded? <CircularProgress color = "secondary"/>:<React.Fragment>
+                    {(membersFound.length == 0 ? <h5 className="container_within_navbar">No clients found</h5>
                         : membersFound.slice((page - 1) * itemsPerPage, page * itemsPerPage).map(clientes =>
                             
                             
@@ -118,6 +119,7 @@ export default function ClienList(props) {
                         classes={{ ul: classes.paginator }}
                     />
                 </Box>
+                </React.Fragment>}
             </div>
         </div>
     </div>)
