@@ -22,7 +22,8 @@ class ClientsDetails extends React.Component {
             salesDetails: [],
             groupedSales: {},
             id: this.props.location?.state?.id,
-            riskIndex: ""
+            riskIndex: "",
+            pageLoaded: false
         }
     }
 
@@ -47,12 +48,13 @@ class ClientsDetails extends React.Component {
             })
             .then(()=>this.context.getClientRisk(this.props.history, this.state.id))
             .then(riskIndex => {
-                if(riskIndex){
+                if(riskIndex!="No data for this user"){
                     return this.setState({riskIndex: parseFloat(riskIndex)})
                 } else {
-                    return this.setState({riskIndex: "No data for this user"})
+                    return this.setState({riskIndex})
                 }
-            });
+            })
+            .then(()=>this.setState({pageLoaded: true}))
     }
 
       
@@ -61,7 +63,7 @@ class ClientsDetails extends React.Component {
         return (
             <div><Navbar name={this.context.userName} />
             <div className="container">
-                {!Object.keys(this.state.selectedClient).length? <CircularProgress color = "secondary"/>:
+                { !this.state.pageLoaded ? <CircularProgress color = "secondary"/>:
                 <React.Fragment>
                 <div className="title">
                 <div>
@@ -72,7 +74,7 @@ class ClientsDetails extends React.Component {
              <React.Fragment>
                  <div className="trafficLight">
                      <div>
-                     <h5>Risk Index: {this.state.riskIndex} %</h5>
+                     <h5>Risk Index: {this.state.riskIndex} {typeof this.state.riskIndex === "number" && "%"}</h5>
                      </div>
                      <div>
                  {this.state.riskIndex < 30 && <TrafficLight Size="40" GreenOn Horizontal BlackColor="transparent" />}
