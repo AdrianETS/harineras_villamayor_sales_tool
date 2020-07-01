@@ -114,7 +114,7 @@ class ProductsList extends React.Component {
                                 <div className="col-xs-12 col-sm-6 col-md-4">
                                     <div className="productCard">
                                         <Link to={{ pathname: '/product/detail', state: { id: producto.id} }}><div><img className="imgProduct" src={"/images/productXs/" + producto.img} /></div>
-                                            <div>{producto.nombre_comercial}</div></Link>
+                                        <div>{producto.nombre_comercial}</div></Link>
                                         <div>Price: {producto.precio} €/bag </div>
                                         <div className="addQuantity"><label>Quantity:</label><input className="quantity" id={"quantitySelector" + producto.id} type="number" min="0" onChange={(ev) => this.handleNumberChange(ev, producto.id)} aria-label="Search" value = {this.context.productSelectors && this.context.productSelectors[producto.id]}/>
                                             <button type="button" className="addProductBtn" type="button" onClick={() => this.context.addProductToCart({
