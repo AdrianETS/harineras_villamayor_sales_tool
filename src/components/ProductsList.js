@@ -113,7 +113,7 @@ class ProductsList extends React.Component {
                             {this.context.specialPricePerProduct.length != 0 ? this.context.specialPricePerProductFiltered.map(producto =>
                                 <div className="col-xs-12 col-sm-6 col-md-4">
                                     <div className="productCard">
-                                        <Link to={{ pathname: '/product/detail', state: { producto: producto } }}><div><img className="imgProduct" src={"/images/productXs/" + producto.img} /></div>
+                                        <Link to={{ pathname: '/product/detail', state: { id: producto.id} }}><div><img className="imgProduct" src={"/images/productXs/" + producto.img} /></div>
                                             <div>{producto.nombre_comercial}</div></Link>
                                         <div>Price: {producto.precio} €/bag </div>
                                         <div className="addQuantity"><label>Quantity:</label><input className="quantity" id={"quantitySelector" + producto.id} type="number" min="0" onChange={(ev) => this.handleNumberChange(ev, producto.id)} aria-label="Search" value = {this.context.productSelectors && this.context.productSelectors[producto.id]}/>
@@ -129,7 +129,7 @@ class ProductsList extends React.Component {
                             ) : this.context.productsListFiltered.map(producto =>
                                 <div className="col-xs-12 col-sm-6 col-md-4">
                                     <div className="productCard">
-                                        <Link to={{ pathname: '/product/detail', state: { producto: producto } }}><div><img className="imgProduct" src={"/images/productXs/" + producto.img} /></div>
+                                        <Link to={{ pathname: '/product/detail', state: { id: producto.id} }}><div><img className="imgProduct" src={"/images/productXs/" + producto.img} /></div>
                                             <div>{producto.nombre_comercial}</div></Link>
                                         <div>Price: {producto.precio} €/bag </div>
                                         <div className="addQuantity"><label>Quantity:</label><input className="quantity" id={"quantitySelector" + producto.id} type="number" min="0" onChange={this.handleNumberChange} aria-label="Search" />

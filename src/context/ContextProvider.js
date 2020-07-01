@@ -20,7 +20,9 @@ export class ContextProvider extends React.Component {
             listOfUsers: [],
             originalUsers: [],
             salesList: [],
-            productSelectors: {}
+            productSelectors: {},
+            selectedProduct: {},
+            selectedClient: ""
 
         }
 
@@ -45,6 +47,7 @@ export class ContextProvider extends React.Component {
         this.setProductSelectors = this.setProductSelectors.bind(this);
         this.getClientRisk = this.getClientRisk.bind(this);
         this.setSalesDataForSelectedClient = this.setSalesDataForSelectedClient.bind(this);
+        this.findSelectedProduct = this.findSelectedProduct.bind(this);
     }
 
     componentDidUpdate() {
@@ -99,6 +102,16 @@ export class ContextProvider extends React.Component {
         let updatedCart = this.state.productsAddedToCart.filter(product => product.id != id);
         this.setProductSelectors(0, id)
         this.setState({ productsAddedToCart: updatedCart });
+    }
+
+    findSelectedProduct(id) {
+        if (this.state.isClientSelected) {
+            let productFound = this.state.specialPricePerProduct.find(product => product.id = id);
+            this.setState({ selectedProduct: productFound, selectedProductId: id })
+        } else {
+            let productFound = this.state.productsList.find(product => product.id = id);
+            this.setState({ selectedProduct: productFound, selectedProductId: id })
+        }
     }
 
 
@@ -249,11 +262,8 @@ export class ContextProvider extends React.Component {
                         history.push("/login");
                         return Promise.reject();
                     }
-                    return res.json();
-                })
-                .then((json) => {
-                    console.log("respuesta:" + json)
-                    resolve(json);
+                    console.log(res)
+                    resolve(res.text());
                 })
                 .catch(err => reject())
         })
@@ -267,12 +277,12 @@ export class ContextProvider extends React.Component {
         this.setState({ productSelectors: productSelectors })
     }
 
-    resetProductSelectors(){
+    resetProductSelectors() {
         let productSelectors = this.state.productSelectors;
-            for (let [index, product] of this.state.specialPricePerProduct.entries()) {
-                    productSelectors[product.id] = 0;
-            }
-         
+        for (let [index, product] of this.state.specialPricePerProduct.entries()) {
+            productSelectors[product.id] = 0;
+        }
+
         this.setState({ productSelectors })
     }
 
@@ -298,7 +308,7 @@ export class ContextProvider extends React.Component {
                     return res.json();
                 })
                 .then(json => resolve(json))
-                .then(()=>this.resetProductSelectors())
+                .then(() => this.resetProductSelectors())
                 .then(() => this.setState({ openPopup: true, productsAddedToCart: [] }))
                 .then(() => history.push("/"))
         })
@@ -340,20 +350,19 @@ export class ContextProvider extends React.Component {
         this.setState({ listOfUsers: list });
     }
 
-    setSalesDataForSelectedClient(client){
-        console.log("my id is " + client.id)
+    setSalesDataForSelectedClient(client) {
         this.getSalesInfoByClientId(this.props.history, client.id)
-        .then(salesDetails => {
-            let groupedSalesList = salesDetails.reduce((groupedSales, sale) => {
-                if (groupedSales[sale.venta] == null) {
-                    groupedSales[sale.venta] = [];
-                }
-                groupedSales[sale.venta].push(sale)
-                return groupedSales;
-            }, {})
-            //this.state.groupedSales = groupedSalesList;   
-            this.setState({groupedSales:groupedSalesList })
-        })
+            .then(salesDetails => {
+                let groupedSalesList = salesDetails.reduce((groupedSales, sale) => {
+                    if (groupedSales[sale.venta] == null) {
+                        groupedSales[sale.venta] = [];
+                    }
+                    groupedSales[sale.venta].push(sale)
+                    return groupedSales;
+                }, {})
+                //this.state.groupedSales = groupedSalesList;   
+                this.setState({ groupedSales: groupedSalesList })
+            })
     }
 
     render() {
@@ -367,7 +376,7 @@ export class ContextProvider extends React.Component {
                     getSalesInfoByClientId: this.getSalesInfoByClientId, getPriceForClient: this.getPriceForClient, setClientSelected: this.setClientSelected,
                     getProductInfo: this.getProductInfo, setProductList: this.setProductList, setSpecialPricePerProduct: this.setSpecialPricePerProduct,
                     addProductToCart: this.addProductToCart, deleteProductFromCart: this.deleteProductFromCart, submitSale: this.submitSale, setPopup: this.setPopup,
-                    setProductSelectors: this.setProductSelectors, getClientRisk: this.getClientRisk
+                    setProductSelectors: this.setProductSelectors, getClientRisk: this.getClientRisk, findSelectedProduct: this.findSelectedProduct
                 }}
             >
 
