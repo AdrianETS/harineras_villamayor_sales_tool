@@ -94,16 +94,24 @@ export default function ClientSelector(props) {
             </FormControl>
           </form>
         </DialogContent>
-        <DialogActions>
-        <Button onClick={unselectClient} color="secondary">
+        <DialogActions style={{"justifyContent":"space-between"}}>
+       
+          <div>
+          <Button onClick={unselectClient} color="secondary">
             Unselect client
           </Button>
-        <Button onClick={handleSave} color="primary">
+          </div>
+      <div>
+      <Button onClick={handleSave} color="primary">
             Save
           </Button>
           <Button onClick={handleCancel} color="primary">
             Cancel
           </Button>
+      </div>
+       
+          
+       
         </DialogActions>
       </Dialog>
     </React.Fragment>
