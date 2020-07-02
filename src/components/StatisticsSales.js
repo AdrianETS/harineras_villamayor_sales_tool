@@ -15,6 +15,7 @@ import {
     Typography
 } from "@material-ui/core";
 import FadeIn from 'react-fade-in';
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 class StatisticsSales extends React.Component {
 
@@ -26,8 +27,8 @@ class StatisticsSales extends React.Component {
             groupedSales: props.groupedSales,
             clientSelected: props.clientSelected,
             salesList: [],
-            id: props.clientId
-
+            id: props.clientId,
+            pageIsLoaded: false
         }
     }
 
@@ -41,12 +42,14 @@ class StatisticsSales extends React.Component {
         let clientUP = this.context.clientUpdated;
         //console.log("clientSelected", clientSelected)
         console.log("clientUP", clientUP)
+        
 
         this.context.getSalesList(this.props.history)
             .then(() => {
                 this.createChartSalesVsNProdutcs();
                 this.createChartSalesVsQuantity();
                 this.createchartSalesTotalvsClients();
+                this.setState({pageIsLoaded: true})
             });
     }
 
@@ -352,6 +355,7 @@ class StatisticsSales extends React.Component {
         return ( <>
             <Navbar/>
             <div className = "container" >
+            {!this.state.pageIsLoaded? <div className="circularProgress"><CircularProgress color = "secondary"/></div>:<React.Fragment>
             <FadeIn delay = {
                 200
             }>
@@ -374,6 +378,7 @@ class StatisticsSales extends React.Component {
                 </Box> 
             </Box> 
             </FadeIn> 
+            </React.Fragment>}
             </div > </>
         )
     }
