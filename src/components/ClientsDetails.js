@@ -156,7 +156,7 @@ class ClientsDetails extends React.Component {
               </div>
                 
              
-              </FadeIn>
+              
              <div className="">
                <ClientStatistics 
                selectedClient = {this.state.selectedClient}
@@ -166,7 +166,7 @@ class ClientsDetails extends React.Component {
                     
                 </div>
                
-        
+                </FadeIn>
                 
                 </React.Fragment>
                }

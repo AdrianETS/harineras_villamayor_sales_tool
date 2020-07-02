@@ -148,12 +148,12 @@ class ClientStatistics extends React.Component {
         {
             return (
                 <>
-                    <Navbar />
+                    
                     <div className="container">
-                        <h4 className=""> Client {this.state.selectedClient && this.state.selectedClient.razon_social}</h4>
+                       
                         <Box>
                             <Typography variant="h5">
-                                Sales per year
+                                <h5 className="container_within_navbar">Sales per year</h5>
                         </Typography>
                             <Box id="salesVsYear" height="350px"></Box>
                         </Box>
