@@ -277,7 +277,7 @@ class StatisticsSales extends React.Component {
             if (this.context.salesList)
                 totalAmount = this.context.salesList.filter(sale => new Date(sale.fecha).getFullYear() == element.year).reduce((acc, curr) => acc = acc + curr.precio_total, 0);
             if (this.context.clientSelected)
-                totalAmountClient = this.context.salesList.filter(sale => new Date(sale.fecha).getFullYear() == element.year && sale.client == this.context.clientSelected.id).reduce((acc, curr) => acc = acc + curr.precio_total, 0);
+                totalAmountClient = this.context.salesList.filter(sale => sale.fecha.substr(sale.fecha.length - 4, sale.fecha.length) == element.year && sale.client == this.context.clientSelected.id).reduce((acc, curr) => acc = acc + curr.precio_total, 0);
             chartData[index] = {
                 ...element,
                 totalAmount,
