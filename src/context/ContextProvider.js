@@ -49,6 +49,7 @@ export class ContextProvider extends React.Component {
         this.getClientRisk = this.getClientRisk.bind(this);
         this.setSalesDataForSelectedClient = this.setSalesDataForSelectedClient.bind(this);
         this.findSelectedProduct = this.findSelectedProduct.bind(this);
+        this.setNoClient = this.setNoClient.bind(this);
     }
 
     componentDidUpdate() {
@@ -324,6 +325,10 @@ export class ContextProvider extends React.Component {
         this.setState({ clientSelected: client, clientUpdated: true, productsAddedToCart: [], isClientSelected: true });
     }
 
+    setNoClient(){
+        this.setState({ clientSelected: {}, clientUpdated: true, productsAddedToCart: [], isClientSelected: false });
+    }
+
     setProductList(list) {
         //update state from the search bar in ProductList
         this.setState({ productsListFiltered: list });
@@ -378,7 +383,7 @@ export class ContextProvider extends React.Component {
                     getSalesInfoByClientId: this.getSalesInfoByClientId, getPriceForClient: this.getPriceForClient, setClientSelected: this.setClientSelected,
                     getProductInfo: this.getProductInfo, setProductList: this.setProductList, setSpecialPricePerProduct: this.setSpecialPricePerProduct,
                     addProductToCart: this.addProductToCart, deleteProductFromCart: this.deleteProductFromCart, submitSale: this.submitSale, setPopup: this.setPopup,
-                    setProductSelectors: this.setProductSelectors, getClientRisk: this.getClientRisk, findSelectedProduct: this.findSelectedProduct
+                    setProductSelectors: this.setProductSelectors, getClientRisk: this.getClientRisk, findSelectedProduct: this.findSelectedProduct,setNoClient: this.setNoClient
                 }}
             >
 
