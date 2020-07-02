@@ -77,7 +77,7 @@ export default function ClienList(props) {
     return (<div>
         <Navbar history={props.history} />
         <div className="container">
-            <h4 className=""> List of clients: </h4>
+            <h4 className=""> List of clients </h4>
             <div className={"container_within_navbar"} >
                 <div >
                     <form className="form-inline mt-2 mb-2">
