@@ -51,6 +51,11 @@ export default function ClientSelector(props) {
     setOpen(false);
   }
 
+  const unselectClient = () =>{
+    context.setNoClient();
+    setOpen(false);
+  }
+
   const handleClientSelection = (event) => {
     setselectedClient(event.target.value);
   };
@@ -90,6 +95,9 @@ export default function ClientSelector(props) {
           </form>
         </DialogContent>
         <DialogActions>
+        <Button onClick={unselectClient} color="secondary">
+            Unselect client
+          </Button>
         <Button onClick={handleSave} color="primary">
             Save
           </Button>
