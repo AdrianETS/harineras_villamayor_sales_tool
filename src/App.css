@@ -170,7 +170,9 @@ hr {
   width: 30%;
   }
 
-
+.totalPriceQ, .subTotal {
+text-align: left;
+}
 
 .addQuantity {
     display: flex;
@@ -188,6 +190,10 @@ justify-content: center;
   height: 50px;
 }
 
+.totalPriceQ {
+  font-weight: bold;
+}
+
 #clientDetails {
   margin-top: 25px;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -201,9 +207,7 @@ justify-content: center;
   background-color: #eea320;
   }
 
-.subTotal {
-   text-align: left;
- }
+
  .price, .quantitySales {
    text-align: left;
   
@@ -224,12 +228,12 @@ justify-content: center;
   color: black;
   text-align: center;
 }
-
+/*
 #clientDetails tr:nth-child(even) {background-color: white; color: black}
 
 #clientDetails tr:hover {background-color: #ddd;}
 tr .totalPrice:hover {background-color: white;}
-
+*/
 #clientDetails td, #clientDetails th {
 border: 1px solid #ddd;
 padding: 7px;
