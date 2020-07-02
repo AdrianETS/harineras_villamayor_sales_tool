@@ -152,9 +152,9 @@ class ClientStatistics extends React.Component {
                     <div className="container">
                        
                         <Box>
-                            <Typography variant="h5">
-                                <h5 className="container_within_navbar">Sales per year</h5>
-                        </Typography>
+                           
+                               
+                       
                             <Box id="salesVsYear" height="350px"></Box>
                         </Box>
                     </div>

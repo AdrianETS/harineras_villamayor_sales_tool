@@ -158,6 +158,7 @@ class ClientsDetails extends React.Component {
              
               
              <div className="">
+             <h5 className="container_within_navbar">Sales per year</h5>
                <ClientStatistics 
                selectedClient = {this.state.selectedClient}
                salesDetails = {this.state.salesDetails}
