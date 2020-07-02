@@ -275,14 +275,15 @@ export default function Navbar(props) {
                         <ListItemIcon><img src={boxIcon}></img></ListItemIcon>
                         <ListItemText>Products</ListItemText>
                     </ListItem>
-                    <ListItem button component={Link}>
-                        <ListItemIcon> <SettingsIcon /> </ListItemIcon>
-                        <ListItemText>Settings</ListItemText>
-                    </ListItem>
                     <ListItem button component={Link} to="/clients/statistics">
                         <ListItemIcon> <BarChartIcon /> </ListItemIcon>
                         <ListItemText>Statistics</ListItemText>
                     </ListItem>
+                    <ListItem button component={Link}>
+                        <ListItemIcon> <SettingsIcon /> </ListItemIcon>
+                        <ListItemText>Settings</ListItemText>
+                    </ListItem>
+                    
                 </List>
                 <Divider />
             </Drawer>

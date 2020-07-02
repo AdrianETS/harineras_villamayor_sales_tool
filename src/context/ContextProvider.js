@@ -54,6 +54,7 @@ export class ContextProvider extends React.Component {
 
     componentDidUpdate() {
         if (this.state.clientUpdated) {
+            this.state.clientUpdated = false;
             //we change the state every time a user is selected in Product List component so the componente is re-rendered
             if (this.state.clientSelected != null) {
                 this.getPriceForClient(this.props.history, this.state.clientSelected.id)

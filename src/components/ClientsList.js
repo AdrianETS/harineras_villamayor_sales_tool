@@ -78,7 +78,7 @@ export default function ClienList(props) {
         <Navbar history={props.history} />
         <div className="container">
             <h4 className=""> List of clients </h4>
-            <div className={"container_within_navbar"} >
+            <div className="container_within_navbar" >
                 <div >
                     <form className="form-inline mt-2 mb-2">
                         <i className="fas fa-search" aria-hidden="true"></i>

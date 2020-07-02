@@ -1,12 +1,20 @@
 import React from "react";
-import { Link } from 'react-router-dom';
-import { AppContext } from "../context/ContextProvider";
+import {
+    Link
+} from 'react-router-dom';
+import {
+    AppContext
+} from "../context/ContextProvider";
 import Navbar from "./Navbar";
 
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
-import { Box, Typography } from "@material-ui/core";
+import {
+    Box,
+    Typography
+} from "@material-ui/core";
+import FadeIn from 'react-fade-in';
 
 class StatisticsSales extends React.Component {
 
@@ -15,12 +23,12 @@ class StatisticsSales extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-           groupedSales: props.groupedSales,
-           clientSelected: props.clientSelected,
+            groupedSales: props.groupedSales,
+            clientSelected: props.clientSelected,
             salesList: [],
             id: props.clientId
 
-            } 
+        }
     }
 
     componentDidMount() {
@@ -28,41 +36,28 @@ class StatisticsSales extends React.Component {
         //.then(()=>this.retrieveUserPosts())
         //console.log("selectedlClient", selectedClient)
         //let clientSelected = this.context.clientSelected;
-      //  this.state.groupedSales && this.createchartSalesTotalvsClients();
+        //  this.state.groupedSales && this.createchartSalesTotalvsClients();
 
         let clientUP = this.context.clientUpdated;
         //console.log("clientSelected", clientSelected)
         console.log("clientUP", clientUP)
-        
+
         this.context.getSalesList(this.props.history)
-        .then(()=> {
-            this.createChartSalesVsNProdutcs();
-            this.createChartSalesVsQuantity();
-            this.createchartSalesTotalvsClients();
-        });
+            .then(() => {
+                this.createChartSalesVsNProdutcs();
+                this.createChartSalesVsQuantity();
+                this.createchartSalesTotalvsClients();
+            });
     }
 
     componentDidUpdate(previousProps, previousState) {
         this.context.checkToken(this);
-       // console.log(JSON.stringify(this.props));
-        if (this.context.clientSelected != null && this.context.clientSelected.id != null && (!this.context.clientSelected || this.context.clientSelected.id == null)) {
-            console.log("cliente cambiado")
-            this.setState({
-                clientSelected: this.props.clientSelected,
-                groupedSales: this.props.groupedSales,
-                id: this.props.clientId
-            });
 
-        }
         console.log("didupdate")
-           
-            
-        this.state.groupedSales && this.context.getSalesList(this.props.history)
-        .then(()=> {
-            this.createChartSalesVsNProdutcs();
-            this.createChartSalesVsQuantity();
-            this.createchartSalesTotalvsClients();
-        });
+        this.createChartSalesVsNProdutcs();
+        this.createChartSalesVsQuantity();
+        this.createchartSalesTotalvsClients();
+
     }
 
 
@@ -80,7 +75,7 @@ class StatisticsSales extends React.Component {
         categoryAxis.dataFields.category = "sale";
         categoryAxis.renderer.grid.template.location = 0;
         categoryAxis.renderer.minGridDistance = 30;
-        categoryAxis.title.text="ID of the Sale"
+        categoryAxis.title.text = "ID of the Sale"
 
 
         let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
@@ -115,7 +110,7 @@ class StatisticsSales extends React.Component {
         categoryAxis.dataFields.category = "sale";
         categoryAxis.renderer.grid.template.location = 0;
         categoryAxis.renderer.minGridDistance = 30;
-        categoryAxis.title.text="ID of the Sale"
+        categoryAxis.title.text = "ID of the Sale"
 
 
         let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
@@ -144,7 +139,7 @@ class StatisticsSales extends React.Component {
 
         let chart = am4core.create("salesTotalvsClients", am4charts.XYChart);
 
-        
+
 
         // Add data
         chart.data = this.getXaxisDataSalesTotalvsClients();
@@ -156,7 +151,7 @@ class StatisticsSales extends React.Component {
         categoryAxis.dataFields.category = "year";
         categoryAxis.renderer.grid.template.location = 0;
         categoryAxis.renderer.minGridDistance = 30;
-        categoryAxis.title.text="Year"
+        categoryAxis.title.text = "Year"
 
 
         let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
@@ -195,7 +190,7 @@ class StatisticsSales extends React.Component {
         let durationState = bullet.states.create("hover");
         durationState.properties.scale = 1.2;
 
-        
+
 
         let columnTemplate = series.columns.template;
         columnTemplate.strokeWidth = 2;
@@ -213,15 +208,18 @@ class StatisticsSales extends React.Component {
         const numSale = []
         let productInSales = [];
         this.context.salesList.forEach(sale => {
-            if(!(sale.venta in numSale)) {
+            if (!(sale.venta in numSale)) {
                 numSale.push(sale.venta);
             }
         });
 
         [...new Set(numSale)].forEach(saleProduct => {
             productInSales.sale = saleProduct;
-            productInSales.products = this.context.salesList.filter(sale => sale.venta==saleProduct).length;
-            productInSales.push({sale:productInSales.sale , numProducts: productInSales.products});
+            productInSales.products = this.context.salesList.filter(sale => sale.venta == saleProduct).length;
+            productInSales.push({
+                sale: productInSales.sale,
+                numProducts: productInSales.products
+            });
         });
 
         return productInSales;
@@ -231,7 +229,7 @@ class StatisticsSales extends React.Component {
         const numSale = []
         let quantProductsInSales = [];
         this.context.salesList.forEach(sale => {
-            if(!(sale.venta in numSale)) {
+            if (!(sale.venta in numSale)) {
                 numSale.push(sale.venta);
             }
         });
@@ -240,133 +238,58 @@ class StatisticsSales extends React.Component {
         [...new Set(numSale)].forEach(saleProduct => {
             quantProductsInSales.sale = saleProduct;
             let quantity = 0;
-            this.context.salesList.filter(sale => sale.venta==saleProduct).forEach(sale => {
-                quantity+= sale.cantidad;
+            this.context.salesList.filter(sale => sale.venta == saleProduct).forEach(sale => {
+                quantity += sale.cantidad;
 
             });
             quantProductsInSales.quantity = quantity;
-            quantProductsInSales.push({sale:quantProductsInSales.sale , quantity: quantProductsInSales.quantity});
+            quantProductsInSales.push({
+                sale: quantProductsInSales.sale,
+                quantity: quantProductsInSales.quantity
+            });
         });
 
         return quantProductsInSales;
     }
 
     getXaxisDataSalesTotalvsClients() {
-        let salesInYear = [];
-        let sales = this.context.salesList;
-        let salesYearAmount = [];
-        sales.forEach(sale => {
-            salesYearAmount.year = sale.fecha.substr(sale.fecha.length - 4, sale.fecha.length);
-            salesYearAmount.amount = sale.cantidad * sale.precio_unitario;
-            salesInYear.push({ year: salesYearAmount.year, amount: salesYearAmount.amount });
-            
+        /*
+         year
+         totalAmount
+         totalAmountClient
+        */
+        let chartData = [];
+        for (let i = 5; i > -1; i--) {
+            let year = new Date().getFullYear() - i;
+            year = ""+year;
+            year = year.replace(",","");
+            let yearData = {
+                year
+            }
+            chartData.push(yearData);
+        }
+        chartData.forEach((element, index, array) => {
+            let totalAmount = null;
+            let totalAmountClient = null;
+            if (this.context.salesList)
+                totalAmount = this.context.salesList.filter(sale => new Date(sale.fecha).getFullYear() == element.year).reduce((acc, curr) => acc = acc + curr.precio_total, 0);
+            if (this.context.clientSelected)
+                totalAmountClient = this.context.salesList.filter(sale => new Date(sale.fecha).getFullYear() == element.year && sale.client == this.context.clientSelected.id).reduce((acc, curr) => acc = acc + curr.precio_total, 0);
+            chartData[index] = {
+                ...element,
+                totalAmount,
+                totalAmountClient
+            };
         })
-
-        let years = []
-
-        salesInYear.forEach(sale => {
-            if (!(sale.year in years)) {
-                years.push(sale.year);
-            }
-        });
-
-        let dataChart = [];
-        [...new Set(years)].forEach(year => {
-            if (!(year == dataChart.year)) {
-                dataChart.year = year;
-                let total = 0;
-                salesInYear.filter(sale => sale.year == year).forEach(sale => {
-                    total += sale.amount;
-                })
-                dataChart.total = total;
-                dataChart.push({ year: dataChart.year, totalAmount: dataChart.total });
-            }
-        });
-
-        let year = new Date().getFullYear();
-        let chartYears = [];
-        for(let past = year - 4 ; past<=year ; past++) {
-            chartYears.year = past;
-            chartYears.totalAmount = 0;
-            let totalInYear = dataChart.filter(el => el.year == chartYears.year)
-            if (totalInYear.length != 0) {
-                chartYears.totalAmount = totalInYear[0].totalAmount;
-            }
-            chartYears.push({ year: chartYears.year.toString(), totalAmount: chartYears.totalAmount });
-        }
-
-        console.log("chartYears",chartYears )
-
-        let clientSelected = this.context.clientSelected;
-        let groupedSales = this.context.groupedSales;
-        console.log("HAY UNO ELEGIDO", clientSelected)
-        console.log("groupedSales", groupedSales)
-        if ( clientSelected != null) {
-            let amountSaleClient = []
-            for ( let groupSale in groupedSales)  {
-                console.log("groupSale" , groupedSales[groupSale])
-                amountSaleClient.year = groupedSales[groupSale][0].fecha.substr(groupedSales[groupSale][0].fecha.length - 4, groupedSales[groupSale][0].fecha.length);
-                amountSaleClient.amount = 0;
-
-                groupedSales[groupSale].forEach(saleDetail => {
-                    amountSaleClient.amount += saleDetail.cantidad*saleDetail.precio_unitario;
-                })
-                amountSaleClient.push({ year: amountSaleClient.year, totalAmount: amountSaleClient.amount });
-            }
-            console.log("amountSaleClient", amountSaleClient);
-
-
-            let years = []
-
-            amountSaleClient.forEach(sale => {
-                if (!(sale.year in years)) {
-                    years.push(sale.year);
-                }
-            });
-    
-            let dataChart = [];
-            [...new Set(years)].forEach(year => {
-                if (!(year == dataChart.year)) {
-                    dataChart.year = year;
-                    let total = 0;
-                    amountSaleClient.filter(sale => sale.year == year).forEach(sale => {
-                        total += sale.totalAmount;
-                    })
-                    dataChart.total = total;
-                    dataChart.push({ year: dataChart.year, totalAmountClient: dataChart.total });
-                }
-            });
-
-            console.log("dataChartCLient", dataChart);
-            console.log("chartYears2", chartYears);
-
-            let dataChartEnd = [];
-            chartYears.forEach(chartYear => {
-                dataChartEnd.year = chartYear.year;
-                dataChartEnd.totalAmount = chartYear.totalAmount;
-                dataChartEnd.totalAmountClient = 0;
-                let data = dataChart.filter(data => data.year == chartYear.year);
-                if ( data.length != 0 ) dataChartEnd.totalAmountClient = data[0].totalAmountClient;
-                dataChartEnd.push({year : dataChartEnd.year, totalAmount : dataChartEnd.totalAmount, totalAmountClient : dataChartEnd.totalAmountClient})
-            })
-
-            console.log("dataChartEnd", dataChartEnd);
-
-
-            return dataChartEnd;
-
-        }
-            
-
-
-        return chartYears;
-
+        console.log("CLIENT CHARTDATA");
+        console.log(JSON.stringify(chartData));
+        return chartData;
     }
 
     getClientQuantityVsYear() {
         let salesInYear = [];
         let clientSales = this.state.groupedSales;
-        console.log( "clientSales",clientSales)
+        console.log("clientSales", clientSales)
 
         for (let sale in clientSales) {
             let totalSales = 0;
@@ -376,7 +299,10 @@ class StatisticsSales extends React.Component {
             salesInYear.year = clientSales[sale][0].fecha.substr(clientSales[sale][0].fecha.length - 4, clientSales[sale][0].fecha.length);
             salesInYear.sale = totalSales
 
-            salesInYear.push({ year: salesInYear.year, totalSales: salesInYear.sale });
+            salesInYear.push({
+                year: salesInYear.year,
+                totalSales: salesInYear.sale
+            });
         }
 
         let years = []
@@ -396,51 +322,59 @@ class StatisticsSales extends React.Component {
                     total += sale.totalSales;
                 })
                 dataChart.total = total;
-                dataChart.push({ year: dataChart.year, totalSales: dataChart.total });
+                dataChart.push({
+                    year: dataChart.year,
+                    totalSales: dataChart.total
+                });
             }
         });
-  
+
         let year = new Date().getFullYear();
         let chartYears = [];
-        for(let past = year - 4 ; past<=year ; past++) {
+        for (let past = year - 4; past <= year; past++) {
             chartYears.year = past;
             chartYears.totalSales = 0;
             let totalInYear = dataChart.filter(el => el.year == chartYears.year)
             if (totalInYear.length != 0) {
                 chartYears.totalSales = totalInYear[0].totalSales;
             }
-            chartYears.push({ year: chartYears.year.toString(), totalSales: chartYears.totalSales });
+            chartYears.push({
+                year: chartYears.year.toString(),
+                totalSales: chartYears.totalSales
+            });
 
         }
-        console.log("CHARTYEARS",chartYears )
+        console.log("CHARTYEARS", chartYears)
         return chartYears;
     }
 
     render() {
-        return (
-        <>
+        return ( <>
             <Navbar/>
-            <div className="container">
-                <Box>
-                    <Typography variant="h5">
-                       Total Sales
-                    </Typography>
-                    <Box id="salesTotalvsClients" height="350px"></Box>
-                </Box>
-                <Box>
-                    <Typography variant="h5">
-                    Number of products per sale
-                    </Typography>
-                    <Box id="salesVsNProdutcs" height="350px"></Box>
-                </Box>
-                <Box>
-                    <Typography variant="h5">
-                    Quantity of products per sale
-                    </Typography>
-                    <Box id="salesVsQuantity" height="350px"></Box>
-                </Box>
-            </div>
-        </>
+            <div className = "container" >
+            <FadeIn delay = {
+                200
+            }>
+            <Box >
+                <Typography variant = "h5" >Total Sales </Typography> 
+                <Box id = "salesTotalvsClients"
+                height = "350px" > 
+                </Box> 
+            </Box > 
+            <Box>
+                <Typography variant = "h5" >Number of products per sale </Typography> 
+                <Box id = "salesVsNProdutcs"
+                height = "350px" > 
+                </Box> 
+            </Box> 
+            <Box>
+                <Typography variant = "h5" >Quantity of products per sale </Typography> 
+                <Box id = "salesVsQuantity"
+                height = "350px" > 
+                </Box> 
+            </Box> 
+            </FadeIn> 
+            </div > </>
         )
     }
 }
