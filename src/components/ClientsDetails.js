@@ -8,6 +8,7 @@ import ClientStatistics from './ClientStatistics';
 import { Box, Typography } from "@material-ui/core";
 import TrafficLight from 'react-trafficlight';
 import CircularProgress from "@material-ui/core/CircularProgress";
+import FadeIn from 'react-fade-in';
 
 
 
@@ -91,10 +92,14 @@ class ClientsDetails extends React.Component {
              </div>
 
                 </div>
-            
-                <h5 className="container_within_navbar"> Client's details</h5>
-                <table id="clientDetails" /*className="table table-bordered"*/>
-                    <tr>
+                <FadeIn delay={200}>
+                    <div>
+                    <h5 className="container_within_navbar"> Client's details</h5>
+                    </div>
+                
+               <div>
+               <table className="table table-fixed" /*id="clientDetails"*/> 
+                    <tr className="cabeceraClientes">
                         <th>Id</th>
                         <th>Firm's name</th>
                         <th>Tax identification card</th>
@@ -113,11 +118,15 @@ class ClientsDetails extends React.Component {
                         <td>{this.state.selectedClient.email}</td>
                     </tr>}
                 </table>
+               </div>
+                <div>
                 <h5 className="container_within_navbar"> Sales history</h5>
+                </div>
                 
-              
-                <table id="clientDetails" /*className="table table-bordered"*/>
-                    <tr>
+                
+              <div>
+              <table className="table table-fixed" /*id="clientDetails" className="table table-bordered"*/>
+                    <tr className="cabeceraClientes">
                         <th>Sale</th>
                         <th>Date</th>
                         <th>Product</th>
@@ -127,25 +136,28 @@ class ClientsDetails extends React.Component {
                     </tr>
                    {this.state.groupedSales && Object.keys(this.state.groupedSales).map(
                         key => {
+                          
                             let lines = this.state.groupedSales[key].map(saleLine => {
                                return (<tr>
                                     <td>{saleLine.venta}</td>
                                     <td className="date">{saleLine.fecha}</td>
                                     <td className="productName">{saleLine.producto}</td>
-                                    <td>{saleLine.cantidad}</td>
-                                    <td>{saleLine.precio_unitario}</td>
+                                    <td className="quantitySales">{saleLine.cantidad}</td>
+                                    <td className="price">{saleLine.precio_unitario}</td>
                                     <td className="subTotal">{Number(saleLine.precio_unitario * saleLine.cantidad).toFixed(2) + " €"}</td>
                                 </tr>)
                                 
                             })
-                            lines.push(<React.Fragment><tr className="totalPrice"><td className="totalPrice" colSpan="5">Total price per sale {key} :</td><td className="totalPrice" colSpan="1"> {Number(this.state.groupedSales[key].reduce((total, current) => total + (current.cantidad*current.precio_unitario), 0)).toFixed(2)} €</td></tr></React.Fragment>);
+                            lines.push(<React.Fragment><tr className="totalPriceLabel"><td className="totalPrice" colSpan="5">Total price per sale {key} :</td><td className="totalPriceQ" colSpan="1"> {Number(this.state.groupedSales[key].reduce((total, current) => total + (current.cantidad*current.precio_unitario), 0)).toFixed(2)} €</td></tr></React.Fragment>);
                             return lines;
                         }
                     )}             
                 </table>
-               
+              </div>
                 
-             <div>
+             
+              </FadeIn>
+             <div className="">
                <ClientStatistics 
                selectedClient = {this.state.selectedClient}
                salesDetails = {this.state.salesDetails}
@@ -153,12 +165,15 @@ class ClientsDetails extends React.Component {
                 clientId = {this.state.id} ></ClientStatistics>
                     
                 </div>
-            
-              
-                </React.Fragment>}
-                </div>
+               
+        
                 
+                </React.Fragment>
+               }
+                </div>
+               
             </div>
+           
         )
 
 

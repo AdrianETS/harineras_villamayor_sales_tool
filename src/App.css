@@ -63,7 +63,7 @@ text-decoration: none;
 .container_within_navbar {
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   margin-bottom: 25px;
-  margin-top: 50px;
+  margin-top: 25px;
 }
 
 .title_within_navbar {
@@ -166,13 +166,15 @@ hr {
   align-items: center;
   } 
 
-.quantity {
-  width: 30%
-}
+  .quantity {
+  width: 30%;
+  }
+
+
 
 .addQuantity {
     display: flex;
-    align-items: stretch;
+    align-items: baseline;
     justify-content: center;
 }
 
@@ -195,6 +197,17 @@ justify-content: center;
   text-align: right;
   }
 
+.cabeceraClientes {
+  background-color: #eea320;
+  }
+
+.subTotal {
+   text-align: left;
+ }
+ .price, .quantitySales {
+   text-align: left;
+  
+ }
 
 #clientDetails .subTitle {
   padding-top: 12px;
@@ -231,7 +244,7 @@ color: white;
 }
 
 .date, .productName {
-  text-align: center;
+text-align: left;
 }
 
 
