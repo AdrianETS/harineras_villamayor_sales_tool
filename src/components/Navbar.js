@@ -277,7 +277,7 @@ export default function Navbar(props) {
                     </ListItem>
                     <ListItem button component={Link} to="/clients/statistics">
                         <ListItemIcon> <BarChartIcon /> </ListItemIcon>
-                        <ListItemText>Statistics</ListItemText>
+                        <ListItemText>Business intelligence</ListItemText>
                     </ListItem>
                     <ListItem button component={Link}>
                         <ListItemIcon> <SettingsIcon /> </ListItemIcon>
