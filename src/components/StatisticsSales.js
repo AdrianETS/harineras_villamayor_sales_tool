@@ -366,7 +366,7 @@ class StatisticsSales extends React.Component {
                 </Box> 
             </Box > 
             <Box>
-                <Typography variant = "h5" >Number of products per sale </Typography> 
+                <Typography variant = "h5" >Number of total products per sale </Typography> 
                 <Box id = "salesVsNProdutcs"
                 height = "350px" > 
                 </Box> 
