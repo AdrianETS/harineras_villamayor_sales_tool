@@ -31,7 +31,7 @@ export default function ClienList(props) {
     const classes = useStyles();
     const [clientList, setClientList] = React.useState([]);
     const [membersFound, setmembersFound] = React.useState([]);
-    const itemsPerPage = 15;
+    const itemsPerPage = 9;
     const [page, setPage] = React.useState(1);
     const [noOfPages, setNoOfPages] = React.useState(null);
     const [pageIsLoaded, setPageIsLoaded] = React.useState(false);
@@ -112,7 +112,7 @@ export default function ClienList(props) {
                         page={page}
                         onChange={handleChange}
                         defaultPage={1}
-                        color="secondary"
+                        color=""
                         size="large"
                         showFirstButton
                         showLastButton
