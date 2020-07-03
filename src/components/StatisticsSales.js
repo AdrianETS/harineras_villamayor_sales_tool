@@ -211,7 +211,7 @@ class StatisticsSales extends React.Component {
         const numSale = []
         let productInSales = [];
         this.context.salesList.forEach(sale => {
-            if (!(sale.venta in numSale)) {
+            if(!(sale.venta in numSale)) {
                 numSale.push(sale.venta);
             }
         });
@@ -232,7 +232,7 @@ class StatisticsSales extends React.Component {
         const numSale = []
         let quantProductsInSales = [];
         this.context.salesList.forEach(sale => {
-            if (!(sale.venta in numSale)) {
+            if(!(sale.venta in numSale)) {
                 numSale.push(sale.venta);
             }
         });
@@ -242,7 +242,7 @@ class StatisticsSales extends React.Component {
             quantProductsInSales.sale = saleProduct;
             let quantity = 0;
             this.context.salesList.filter(sale => sale.venta == saleProduct).forEach(sale => {
-                quantity += sale.cantidad;
+                quantity+= sale.cantidad;
 
             });
             quantProductsInSales.quantity = quantity;
@@ -275,7 +275,7 @@ class StatisticsSales extends React.Component {
             let totalAmount = null;
             let totalAmountClient = null;
             if (this.context.salesList)
-                totalAmount = this.context.salesList.filter(sale => new Date(sale.fecha).getFullYear() == element.year).reduce((acc, curr) => acc = acc + curr.precio_total, 0);
+                totalAmount = this.context.salesList.filter(sale => sale.fecha.substr(sale.fecha.length - 4, sale.fecha.length) == element.year).reduce((acc, curr) => acc = acc + curr.precio_total, 0);
             if (this.context.clientSelected)
                 totalAmountClient = this.context.salesList.filter(sale => sale.fecha.substr(sale.fecha.length - 4, sale.fecha.length) == element.year && sale.client == this.context.clientSelected.id).reduce((acc, curr) => acc = acc + curr.precio_total, 0);
             chartData[index] = {
